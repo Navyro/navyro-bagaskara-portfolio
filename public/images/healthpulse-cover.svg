@@ -1,0 +1,30 @@
+<svg width="1200" height="675" viewBox="0 0 1200 675" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="675" fill="#F0FDFA"/>
+  <rect x="80" y="60" width="1040" height="555" rx="12" fill="#FFFFFF" stroke="#CCFBF1" stroke-width="2"/>
+  
+  <!-- App Header -->
+  <rect x="110" y="90" width="980" height="60" rx="8" fill="#CCFBF1"/>
+  <text x="140" y="127" fill="#0F766E" font-family="sans-serif" font-size="20" font-weight="700">HealthPulse Platform</text>
+  
+  <!-- Dashboard Grid -->
+  <g transform="translate(110, 170)">
+    <!-- Card 1 -->
+    <rect width="300" height="180" rx="12" fill="#F0FDFA" stroke="#99F6E4" stroke-width="1"/>
+    <text x="25" y="45" fill="#0F766E" font-family="sans-serif" font-size="14" font-weight="600">Janji Temu Mendatang</text>
+    <text x="25" y="85" fill="#134E4A" font-family="sans-serif" font-size="18" font-weight="700">dr. Sarah Jenkins, Sp.PD</text>
+    <text x="25" y="110" fill="#5EEAD4" font-family="sans-serif" font-size="12">Kamis, 14 Aug 2026 — 10:00 WIB</text>
+    <rect x="25" y="130" width="140" height="34" rx="6" fill="#0D9488"/>
+    <text x="45" y="152" fill="#FFFFFF" font-family="sans-serif" font-size="12" font-weight="600">Masuk Ruang Sesi</text>
+
+    <!-- Card 2 -->
+    <rect x="330" width="300" height="180" rx="12" fill="#F0FDFA" stroke="#99F6E4" stroke-width="1"/>
+    <text x="355" y="45" fill="#0F766E" font-family="sans-serif" font-size="14" font-weight="600">Jadwal Resep Obat</text>
+    <text x="355" y="85" fill="#134E4A" font-family="sans-serif" font-size="16" font-weight="700">Vitamin D3 1000 IU</text>
+    <text x="355" y="110" fill="#0F766E" font-family="sans-serif" font-size="12">Sesudah makan pagi (1 Tablet)</text>
+
+    <!-- Card 3 -->
+    <rect x="660" width="320" height="380" rx="12" fill="#F0FDFA" stroke="#99F6E4" stroke-width="1"/>
+    <text x="685" y="45" fill="#0F766E" font-family="sans-serif" font-size="16" font-weight="700">Grafik Tekanan Darah</text>
+    <path d="M 685 200 Q 750 120 810 180 T 940 140" fill="none" stroke="#0D9488" stroke-width="4"/>
+  </g>
+</svg>
