@@ -93,3 +93,20 @@ The 26 remaining failures are exactly the planned open clusters and are unchange
 and `ScrollReveal` settle, so unrevealed blocks come out empty. The same blocks measure
 `opacity: 1` and `naturalWidth > 0` after a real scroll, and the scrolled viewport screenshot shows
 the screens. Judge reveal state from the DOM probe, not from `--full` captures.
+
+## Jangan jalankan `next build` saat dev server hidup
+
+Keduanya menulis ke `.next` yang sama. Setelah `next build` dijalankan di sebelah `next dev`, dev
+server mulai membalas **404 untuk semua route** (`/resume`, `/work`, `/`) — halaman yang sudah ada
+terlihat "hilang". Ini bukan bug kode.
+
+Pemulihan yang terbukti:
+
+```bash
+kill $(cat .ux-logs/dev.pid)
+rm -rf .next
+(nohup npm run dev > .ux-logs/dev.log 2>&1 & echo $! > .ux-logs/dev.pid)
+```
+
+Kalau perlu verifikasi build, matikan dev dulu, jalankan `next build`, lalu hapus `.next` dan
+hidupkan dev kembali.
