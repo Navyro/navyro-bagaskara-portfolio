@@ -69,7 +69,7 @@ export default function CustomCursor() {
         translateX: "-50%",
         translateY: "-50%",
       }}
-      className="pointer-events-none fixed top-0 left-0 z-50 flex items-center justify-center rounded-full font-heading font-extrabold text-[10px] tracking-wider transition-colors duration-200"
+      className="pointer-events-none fixed top-0 left-0 z-50 flex items-center justify-center rounded-full font-heading font-extrabold text-meta tracking-wider transition-colors duration-200"
       animate={{
         width: isProject ? 76 : isCta ? 64 : isLink ? 32 : 10,
         height: isProject ? 76 : isCta ? 64 : isLink ? 32 : 10,

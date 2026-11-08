@@ -35,9 +35,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
               key={link.name}
               href={link.href}
               onClick={onClose}
-              className={`font-heading text-2xl font-bold tracking-tight transition-colors ${
-                active ? "text-accent" : "text-text-primary hover:text-accent"
-              }`}
+              className={`font-heading text-h3 font-bold tracking-tight transition-colors ${ active ? "text-accent" : "text-text-primary hover:text-accent" }`}
             >
               {link.name}
             </Link>
@@ -47,17 +45,17 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
         <Link
           href="/resume"
           onClick={onClose}
-          className="inline-flex items-center gap-2 font-heading text-xl font-semibold text-text-primary hover:text-accent"
+          className="inline-flex items-center gap-2 font-heading text-h3 font-semibold text-text-primary hover:text-accent"
         >
           RESUME <ArrowUpRight size={18} />
         </Link>
       </nav>
 
       <div className="mt-8 pt-4">
-        <p className="text-xs text-text-muted">Direct Email</p>
+        <p className="text-meta text-text-muted">Direct Email</p>
         <a
           href={`mailto:${profileData.email}`}
-          className="text-sm font-medium text-text-primary hover:underline"
+          className="text-control font-medium text-text-primary hover:underline"
         >
           {profileData.email}
         </a>

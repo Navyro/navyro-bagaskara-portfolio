@@ -29,7 +29,7 @@ export default function ReadingProgressBar({
 
   return (
     <div className="sticky top-[var(--header-h)] z-30 w-full border-b border-border bg-background/95 backdrop-blur-md transition-all py-2.5">
-      <div className="mx-auto flex max-w-editorial items-center justify-between px-6 lg:px-12 text-xs font-semibold">
+      <div className="mx-auto flex max-w-editorial items-center justify-between px-6 lg:px-12 text-meta font-semibold">
         <div className="flex min-w-0 items-center gap-2 text-text-secondary">
           <BookOpen size={14} className="flex-shrink-0 text-accent" />
           <span className="hidden flex-shrink-0 font-heading uppercase text-text-muted sm:inline">

@@ -46,20 +46,20 @@ export default function CaseStudyDetailPage({ params }: CaseStudyPageProps) {
         {/* Back Link */}
         <Link
           href="/work"
-          className="inline-flex items-center gap-2 text-xs font-semibold tracking-wider text-text-secondary hover:text-text-primary transition-colors mb-8"
+          className="inline-flex items-center gap-2 text-meta font-semibold tracking-wider text-text-secondary hover:text-text-primary transition-colors mb-8"
         >
           <ArrowLeft size={16} /> KEMBALI KE DAFTAR PROYEK
         </Link>
 
         {/* Header Title */}
         <div className="max-w-4xl">
-          <span className="font-heading text-xs font-bold tracking-widest text-accent uppercase">
+          <span className="font-heading text-meta font-bold tracking-widest text-accent uppercase">
             {project.category} · CASE STUDY #{project.number}
           </span>
-          <h1 className="mt-4 font-heading text-3xl font-extrabold tracking-tight text-text-primary sm:text-5xl lg:text-6xl leading-[1.15]">
+          <h1 className="mt-4 font-heading text-h2 font-extrabold tracking-tight text-text-primary sm:text-h1 lg:text-h1 leading-[1.15]">
             {project.title}
           </h1>
-          <p className="mt-6 text-lg text-text-secondary md:text-xl leading-relaxed">
+          <p className="mt-6 text-h3 text-text-secondary leading-relaxed">
             {project.shortDescription}
           </p>
         </div>
@@ -97,7 +97,7 @@ export default function CaseStudyDetailPage({ params }: CaseStudyPageProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 data-cursor="cta"
-                className="inline-flex items-center gap-2 rounded-btn bg-accent px-6 py-3 text-sm font-semibold text-white transition-all hover:bg-accent-hover shadow-sm"
+                className="inline-flex items-center gap-2 rounded-btn bg-accent px-6 py-3 text-control font-semibold text-white transition-all hover:bg-accent-hover shadow-sm"
               >
                 Lihat Figma Prototype <ArrowUpRight size={16} />
               </a>
@@ -108,7 +108,7 @@ export default function CaseStudyDetailPage({ params }: CaseStudyPageProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 data-cursor="cta"
-                className="inline-flex items-center gap-2 rounded-btn border border-border bg-surface px-6 py-3 text-sm font-semibold text-text-primary transition-all hover:border-text-primary"
+                className="inline-flex items-center gap-2 rounded-btn border border-border bg-surface px-6 py-3 text-control font-semibold text-text-primary transition-all hover:border-text-primary"
               >
                 Kunjungi Live Website <ArrowUpRight size={16} />
               </a>
@@ -192,7 +192,7 @@ export default function CaseStudyDetailPage({ params }: CaseStudyPageProps) {
         {/* Feature ③: Interactive Next Project Transition Showcase Card */}
         <div className="mt-24 border-t border-border pt-16">
           <ScrollReveal>
-            <span className="font-heading text-xs font-bold tracking-widest text-accent uppercase">
+            <span className="font-heading text-meta font-bold tracking-widest text-accent uppercase">
               NEXT CASE STUDY TRANSITION
             </span>
 
@@ -204,16 +204,16 @@ export default function CaseStudyDetailPage({ params }: CaseStudyPageProps) {
             >
               <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:items-center">
                 <div className="lg:col-span-7 space-y-4">
-                  <span className="font-heading text-sm font-extrabold tracking-widest text-text-muted">
+                  <span className="font-heading text-control font-extrabold tracking-widest text-text-muted">
                     {nextProject.number} — {nextProject.category}
                   </span>
-                  <h3 className="font-heading text-2xl font-extrabold tracking-tight text-text-primary group-hover:text-accent transition-colors md:text-3xl lg:text-4xl">
+                  <h3 className="font-heading text-h3 font-extrabold tracking-tight text-text-primary group-hover:text-accent transition-colors md:text-h2 lg:text-h2">
                     {nextProject.title}
                   </h3>
-                  <p className="text-sm text-text-secondary leading-relaxed max-w-xl">
+                  <p className="text-control text-text-secondary leading-relaxed max-w-xl">
                     {nextProject.shortDescription}
                   </p>
-                  <div className="pt-2 inline-flex items-center gap-2 font-heading text-sm font-bold text-accent">
+                  <div className="pt-2 inline-flex items-center gap-2 font-heading text-control font-bold text-accent">
                     <span>Lanjut ke Case Study Berikutnya</span>
                     <ArrowRight size={18} className="transition-transform duration-200 group-hover:translate-x-2" />
                   </div>
@@ -227,7 +227,7 @@ export default function CaseStudyDetailPage({ params }: CaseStudyPageProps) {
           </ScrollReveal>
 
           {/* Quick Prev / Next Footer Links */}
-          <div className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-border pt-8 text-xs font-semibold">
+          <div className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-border pt-8 text-meta font-semibold">
             <Link
               href={`/work/${prevProject.slug}`}
               className="inline-flex items-center gap-1.5 text-text-secondary hover:text-text-primary transition-colors"

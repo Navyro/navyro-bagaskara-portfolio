@@ -63,7 +63,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         <div className="flex flex-col gap-6 lg:min-h-[17rem]">
           {/* Editorial Index Number & Tags Header */}
           <div className="flex flex-wrap items-center justify-between gap-4">
-          <span className="font-heading text-xl font-extrabold tracking-widest text-accent">
+          <span className="font-heading text-h3 font-extrabold tracking-widest text-accent">
             {project.number} —
           </span>
 
@@ -71,7 +71,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
             {project.tags.map((tag) => (
               <span
                 key={tag}
-                className="rounded-full border border-border bg-surface px-3 py-1 text-[11px] font-semibold text-text-secondary shadow-2xs"
+                className="rounded-full border border-border bg-surface px-3 py-1 text-meta font-semibold text-text-secondary shadow-2xs"
               >
                 {tag}
               </span>
@@ -81,7 +81,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
 
         {/* Project Title & Metadata Sub-header */}
         <div className="space-y-2">
-          <h3 className="font-heading text-2xl font-extrabold tracking-tight text-text-primary group-hover:text-accent transition-colors md:text-3xl leading-tight">
+          <h3 className="font-heading text-h3 font-extrabold tracking-tight text-balance text-text-primary group-hover:text-accent transition-colors md:text-h2 leading-tight">
             <Link
               href={`/work/${project.slug}`}
               data-cursor="project"
@@ -91,7 +91,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
             </Link>
           </h3>
 
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs font-semibold tracking-wider text-text-muted uppercase pt-1">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-meta font-semibold tracking-wider text-text-muted uppercase pt-1">
             <span>{project.category}</span>
             {project.year && (
               <>
@@ -146,14 +146,14 @@ export default function ProjectCard({ project }: ProjectCardProps) {
 
         {/* Description & Link */}
         <div className="mt-auto flex flex-col items-start justify-between gap-4 pt-2 md:flex-row md:items-center">
-          <p className="max-w-2xl text-base text-text-secondary leading-relaxed">
+          <p className="max-w-2xl text-body text-text-secondary leading-relaxed">
             {project.shortDescription}
           </p>
 
           <Link
             href={`/work/${project.slug}`}
             data-cursor="cta"
-            className="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap font-heading text-sm font-bold text-text-primary transition-colors hover:text-accent group-hover:translate-x-1"
+            className="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap font-heading text-control font-bold text-text-primary transition-colors hover:text-accent group-hover:translate-x-1"
           >
             <span>View Case Study</span>
             <ArrowUpRight

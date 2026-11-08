@@ -25,6 +25,16 @@ const config: Config = {
         heading: ["var(--font-manrope)", "sans-serif"],
         sans: ["var(--font-inter)", "sans-serif"],
       },
+      /* CL-6: one semantic ramp. Components pick a role, never a size. */
+      fontSize: {
+        display: ["clamp(2rem, 1.59rem + 3.24vw, 4.5rem)", { lineHeight: "1.05", letterSpacing: "-0.02em" }],
+        h1: ["3rem", { lineHeight: "1.1", letterSpacing: "-0.02em" }],
+        h2: ["2rem", { lineHeight: "1.2", letterSpacing: "-0.01em" }],
+        h3: ["1.25rem", { lineHeight: "1.3" }],
+        body: ["1rem", { lineHeight: "1.65" }],
+        meta: ["0.75rem", { lineHeight: "1.4", letterSpacing: "0.04em" }],
+        control: ["0.875rem", { lineHeight: "1.4" }],
+      },
       maxWidth: {
         editorial: "1280px",
       },

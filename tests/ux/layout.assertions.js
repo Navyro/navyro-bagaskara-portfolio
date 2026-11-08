@@ -148,6 +148,36 @@
     const tooSmall = Object.keys(sizes).filter((k) => parseFloat(k) < 12);
     push('type.no-text-below-12px', tooSmall.length === 0, tooSmall.join(', '));
 
+    /* Six-step ramp: count distinct sizes, excluding the hero display h1 subtree. */
+    const heroH1 = document.querySelector('main h1');
+    const outsideSizes = new Set();
+    let heroOnly = new Set();
+    for (const el of document.querySelectorAll('main *, footer *')) {
+      if (!visible(el) || el.children.length) continue;
+      if (!(el.textContent || '').trim()) continue;
+      const px = Math.round(parseFloat(getComputedStyle(el).fontSize));
+      (heroH1 && heroH1.contains(el) ? heroOnly : outsideSizes).add(px);
+    }
+    const steps = [...outsideSizes].sort((a, b) => a - b);
+    push(
+      'type.max-six-sizes',
+      steps.length <= 6,
+      `${steps.length} sizes: ${steps.join(', ')}${heroOnly.size ? ` (hero display: ${[...heroOnly].join(', ')})` : ''}`
+    );
+
+    /* Same semantic role looks the same everywhere on the page. */
+    const headingEls = [...document.querySelectorAll('main h2[data-section-heading]')];
+    const h2Sizes = new Set(
+      (headingEls.length ? headingEls : [...document.querySelectorAll('main h2')])
+        .filter((el) => visible(el) && (el.textContent || '').trim())
+        .map((el) => Math.round(parseFloat(getComputedStyle(el).fontSize)))
+    );
+    push(
+      'type.section-heading-consistent',
+      h2Sizes.size <= 1,
+      `${h2Sizes.size} heading sizes: ${[...h2Sizes].join(', ')}`
+    );
+
     /* ---------- images ----------
        Criterion: the frame must match the artwork, i.e. the artwork must not be cropped.
        `object-contain` letterboxes (whole image visible, frame wider/taller), `object-cover` crops.

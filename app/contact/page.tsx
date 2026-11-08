@@ -11,13 +11,13 @@ export default function ContactPage() {
         {/* Header */}
         <ScrollReveal>
           <div className="max-w-3xl">
-            <span className="font-heading text-xs font-bold tracking-widest text-accent uppercase">
+            <span className="font-heading text-meta font-bold tracking-widest text-accent uppercase">
               CONTACT
             </span>
-            <h1 className="mt-4 font-heading text-4xl font-extrabold tracking-tight text-text-primary sm:text-6xl lg:text-7xl">
+            <h1 className="mt-4 font-heading text-h2 font-extrabold tracking-tight text-text-primary sm:text-h1 lg:text-display">
               LET'S TALK.
             </h1>
-            <p className="mt-6 text-lg text-text-secondary md:text-xl leading-relaxed">
+            <p className="mt-6 text-h3 text-text-secondary leading-relaxed">
               Terbuka untuk peluang sebagai UI/UX Designer, kerja sama desain produk, maupun
               diskusi seputar riset pengguna dan design system.
             </p>
@@ -30,17 +30,17 @@ export default function ContactPage() {
           <div className="lg:col-span-5 space-y-8">
             <ScrollReveal delay={0.1}>
               <div className="rounded-card border border-border bg-surface p-8">
-                <span className="text-xs font-bold tracking-wider text-text-muted uppercase">
+                <span className="text-meta font-bold tracking-wider text-text-muted uppercase">
                   ALAMAT EMAIL UTAMA
                 </span>
                 <a
                   href={`mailto:${profileData.email}`}
                   data-cursor="cta"
-                  className="mt-3 block font-heading text-lg font-bold text-text-primary hover:text-accent transition-colors break-all md:text-xl"
+                  className="mt-3 block font-heading text-h3 font-bold text-text-primary hover:text-accent transition-colors break-all"
                 >
                   {profileData.email}
                 </a>
-                <p className="mt-2 text-xs text-text-secondary">
+                <p className="mt-2 text-meta text-text-secondary">
                   Waktu respon rata-rata: kurang dari 24 jam.
                 </p>
               </div>
@@ -49,7 +49,7 @@ export default function ContactPage() {
             {/* Social Links */}
             <ScrollReveal delay={0.2}>
               <div className="rounded-card border border-border bg-surface p-8 space-y-6">
-                <span className="text-xs font-bold tracking-wider text-text-muted uppercase">
+                <span className="text-meta font-bold tracking-wider text-text-muted uppercase">
                   PROFIL PROFESIONAL
                 </span>
 
@@ -60,7 +60,7 @@ export default function ContactPage() {
                       target="_blank"
                       rel="noopener noreferrer"
                       data-cursor="cta"
-                      className="group flex items-center justify-between font-heading text-base font-bold text-text-primary transition-colors hover:text-accent"
+                      className="group flex items-center justify-between font-heading text-body font-bold text-text-primary transition-colors hover:text-accent"
                     >
                       <span className="flex items-center gap-3">
                         <MessageCircle size={20} className="text-accent" />
@@ -79,7 +79,7 @@ export default function ContactPage() {
                         target="_blank"
                         rel="noopener noreferrer"
                         data-cursor="cta"
-                        className="group flex items-center justify-between font-heading text-base font-bold text-text-primary transition-colors hover:text-accent"
+                        className="group flex items-center justify-between font-heading text-body font-bold text-text-primary transition-colors hover:text-accent"
                       >
                         <span className="flex items-center gap-3">
                           <Linkedin size={20} className="text-accent" />
@@ -96,7 +96,7 @@ export default function ContactPage() {
                     <a
                       href={`tel:${profileData.phone.replace(/[^0-9+]/g, "")}`}
                       data-cursor="cta"
-                      className="group flex items-center justify-between font-heading text-base font-bold text-text-primary transition-colors hover:text-accent"
+                      className="group flex items-center justify-between font-heading text-body font-bold text-text-primary transition-colors hover:text-accent"
                     >
                       <span className="flex items-center gap-3">
                         <Phone size={20} className="text-accent" />

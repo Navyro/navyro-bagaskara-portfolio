@@ -14,13 +14,13 @@ export default function AboutPage() {
         {/* Page Header */}
         <ScrollReveal>
           <div className="max-w-4xl">
-            <span className="font-heading text-xs font-bold tracking-widest text-accent uppercase">
+            <span className="font-heading text-meta font-bold tracking-widest text-accent uppercase">
               ABOUT
             </span>
-            <h1 className="mt-4 font-heading text-3xl font-extrabold tracking-tight text-text-primary sm:text-5xl lg:text-6xl">
+            <h1 className="mt-4 font-heading text-h2 font-extrabold tracking-tight text-text-primary sm:text-h1 lg:text-h1">
               {profileData.name}
             </h1>
-            <p className="mt-4 font-heading text-lg font-semibold text-text-secondary md:text-xl">
+            <p className="mt-4 font-heading text-h3 font-semibold text-text-secondary">
               {profileData.role} — {profileData.location}
             </p>
           </div>
@@ -30,12 +30,12 @@ export default function AboutPage() {
         <div className="mt-12 grid grid-cols-1 gap-12 lg:grid-cols-12 border-b border-border pb-16">
           <div className="lg:col-span-4">
             <ScrollReveal delay={0.1}>
-              <h2 className="font-heading text-xl font-bold tracking-tight text-text-primary">
+              <h3 className="font-heading text-h3 font-bold tracking-tight text-text-primary">
                 Profil &amp; Pendekatan Kerja
-              </h2>
+              </h3>
             </ScrollReveal>
           </div>
-          <div className="lg:col-span-8 space-y-6 text-base text-text-secondary md:text-lg leading-relaxed">
+          <div className="lg:col-span-8 space-y-6 text-body text-text-secondary md:text-h3 leading-relaxed">
             <ScrollReveal delay={0.15}>
               <p>{profileData.fullBio}</p>
             </ScrollReveal>
@@ -49,14 +49,14 @@ export default function AboutPage() {
                 <Link
                   href="/resume"
                   data-cursor="cta"
-                  className="inline-flex items-center gap-2 rounded-btn bg-text-primary px-6 py-3 text-sm font-semibold text-background hover:bg-black transition-colors"
+                  className="inline-flex items-center gap-2 rounded-btn bg-text-primary px-6 py-3 text-control font-semibold text-background hover:bg-black transition-colors"
                 >
                   Lihat &amp; Unduh Resume <Download size={16} />
                 </Link>
                 <Link
                   href="/contact"
                   data-cursor="cta"
-                  className="inline-flex items-center gap-2 rounded-btn border border-border bg-surface px-6 py-3 text-sm font-semibold text-text-primary hover:border-text-primary transition-colors"
+                  className="inline-flex items-center gap-2 rounded-btn border border-border bg-surface px-6 py-3 text-control font-semibold text-text-primary hover:border-text-primary transition-colors"
                 >
                   Hubungi Langsung <ArrowUpRight size={16} />
                 </Link>
@@ -92,16 +92,16 @@ export default function AboutPage() {
             {profileData.education.map((edu, idx) => (
               <ScrollReveal key={idx} delay={idx * 0.1}>
                 <div className="rounded-card border border-border bg-surface p-6 md:p-8">
-                  <span className="text-xs font-bold tracking-widest text-text-muted uppercase">
+                  <span className="text-meta font-bold tracking-widest text-text-muted uppercase">
                     {edu.year}
                   </span>
-                  <h3 className="mt-1 font-heading text-xl font-bold text-text-primary">
+                  <h3 className="mt-1 font-heading text-h3 font-bold text-text-primary">
                     {edu.degree}
                   </h3>
-                  <p className="text-sm font-semibold text-accent">
+                  <p className="text-control font-semibold text-accent">
                     {edu.institution}
                   </p>
-                  <p className="mt-3 text-base text-text-secondary leading-relaxed">
+                  <p className="mt-3 text-body text-text-secondary leading-relaxed">
                     {edu.description}
                   </p>
                 </div>

@@ -15,22 +15,20 @@ export default function SectionHeading({
 }: SectionHeadingProps) {
   return (
     <div
-      className={`mb-12 scroll-mt-24 md:mb-16 ${
-        align === "center" ? "text-center mx-auto max-w-2xl" : ""
-      }`}
+      className={`mb-12 scroll-mt-24 md:mb-16 ${ align === "center" ? "text-center mx-auto max-w-2xl" : "" }`}
     >
       <div className="flex flex-wrap items-baseline gap-3">
         {number && (
-          <span className="font-heading text-sm font-extrabold tracking-widest text-accent uppercase md:text-base">
+          <span className="font-heading text-meta font-extrabold uppercase text-accent">
             {number}
           </span>
         )}
-        <h2 className="font-heading text-3xl font-extrabold tracking-tight text-text-primary sm:text-4xl lg:text-5xl leading-tight">
+        <h2 data-section-heading className="font-heading text-h2 font-extrabold tracking-tight text-balance text-text-primary lg:text-h1 leading-tight">
           {title}
         </h2>
       </div>
       {subtitle && (
-        <p className="mt-3 text-base text-text-secondary md:text-lg max-w-2xl leading-relaxed">
+        <p className="mt-3 max-w-2xl text-body leading-relaxed text-text-secondary">
           {subtitle}
         </p>
       )}

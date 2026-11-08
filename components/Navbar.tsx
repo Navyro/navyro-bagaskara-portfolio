@@ -32,7 +32,7 @@ export default function Navbar() {
           {/* Logo / Brand Name */}
           <Link
             href="/"
-            className="font-heading text-lg font-bold tracking-tight text-text-primary transition-opacity hover:opacity-75 md:text-xl"
+            className="font-heading text-h3 font-bold tracking-tight text-text-primary transition-opacity hover:opacity-75"
           >
             NAVYRO<span className="text-accent">.</span>
           </Link>
@@ -44,11 +44,7 @@ export default function Navbar() {
                 <Link
                   key={link.name}
                   href={link.href}
-                  className={`relative py-1 text-xs font-semibold tracking-wider transition-colors duration-200 ${
-                    isActive(link.href)
-                      ? "text-text-primary"
-                      : "text-text-secondary hover:text-text-primary"
-                  }`}
+                  className={`relative py-1 text-meta font-semibold tracking-wider transition-colors duration-200 ${ isActive(link.href) ? "text-text-primary" : "text-text-secondary hover:text-text-primary" }`}
                 >
                   {link.name}
                   {isActive(link.href) && (
@@ -60,7 +56,7 @@ export default function Navbar() {
               {/* Resume Link */}
               <Link
                 href="/resume"
-                className="inline-flex items-center gap-1 text-xs font-semibold tracking-wider text-text-primary transition-colors hover:text-accent"
+                className="inline-flex items-center gap-1 text-meta font-semibold tracking-wider text-text-primary transition-colors hover:text-accent"
               >
                 RESUME <ArrowUpRight size={14} className="text-text-muted" />
               </Link>
@@ -75,7 +71,7 @@ export default function Navbar() {
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="flex items-center gap-2 text-xs font-semibold tracking-wider text-text-primary"
+              className="flex items-center gap-2 text-meta font-semibold tracking-wider text-text-primary"
               aria-label="Toggle navigation menu"
             >
               <span>{mobileMenuOpen ? "CLOSE" : "MENU"}</span>

@@ -57,7 +57,7 @@ export default function HomePage() {
               />
               <Link
                 href="/work"
-                className="mb-12 inline-flex items-center gap-1.5 font-heading text-sm font-bold text-accent hover:underline md:mb-16"
+                className="mb-12 inline-flex items-center gap-1.5 font-heading text-control font-bold text-accent hover:underline md:mb-16"
               >
                 Lihat Semua Proyek ({projectsData.length}) <ArrowRight size={16} />
               </Link>
@@ -91,13 +91,13 @@ export default function HomePage() {
               <ScrollReveal key={step.number} delay={idx * 0.1}>
                 <div className="group rounded-card border border-border bg-background p-6 md:p-8 flex flex-col justify-between transition-all duration-300 hover:border-text-primary hover:shadow-sm">
                   <div>
-                    <span className="font-heading text-xs font-bold tracking-widest text-accent uppercase">
+                    <span className="font-heading text-meta font-bold tracking-widest text-accent uppercase">
                       {step.number} —
                     </span>
-                    <h3 className="mt-3 font-heading text-xl font-bold text-text-primary transition-colors group-hover:text-accent">
+                    <h3 className="mt-3 font-heading text-h3 font-bold text-text-primary transition-colors group-hover:text-accent">
                       {step.title}
                     </h3>
-                    <p className="mt-3 text-sm text-text-secondary leading-relaxed">
+                    <p className="mt-3 text-control text-text-secondary leading-relaxed">
                       {step.description}
                     </p>
                   </div>
@@ -154,7 +154,7 @@ export default function HomePage() {
               />
               <Link
                 href="/about"
-                className="mb-12 inline-flex items-center gap-1.5 font-heading text-sm font-bold text-text-primary hover:text-accent md:mb-16"
+                className="mb-12 inline-flex items-center gap-1.5 font-heading text-control font-bold text-text-primary hover:text-accent md:mb-16"
               >
                 Lihat Detail Karir <ArrowRight size={16} />
               </Link>
@@ -177,23 +177,23 @@ export default function HomePage() {
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
             <div className="lg:col-span-5">
               <ScrollReveal>
-                <span className="font-heading text-xs font-bold tracking-widest text-text-muted">
+                <span className="font-heading text-meta font-bold tracking-widest text-text-muted">
                   05 —
                 </span>
-                <h2 className="mt-2 font-heading text-3xl font-bold tracking-tight text-text-primary lg:text-4xl">
+                <h2 className="mt-2 font-heading text-h2 font-bold tracking-tight text-text-primary">
                   ABOUT
                 </h2>
               </ScrollReveal>
             </div>
             <div className="lg:col-span-7 space-y-6">
               <ScrollReveal delay={0.1}>
-                <p className="text-xl font-heading font-semibold text-text-primary leading-relaxed">
+                <p className="text-h3 font-heading font-semibold text-text-primary leading-relaxed">
                   Saya Navyro, UI/UX Designer dengan fokus pada pengembangan Front-End. Saya menikmati mengubah masalah kompleks menjadi pengalaman digital yang jelas, dapat digunakan, dan terstruktur.
                 </p>
               </ScrollReveal>
 
               <ScrollReveal delay={0.2}>
-                <p className="text-base text-text-secondary leading-relaxed">
+                <p className="text-body text-text-secondary leading-relaxed">
                   {profileData.fullBio}
                 </p>
               </ScrollReveal>
@@ -202,13 +202,13 @@ export default function HomePage() {
                 <div className="pt-4 flex flex-wrap gap-4">
                   <Link
                     href="/about"
-                    className="inline-flex items-center gap-2 font-heading text-sm font-bold text-text-primary hover:text-accent"
+                    className="inline-flex items-center gap-2 font-heading text-control font-bold text-text-primary hover:text-accent"
                   >
                     Selengkapnya Tentang Saya <ArrowUpRight size={18} />
                   </Link>
                   <Link
                     href="/resume"
-                    className="inline-flex items-center gap-2 font-heading text-sm font-bold text-text-secondary hover:text-text-primary"
+                    className="inline-flex items-center gap-2 font-heading text-control font-bold text-text-secondary hover:text-text-primary"
                   >
                     Download Resume ↗
                   </Link>
@@ -223,25 +223,25 @@ export default function HomePage() {
       <section className="w-full border-t border-border py-24 lg:py-32 bg-surface">
         <div className="mx-auto max-w-editorial px-6 text-center lg:px-12">
           <ScrollReveal>
-            <span className="font-heading text-xs font-bold tracking-widest text-accent uppercase">
+            <span className="font-heading text-meta font-bold tracking-widest text-accent uppercase">
               06 — LET'S TALK
             </span>
-            <h2 className="mt-4 font-heading text-4xl font-extrabold tracking-tight text-text-primary sm:text-5xl lg:text-6xl">
+            <h2 className="mt-4 font-heading text-h2 font-extrabold tracking-tight text-text-primary sm:text-h1 lg:text-h1">
               Punya proyek atau peluang menarik?
             </h2>
-            <p className="mx-auto mt-6 max-w-xl text-lg text-text-secondary">
+            <p className="mx-auto mt-6 max-w-xl text-h3 text-text-secondary">
               Saya terbuka untuk berdiskusi mengenai pekerjaan, kolaborasi, maupun project yang relevan.
             </p>
             <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2 rounded-btn bg-text-primary px-8 py-4 text-sm font-semibold text-background transition-all hover:bg-accent hover:text-white"
+                className="inline-flex items-center gap-2 rounded-btn bg-text-primary px-8 py-4 text-control font-semibold text-background transition-all hover:bg-accent hover:text-white"
               >
                 Get in touch <ArrowUpRight size={16} />
               </Link>
               <Link
                 href="/resume"
-                className="inline-flex items-center gap-2 rounded-btn border border-border bg-background px-8 py-4 text-sm font-semibold text-text-primary transition-all hover:border-text-primary"
+                className="inline-flex items-center gap-2 rounded-btn border border-border bg-background px-8 py-4 text-control font-semibold text-text-primary transition-all hover:border-text-primary"
               >
                 Resume ↗
               </Link>

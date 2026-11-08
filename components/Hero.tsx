@@ -18,14 +18,14 @@ export default function Hero() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.45, ease: "easeOut" }}
-            className="inline-flex items-center gap-2 text-xs font-bold tracking-widest text-accent uppercase"
+            className="inline-flex items-center gap-2 text-meta font-bold tracking-widest text-accent uppercase"
           >
             <span className="h-2 w-2 rounded-full bg-accent animate-pulse" />
             {profileData.role}
           </motion.div>
 
           {/* Step 2 — Identity is text, not a performance: the name is always complete. */}
-          <h1 className="mt-6 flex items-baseline font-heading text-4xl font-extrabold tracking-tight text-text-primary sm:text-6xl lg:text-7xl leading-[1.15]">
+          <h1 className="mt-6 flex items-baseline font-heading text-display font-extrabold text-text-primary leading-[1.05]">
             <span>{profileData.name}</span>
             {!shouldReduceMotion && (
               <motion.span
@@ -42,7 +42,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
-            className="mt-8 max-w-2xl text-lg text-text-secondary md:text-xl lg:text-2xl leading-relaxed font-normal"
+            className="mt-8 max-w-2xl text-h3 text-text-secondary leading-relaxed font-normal"
           >
             {profileData.shortStatement}
           </motion.p>
@@ -62,7 +62,7 @@ export default function Hero() {
               <Link
                 href="/work"
                 data-cursor="cta"
-                className="group inline-flex items-center gap-2.5 rounded-btn bg-text-primary px-7 py-3.5 text-sm font-semibold text-background transition-colors hover:bg-accent hover:text-white shadow-sm"
+                className="group inline-flex items-center gap-2.5 rounded-btn bg-text-primary px-7 py-3.5 text-control font-semibold text-background transition-colors hover:bg-accent hover:text-white shadow-sm"
               >
                 <span>View Selected Work</span>
                 <ArrowRight
@@ -80,7 +80,7 @@ export default function Hero() {
               <Link
                 href="/contact"
                 data-cursor="cta"
-                className="group inline-flex items-center gap-2.5 rounded-btn border border-border bg-surface px-7 py-3.5 text-sm font-semibold text-text-primary transition-colors hover:border-text-primary hover:bg-background"
+                className="group inline-flex items-center gap-2.5 rounded-btn border border-border bg-surface px-7 py-3.5 text-control font-semibold text-text-primary transition-colors hover:border-text-primary hover:bg-background"
               >
                 <span>Contact Me</span>
                 <ArrowUpRight

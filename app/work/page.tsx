@@ -38,7 +38,7 @@ export default function WorkPage() {
         {/* Category Filters */}
         <ScrollReveal delay={0.1}>
           <div className="mb-12 flex flex-wrap items-center gap-2 border-b border-border pb-6">
-            <span className="mr-2 text-xs font-bold tracking-wider text-text-muted uppercase">
+            <span className="mr-2 text-meta font-bold tracking-wider text-text-muted uppercase">
               Filter:
             </span>
             {categories.map((cat) => (
@@ -48,11 +48,7 @@ export default function WorkPage() {
                 data-cursor="cta"
                 aria-pressed={activeFilter === cat}
                 onClick={() => setActiveFilter(cat)}
-                className={`inline-flex min-h-11 items-center rounded-btn px-4 text-xs font-semibold tracking-wide transition-all ${
-                  activeFilter === cat
-                    ? "bg-text-primary text-background shadow-sm"
-                    : "border border-border bg-surface text-text-secondary hover:border-text-primary hover:text-text-primary"
-                }`}
+                className={`inline-flex min-h-11 items-center rounded-btn px-4 text-meta font-semibold tracking-wide transition-all ${ activeFilter === cat ? "bg-text-primary text-background shadow-sm" : "border border-border bg-surface text-text-secondary hover:border-text-primary hover:text-text-primary" }`}
               >
                 {cat}
               </button>
@@ -72,17 +68,17 @@ export default function WorkPage() {
           </div>
         ) : (
           <div className="my-16 rounded-card border border-border bg-surface p-12 text-center">
-            <h3 className="font-heading text-xl font-bold text-text-primary">
+            <h3 className="font-heading text-h3 font-bold text-text-primary">
               Tidak ada proyek dalam kategori ini
             </h3>
-            <p className="mt-2 text-sm text-text-secondary">
+            <p className="mt-2 text-control text-text-secondary">
               Silakan pilih kategori filter lain di atas untuk melihat karya.
             </p>
             <button
               type="button"
               data-cursor="cta"
               onClick={() => setActiveFilter("All")}
-              className="mt-6 rounded-btn bg-text-primary px-6 py-2.5 text-xs font-semibold text-background hover:bg-black"
+              className="mt-6 rounded-btn bg-text-primary px-6 py-2.5 text-meta font-semibold text-background hover:bg-black"
             >
               Tampilkan Semua Proyek
             </button>

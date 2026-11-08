@@ -10,23 +10,23 @@ export default function Footer() {
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
           {/* Brand & Positioning */}
           <div className="lg:col-span-6">
-            <h2 className="font-heading text-2xl font-bold tracking-tight text-inverse-text lg:text-3xl">
+            <h2 className="font-heading text-h3 font-bold tracking-tight text-inverse-text lg:text-h2">
               NAVYRO BAGASKARA
             </h2>
-            <p className="mt-2 text-sm font-medium tracking-wide opacity-80">
+            <p className="mt-2 text-control font-medium tracking-wide opacity-80">
               UI/UX DESIGNER + FRONT-END
             </p>
-            <p className="mt-6 max-w-md text-sm opacity-70 leading-relaxed">
+            <p className="mt-6 max-w-md text-control opacity-70 leading-relaxed">
               {profileData.shortStatement}
             </p>
           </div>
 
           {/* Quick Links */}
           <div className="lg:col-span-3">
-            <p className="text-xs font-semibold tracking-wider opacity-50 uppercase">
+            <p className="text-meta font-semibold tracking-wider opacity-50 uppercase">
               Navigation
             </p>
-            <ul className="mt-4 flex flex-col gap-3 text-sm">
+            <ul className="mt-4 flex flex-col gap-3 text-control">
               <li>
                 <Link
                   href="/work"
@@ -68,10 +68,10 @@ export default function Footer() {
 
           {/* Direct Social Links */}
           <div className="lg:col-span-3">
-            <p className="text-xs font-semibold tracking-wider opacity-50 uppercase">
+            <p className="text-meta font-semibold tracking-wider opacity-50 uppercase">
               Connect
             </p>
-            <ul className="mt-4 flex flex-col gap-3 text-sm">
+            <ul className="mt-4 flex flex-col gap-3 text-control">
               <li>
                 <a
                   href={`mailto:${profileData.email}`}
@@ -108,7 +108,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-border/20 pt-8 text-xs opacity-60 md:flex-row">
+        <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-border/20 pt-8 text-meta opacity-60 md:flex-row">
           <p>© {new Date().getFullYear()} Navyro Bagaskara. All rights reserved.</p>
           <p className="font-mono">Design System v4.0 · Next.js 14 · Tailwind CSS</p>
         </div>
