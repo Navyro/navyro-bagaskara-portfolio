@@ -198,8 +198,10 @@
       if (form) {
         push(
           'contact.form-has-transport',
-          /mailto:|action=/.test(form.outerHTML) || !!window.__CONTACT_TRANSPORT,
-          'mailto:/action present in form markup or transport flag'
+          /mailto:|action=/.test(form.outerHTML) ||
+            !!window.__CONTACT_TRANSPORT ||
+            form.dataset.transport === 'mailto',
+          `mailto:/action in markup=${/mailto:|action=/.test(form.outerHTML)} transport=${form.dataset.transport || window.__CONTACT_TRANSPORT || 'none'}`
         );
       }
       push('contact.no-false-success-copy', !/Berhasil Terkirim/.test(document.body.innerText), 'no false "Berhasil Terkirim" claim');
