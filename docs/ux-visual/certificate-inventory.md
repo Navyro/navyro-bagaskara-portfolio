@@ -1,7 +1,7 @@
 # Inventaris Sertifikat & Pelatihan — hasil ekstraksi `TENTANG SAYA/`
 
-Sumber: 38 file PDF di `TENTANG SAYA/` (36 file sertifikat + 2 CV).
-Hasil: **34 kredensial unik** — dua file MSIB identik byte-per-byte (md5 `70f939a2…`), jadi 36 file ≠ 36 sertifikat.
+Sumber: 38 file PDF di `TENTANG SAYA/` — 35 file sertifikat, 2 CV, 1 portofolio PDF.
+Hasil: **34 kredensial unik** — dua file MSIB identik byte-per-byte (md5 `70f939a2…`), jadi 35 file ≠ 35 sertifikat.
 
 ## Metode (supaya bisa diaudit)
 
