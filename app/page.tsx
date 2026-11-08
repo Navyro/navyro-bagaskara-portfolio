@@ -88,8 +88,8 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
             {approachSteps.map((step, idx) => (
-              <ScrollReveal key={step.number} delay={idx * 0.1}>
-                <div className="group rounded-card border border-border bg-background p-6 md:p-8 flex flex-col justify-between transition-all duration-300 hover:border-text-primary hover:shadow-sm">
+              <ScrollReveal key={step.number} delay={idx * 0.1} className="h-full">
+                <div className="group flex h-full flex-col justify-between rounded-card border border-border bg-background p-6 md:p-8 transition-all duration-300 hover:border-text-primary hover:shadow-sm">
                   <div>
                     <span className="font-heading text-meta font-bold tracking-widest text-accent uppercase">
                       {step.number} —
@@ -120,19 +120,19 @@ export default function HomePage() {
           </ScrollReveal>
 
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            <ScrollReveal delay={0.1}>
+            <ScrollReveal delay={0.1} className="h-full">
               <SkillGroup
                 title="UI/UX Design"
                 skills={profileData.skills.uiux}
               />
             </ScrollReveal>
-            <ScrollReveal delay={0.2}>
+            <ScrollReveal delay={0.2} className="h-full">
               <SkillGroup
                 title="Front-End Stack"
                 skills={profileData.skills.frontend}
               />
             </ScrollReveal>
-            <ScrollReveal delay={0.3}>
+            <ScrollReveal delay={0.3} className="h-full">
               <SkillGroup
                 title="Tools &amp; Workflow"
                 skills={profileData.skills.tools}

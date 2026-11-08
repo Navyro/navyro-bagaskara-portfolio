@@ -129,19 +129,19 @@ export default function AboutPage() {
             />
           </ScrollReveal>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            <ScrollReveal delay={0.1}>
+            <ScrollReveal delay={0.1} className="h-full">
               <SkillGroup
                 title="UI/UX Design"
                 skills={profileData.skills.uiux}
               />
             </ScrollReveal>
-            <ScrollReveal delay={0.2}>
+            <ScrollReveal delay={0.2} className="h-full">
               <SkillGroup
                 title="Front-End Stack"
                 skills={profileData.skills.frontend}
               />
             </ScrollReveal>
-            <ScrollReveal delay={0.3}>
+            <ScrollReveal delay={0.3} className="h-full">
               <SkillGroup
                 title="Tools &amp; Workflow"
                 skills={profileData.skills.tools}

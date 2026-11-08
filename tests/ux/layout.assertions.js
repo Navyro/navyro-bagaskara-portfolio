@@ -270,6 +270,25 @@
     }
     push('cards.equal-height-in-row', ragged.length === 0, JSON.stringify(ragged.slice(0, 3)));
 
+    /* The skill cards' footer count must be derived from the data, not typed. */
+    const badCounts = [];
+    for (const card of document.querySelectorAll('[data-skill-card]')) {
+      const total = card.querySelector('[data-skill-total]');
+      if (!total) {
+        badCounts.push('missing total');
+        continue;
+      }
+      const chipWrap = card.querySelector('.flex-1');
+      const chips = chipWrap ? [...chipWrap.children].filter(visible).length : 0;
+      const declared = Number(total.textContent.trim());
+      if (declared !== chips) badCounts.push(`${declared} declared / ${chips} chips`);
+    }
+    push(
+      'cards.skill-footer-count',
+      badCounts.length === 0,
+      badCounts.slice(0, 4).join('; ') || `${document.querySelectorAll('[data-skill-card]').length} cards`
+    );
+
     /* ---------- contact transport ---------- */
     if (onContact) {
       const form = document.querySelector('form');
