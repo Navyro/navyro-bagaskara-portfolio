@@ -9,7 +9,9 @@ export interface CaseStudyData {
   userFlow?: string;
   wireframes?: string;
   uiDesign: string;
+  /** Verified prototype/file link. Label says which: a /proto URL is a prototype, a /design URL is a file. */
   prototypeUrl?: string;
+  prototypeLabel?: string;
   liveUrl?: string;
   testing?: string;
   finalResult: string;
@@ -72,6 +74,9 @@ export const projectsData: Project[] = [
       "/images/projects/sipenelitian/screens/08-sistem-informasi-pengelolaan-data-penelitian-uaa-kelola-user-user-ditambahkan.png",
     ],
     caseStudy: {
+      prototypeLabel: "Buka Prototype di Figma",
+      prototypeUrl:
+        "https://www.figma.com/proto/NdKat89nkFRm125a1HWl3y/Sistem-Informasi-Pengelolaan-Data-Penelitian-UAA?node-id=1479-95355&t=xU7iF3NW7SaXaF4R-1&scaling=scale-down&content-scaling=fixed&page-id=1365%3A20569",
       overview:
         "SIPENELITIAN adalah sistem informasi untuk mengelola data penelitian di LP2M Universitas Alma Ata. Sistem ini menangani alur dari usulan penelitian dan hibah internal, pemantauan laporan kemajuan beserta logbook, sampai laporan akhir dan lembar pengesahan — dengan dua peran pengguna: dosen peneliti dan admin LP2M.",
       problem:
@@ -130,6 +135,9 @@ export const projectsData: Project[] = [
       "/images/projects/fanfunds/screens/11-notification-donatur-update.png",
     ],
     caseStudy: {
+      prototypeLabel: "Buka Prototype di Figma",
+      prototypeUrl:
+        "https://www.figma.com/proto/bKf9mTxPznmVp6EMoLCzCU/FanFunds?node-id=240-1604&t=sq8asbpd6QJ80FUn-1&scaling=scale-down&content-scaling=fixed&page-id=235%3A152&starting-point-node-id=240%3A1470&show-proto-sidebar=1",
       overview:
         "FanFunds adalah aplikasi donasi untuk kreator: pendukung dapat menemukan kreator, memberikan dukungan, lalu melihat posisinya di leaderboard. Proyek ini dikerjakan sebagai capstone MSIB Batch 7 di BISA AI Academy, dengan saya berkontribusi sebagai UI/UX Designer.",
       problem:
@@ -182,6 +190,9 @@ export const projectsData: Project[] = [
       "/images/projects/penagihan-limbah/screens/06-laporan.png",
     ],
     caseStudy: {
+      prototypeLabel: "Buka Prototype di Figma",
+      prototypeUrl:
+        "https://www.figma.com/proto/HiSWS6WN1JP6xyUHWsshhp/Desain-Aplikasi-Penagihan-Limbah-Rumah-Tangga?node-id=52-55&t=U5BmMRSFI1nO4jwn-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1",
       overview:
         "Aplikasi penagihan limbah rumah tangga untuk pengurus RT: mencatat tagihan warga, menandai tunggakan, dan menyusun laporan pemasukan. Dikerjakan secara mandiri dari riset pengguna, information architecture, hingga prototipe interaktif.",
       problem:
@@ -230,6 +241,9 @@ export const projectsData: Project[] = [
       "/images/projects/mediassist/screens/06-chat-dimas.png",
     ],
     caseStudy: {
+      prototypeLabel: "Buka File Figma",
+      prototypeUrl:
+        "https://www.figma.com/design/azEpKDmPIhQx2HWyPGqLIS/Tugas-Kelompok-Kelas-UI-UX?node-id=11-125&t=gglQfxRG8MB2f9qn-1",
       overview:
         "Mediassist adalah konsep aplikasi layanan kesehatan: mencari dokter, melihat jadwal, lalu berkonsultasi lewat chat. Proyek tim beranggotakan empat orang dengan pembagian layar per anggota.",
       problem:
@@ -271,6 +285,9 @@ export const projectsData: Project[] = [
       "/images/projects/kick-swift/screens/06-troli.png",
     ],
     caseStudy: {
+      prototypeLabel: "Buka Prototype di Figma",
+      prototypeUrl:
+        "https://www.figma.com/proto/G42kCFdLB90IHhbSvz6OO2/Srudi-Indemendent?node-id=76-8592&starting-point-node-id=312%3A1485&t=TVNSPIIDYlreerF2-1",
       overview:
         "Kick Swift adalah konsep aplikasi belanja sepatu: katalog dengan kategori dan produk populer, pencarian, detail produk, dan keranjang.",
       problem:
@@ -311,6 +328,9 @@ export const projectsData: Project[] = [
       "/images/projects/jogging-id/screens/09-profile.png",
     ],
     caseStudy: {
+      prototypeLabel: "Buka Prototype di Figma",
+      prototypeUrl:
+        "https://www.figma.com/proto/G42kCFdLB90IHhbSvz6OO2/Srudi-Indemendent?node-id=118-2108&t=A9QefFLcqlliVKj8-1&scaling=min-zoom&content-scaling=fixed&page-id=117%3A632",
       overview:
         "Jogging ID adalah konsep aplikasi pelacak lari: mencatat rute, waktu, dan hasil latihan, lalu menyimpan riwayat serta tantangan mingguan.",
       problem:

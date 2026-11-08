@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "check:links": "node scripts/check-links.cjs",
+    "check:ux": "bash scripts/run-ux-checks.sh"
   },
   "dependencies": {
     "clsx": "^2.1.1",

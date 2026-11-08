@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { ArrowUpRight, Download } from "lucide-react";
+import { ArrowUpRight, Download, FileText } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 import SkillGroup from "@/components/SkillGroup";
 import ExperienceItem from "@/components/ExperienceItem";
@@ -60,6 +60,15 @@ export default function AboutPage() {
                 >
                   Hubungi Langsung <ArrowUpRight size={16} />
                 </Link>
+                <a
+                  href={`/${profileData.portfolioFilename}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-cursor="cta"
+                  className="inline-flex min-h-11 items-center gap-2 rounded-btn border border-border bg-surface px-6 py-3 text-control font-semibold text-text-primary hover:border-text-primary transition-colors"
+                >
+                  Portofolio PDF (12 MB) <FileText size={16} />
+                </a>
               </div>
             </ScrollReveal>
           </div>

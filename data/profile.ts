@@ -47,6 +47,8 @@ export interface ProfileData {
   github?: string;
   location: string;
   resumeFilename: string;
+  /** 12-page portfolio PDF, 12 MB: labelled with its size wherever it is offered. */
+  portfolioFilename: string;
   skills: {
     uiux: string[];
     frontend: string[];
@@ -75,6 +77,7 @@ export const profileData: ProfileData = {
   linkedin: "https://www.linkedin.com/in/navyro-bagaskara/",
   location: "Bekasi, Jawa Barat, Indonesia",
   resumeFilename: "Navyro_Bagaskara_CV.pdf",
+  portfolioFilename: "Navyro_Bagaskara_Portofolio.pdf",
   skills: {
     uiux: [
       "User Research (Wawancara & Observasi)",

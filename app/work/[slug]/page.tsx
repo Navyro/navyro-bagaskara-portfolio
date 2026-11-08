@@ -97,9 +97,10 @@ export default function CaseStudyDetailPage({ params }: CaseStudyPageProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 data-cursor="cta"
-                className="inline-flex items-center gap-2 rounded-btn bg-accent px-6 py-3 text-control font-semibold text-white transition-all hover:bg-accent-hover shadow-sm"
+                className="inline-flex min-h-11 items-center gap-2 rounded-btn bg-accent px-6 py-3 text-control font-semibold text-white transition-all hover:bg-accent-hover shadow-sm"
               >
-                Lihat Figma Prototype <ArrowUpRight size={16} />
+                {project.caseStudy.prototypeLabel ?? "Buka Prototype di Figma"}{" "}
+                <ArrowUpRight size={16} />
               </a>
             )}
             {project.caseStudy.liveUrl && (

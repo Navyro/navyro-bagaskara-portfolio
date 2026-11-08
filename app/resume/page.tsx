@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { Download, CheckCircle2, ChevronDown } from "lucide-react";
+import { Download, CheckCircle2, ChevronDown, FileText } from "lucide-react";
 import ScrollReveal from "@/components/ScrollReveal";
 import { profileData } from "@/data/profile";
 
@@ -23,14 +23,25 @@ export default function ResumePage() {
               </p>
             </div>
 
-            <a
-              href={`/${profileData.resumeFilename}`}
-              download={profileData.resumeFilename}
-              data-cursor="cta"
-              className="inline-flex items-center gap-2 rounded-btn bg-accent px-7 py-3.5 text-control font-semibold text-white transition-all hover:bg-accent-hover shadow-sm"
-            >
-              Unduh Resume PDF <Download size={16} />
-            </a>
+            <div className="flex flex-wrap gap-3">
+              <a
+                href={`/${profileData.portfolioFilename}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-cursor="cta"
+                className="inline-flex min-h-11 items-center gap-2 rounded-btn border border-border bg-surface px-6 py-3 text-control font-semibold text-text-primary transition-all hover:border-text-primary"
+              >
+                Portofolio PDF (12 MB) <FileText size={16} />
+              </a>
+              <a
+                href={`/${profileData.resumeFilename}`}
+                download={profileData.resumeFilename}
+                data-cursor="cta"
+                className="inline-flex min-h-11 items-center gap-2 rounded-btn bg-accent px-7 py-3.5 text-control font-semibold text-white transition-all hover:bg-accent-hover shadow-sm"
+              >
+                Unduh Resume PDF <Download size={16} />
+              </a>
+            </div>
           </div>
         </ScrollReveal>
 
