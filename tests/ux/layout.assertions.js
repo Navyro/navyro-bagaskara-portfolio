@@ -148,7 +148,10 @@
     const tooSmall = Object.keys(sizes).filter((k) => parseFloat(k) < 12);
     push('type.no-text-below-12px', tooSmall.length === 0, tooSmall.join(', '));
 
-    /* ---------- images ---------- */
+    /* ---------- images ----------
+       Criterion: the frame must match the artwork, i.e. the artwork must not be cropped.
+       `object-contain` letterboxes (whole image visible, frame wider/taller), `object-cover` crops.
+       So the check looks at the effective fit mode + coverage, not at box ratio alone. */
     const badRatio = [];
     for (const img of document.querySelectorAll('main img')) {
       if (!img.naturalWidth) continue;
@@ -156,11 +159,23 @@
       if (r.width < 2 || r.height < 2) continue;
       const srcRatio = img.naturalWidth / img.naturalHeight;
       const boxRatio = r.width / r.height;
-      if (Math.abs(srcRatio - boxRatio) / srcRatio > 0.12) {
+      const fit = getComputedStyle(img).objectFit || 'fill';
+      // Fraction of the box the artwork covers when it is letterboxed inside this frame.
+      const covered =
+        fit === 'contain'
+          ? srcRatio > boxRatio
+            ? boxRatio / srcRatio
+            : srcRatio / boxRatio
+          : 1;
+      const croppedCover = fit === 'cover';
+      const distortingFill = fit === 'fill' && Math.abs(srcRatio - boxRatio) / srcRatio > 0.02;
+      if (croppedCover || distortingFill || covered < 0.5) {
         badRatio.push({
           src: (img.currentSrc || '').split('/').pop(),
           srcR: Math.round(srcRatio * 100) / 100,
           boxR: Math.round(boxRatio * 100) / 100,
+          fit,
+          covered: Math.round(covered * 100) / 100,
         });
       }
     }

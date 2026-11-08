@@ -69,11 +69,10 @@ export default function WorkPage() {
         {/* Project List */}
         {filteredProjects.length > 0 ? (
           <div className="space-y-4">
-            {filteredProjects.map((project, idx) => (
+            {filteredProjects.map((project) => (
               <ProjectCard
                 key={project.slug}
                 project={project}
-                priorityImage={idx === 0}
               />
             ))}
           </div>

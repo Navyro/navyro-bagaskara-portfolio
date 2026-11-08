@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowUpRight, ArrowRight } from "lucide-react";
 import ProjectMeta from "@/components/ProjectMeta";
+import ProjectCover from "@/components/ProjectCover";
 import CaseStudySection from "@/components/CaseStudySection";
 import ScrollReveal from "@/components/ScrollReveal";
 import ReadingProgressBar from "@/components/ReadingProgressBar";
@@ -74,11 +75,13 @@ export default function CaseStudyDetailPage({ params }: CaseStudyPageProps) {
         </div>
 
         {/* Main Cover Visual Container */}
-        <div className="relative mt-12 aspect-[16/9] w-full overflow-hidden rounded-card border border-border bg-surface shadow-sm">
-          <img
+        <div className="mt-12">
+          <ProjectCover
             src={project.coverImage}
             alt={project.title}
-            className="h-full w-full object-cover object-center"
+            ratio="16/9"
+            priority
+            className="shadow-sm"
           />
         </div>
 
@@ -154,16 +157,13 @@ export default function CaseStudyDetailPage({ params }: CaseStudyPageProps) {
             {project.galleryImages && project.galleryImages.length > 1 && (
               <div className="mt-6 space-y-6">
                 {project.galleryImages.slice(1).map((img, idx) => (
-                  <div
+                  <ProjectCover
                     key={idx}
-                    className="relative aspect-[16/9] w-full overflow-hidden rounded-card border border-border bg-surface shadow-sm"
-                  >
-                    <img
-                      src={img}
-                      alt={`${project.title} Screen ${idx + 1}`}
-                      className="h-full w-full object-cover object-center"
-                    />
-                  </div>
+                    src={img}
+                    alt={`${project.title} Screen ${idx + 1}`}
+                    ratio="16/9"
+                    className="shadow-sm"
+                  />
                 ))}
               </div>
             )}
@@ -221,13 +221,7 @@ export default function CaseStudyDetailPage({ params }: CaseStudyPageProps) {
                 </div>
 
                 <div className="lg:col-span-5">
-                  <div className="relative aspect-[16/10] w-full overflow-hidden rounded-btn border border-border bg-background">
-                    <img
-                      src={nextProject.coverImage}
-                      alt={nextProject.title}
-                      className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.04]"
-                    />
-                  </div>
+                  <ProjectCover src={nextProject.coverImage} alt={nextProject.title} ratio="16/9" />
                 </div>
               </div>
             </Link>

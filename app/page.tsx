@@ -65,11 +65,10 @@ export default function HomePage() {
           </ScrollReveal>
 
           <div className="space-y-4">
-            {featuredProjects.map((project, idx) => (
+            {featuredProjects.map((project) => (
               <ProjectCard
                 key={project.slug}
                 project={project}
-                priorityImage={idx === 0}
               />
             ))}
           </div>

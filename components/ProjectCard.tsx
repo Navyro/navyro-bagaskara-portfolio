@@ -5,11 +5,11 @@ import Link from "next/link";
 import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { Project } from "@/data/projects";
+import ProjectCover from "./ProjectCover";
 import ScrollReveal from "./ScrollReveal";
 
 interface ProjectCardProps {
   project: Project;
-  priorityImage?: boolean;
 }
 
 export default function ProjectCard({ project }: ProjectCardProps) {
@@ -119,22 +119,19 @@ export default function ProjectCard({ project }: ProjectCardProps) {
               data-cursor-text="VIEW ↗"
               onMouseMove={handleMouseMove}
               onMouseLeave={handleMouseLeave}
-              className="relative block aspect-[16/9] w-full overflow-hidden rounded-card border border-border bg-surface shadow-sm transition-all duration-300 group-hover:shadow-xl"
+              className="relative block w-full rounded-card shadow-sm transition-shadow duration-300 group-hover:shadow-xl"
             >
-              <img
-                src={project.coverImage}
-                alt={project.title}
-                className="h-full w-full object-cover object-center transition-transform duration-500 ease-out group-hover:scale-[1.03]"
-                loading="lazy"
-              />
+              <div className="relative overflow-hidden rounded-card">
+                <ProjectCover src={project.coverImage} alt={project.title} ratio="4/5" />
 
-              {/* Dynamic Mouse Glare Lighting Effect */}
-              <motion.div
-                className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                style={{
-                  background: `radial-gradient(circle at ${glareX}% ${glareY}%, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 60%)`,
-                }}
-              />
+                {/* Dynamic Mouse Glare Lighting Effect */}
+                <motion.div
+                  className="pointer-events-none absolute inset-0 rounded-card opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  style={{
+                    background: `radial-gradient(circle at ${glareX}% ${glareY}%, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 60%)`,
+                  }}
+                />
+              </div>
             </Link>
           </motion.div>
         </motion.div>
