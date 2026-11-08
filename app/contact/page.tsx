@@ -1,5 +1,5 @@
 import React from "react";
-import { ArrowUpRight, Linkedin, Github } from "lucide-react";
+import { ArrowUpRight, Linkedin, MessageCircle, Phone } from "lucide-react";
 import ContactForm from "@/components/ContactForm";
 import ScrollReveal from "@/components/ScrollReveal";
 import { profileData } from "@/data/profile";
@@ -18,7 +18,8 @@ export default function ContactPage() {
               LET'S TALK.
             </h1>
             <p className="mt-6 text-lg text-text-secondary md:text-xl leading-relaxed">
-              Terbuka untuk diskusi proyek desain UI/UX, kolaborasi sistem antarmuka, posisi karir penuh waktu, maupun konsultasi Front-End.
+              Terbuka untuk peluang sebagai UI/UX Designer, kerja sama desain produk, maupun
+              diskusi seputar riset pengguna dan design system.
             </p>
           </div>
         </ScrollReveal>
@@ -55,33 +56,56 @@ export default function ContactPage() {
                 <ul className="space-y-4">
                   <li>
                     <a
-                      href={profileData.linkedin}
+                      href={`https://wa.me/${profileData.phone.replace(/[^0-9]/g, "")}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       data-cursor="cta"
-                      className="flex items-center justify-between font-heading text-base font-bold text-text-primary hover:text-accent transition-colors group"
+                      className="group flex items-center justify-between font-heading text-base font-bold text-text-primary transition-colors hover:text-accent"
                     >
                       <span className="flex items-center gap-3">
-                        <Linkedin size={20} className="text-accent" />
-                        <span>LinkedIn Profile</span>
+                        <MessageCircle size={20} className="text-accent" />
+                        <span>WhatsApp — {profileData.phone}</span>
                       </span>
-                      <ArrowUpRight size={18} className="text-text-muted transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-accent" />
+                      <ArrowUpRight
+                        size={18}
+                        className="text-text-muted transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-accent"
+                      />
                     </a>
                   </li>
-
+                  {profileData.linkedin && (
+                    <li>
+                      <a
+                        href={profileData.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        data-cursor="cta"
+                        className="group flex items-center justify-between font-heading text-base font-bold text-text-primary transition-colors hover:text-accent"
+                      >
+                        <span className="flex items-center gap-3">
+                          <Linkedin size={20} className="text-accent" />
+                          <span>LinkedIn — navyro-bagaskara</span>
+                        </span>
+                        <ArrowUpRight
+                          size={18}
+                          className="text-text-muted transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-accent"
+                        />
+                      </a>
+                    </li>
+                  )}
                   <li>
                     <a
-                      href={profileData.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      href={`tel:${profileData.phone.replace(/[^0-9+]/g, "")}`}
                       data-cursor="cta"
-                      className="flex items-center justify-between font-heading text-base font-bold text-text-primary hover:text-accent transition-colors group"
+                      className="group flex items-center justify-between font-heading text-base font-bold text-text-primary transition-colors hover:text-accent"
                     >
                       <span className="flex items-center gap-3">
-                        <Github size={20} className="text-accent" />
-                        <span>GitHub Repository</span>
+                        <Phone size={20} className="text-accent" />
+                        <span>Telepon</span>
                       </span>
-                      <ArrowUpRight size={18} className="text-text-muted transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-accent" />
+                      <ArrowUpRight
+                        size={18}
+                        className="text-text-muted transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-accent"
+                      />
                     </a>
                   </li>
                 </ul>

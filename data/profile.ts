@@ -19,8 +19,10 @@ export interface ProfileData {
   shortStatement: string;
   fullBio: string;
   email: string;
-  linkedin: string;
-  github: string;
+  phone: string;
+  /** Optional: only rendered when the link is known to be correct. */
+  linkedin?: string;
+  github?: string;
   location: string;
   resumeFilename: string;
   skills: {
@@ -32,84 +34,110 @@ export interface ProfileData {
   education: EducationItem[];
 }
 
+/**
+ * Single source of truth for identity. Every value below is taken from
+ * `TENTANG SAYA/CV_Navyro_Bagaskara_EN.pdf` — do not add unverified facts.
+ */
 export const profileData: ProfileData = {
   name: "Navyro Bagaskara",
-  role: "UI/UX Designer + Front-End",
+  role: "UI/UX Designer",
   shortStatement:
-    "Desainer UI/UX dengan pemahaman mendalam tentang Front-End. Berfokus pada penyelesaian masalah nyata, sistem desain terstruktur, dan antarmuka web yang intuitif.",
+    "Lulusan Sistem Informasi dengan fokus UI/UX Design. Bekerja dari riset pengguna, information architecture, dan user flow hingga high-fidelity interface serta prototipe interaktif di Figma.",
   fullBio:
-    "Saya adalah UI/UX Designer & Front-End Specialist yang percaya bahwa desain yang baik bukan hanya tentang visual yang estetis, tetapi juga tentang kejelasan fungsi, kemudahan navigasi, dan efisiensi implementasi teknis. Dengan latar belakang dalam riset pengguna, wireframing, perancangan design system, serta eksekusi antarmuka menggunakan Next.js dan Tailwind CSS, saya menjembatani proses dari konsep desain hingga ke kode yang siap produksi.",
-  email: "navyro.bagaskara@email.com",
-  linkedin: "https://linkedin.com/in/navyrobagaskara",
-  github: "https://github.com/navyrobagaskara",
-  location: "Jakarta, Indonesia",
+    "Saya lulusan Sistem Informasi Universitas Alma Ata (IPK 3,87/4,00) dengan fokus utama UI/UX Design. Pekerjaan saya dimulai dari wawancara dan observasi untuk memahami kebutuhan pengguna, lalu diterjemahkan menjadi information architecture, user flow, wireframe, high-fidelity interface, dan prototipe interaktif di Figma. Saya juga terbiasa menguji hasil desain dengan pengguna menggunakan metode System Usability Scale (SUS), menyusun design system, serta mengerjakan desain konten dan media sosial. Di sisi teknis, saya memiliki dasar pengembangan web (HTML, CSS, JavaScript) yang membuat desain lebih mudah dieksekusi oleh developer.",
+  email: "navbagaskara@gmail.com",
+  phone: "+62 857-1272-9833",
+  linkedin: "https://www.linkedin.com/in/navyro-bagaskara/",
+  location: "Bekasi, Jawa Barat, Indonesia",
   resumeFilename: "Navyro_Bagaskara_CV.pdf",
   skills: {
     uiux: [
-      "User Research",
+      "User Research (Wawancara & Observasi)",
       "Information Architecture",
       "User Flow & Sitemap",
-      "Wireframing & Prototyping",
-      "UI Design & Micro-interactions",
-      "Design Systems & Tokenomics",
-      "Usability Testing & Iteration",
+      "Wireframing",
+      "High-Fidelity UI Design",
+      "Interactive Prototyping",
+      "Design System",
+      "Usability Testing & System Usability Scale (SUS)",
+      "Design Thinking",
     ],
     frontend: [
       "HTML5 & Semantic Markup",
-      "CSS3 & Vanilla CSS",
-      "JavaScript (ES6+)",
-      "TypeScript",
-      "React.js",
-      "Next.js (App Router)",
-      "Tailwind CSS",
-      "Git & Version Control",
+      "CSS3 & Responsive Layout",
+      "JavaScript (Dasar)",
+      "DOM Manipulation & Event Handling",
+      "Front-End Web Dasar",
     ],
-    tools: ["Figma", "VS Code", "GitHub", "Vercel", "Canva", "Notion"],
+    tools: ["Figma", "Canva", "CapCut", "Adobe Lightroom", "Microsoft Word", "Microsoft Excel"],
   },
   experience: [
     {
-      year: "2024 — Sekarang",
-      role: "UI/UX Designer & Front-End Specialist",
-      company: "Innovate Digital Studio",
+      year: "Agu — Okt 2025",
+      role: "UI/UX Designer Intern",
+      company: "Dinas KOMINFO Kabupaten Bantul",
       description:
-        "Memimpin perancangan produk digital dan pengembangan antarmuka web untuk klien skala menengah hingga korporat.",
+        "Magang sebagai satu-satunya desainer pada dua proyek aplikasi internal, mulai dari riset pengguna hingga prototipe yang diserahkan sebagai acuan pengembangan.",
       achievements: [
-        "Membangun design system terpusat yang memangkas waktu handoff desain-ke-kode hingga 35%.",
-        "Merancang dan mengimplementasikan aplikasi web berbasis Next.js & Tailwind CSS dengan performa Lighthouse 95+.",
-        "Melakukan usability testing berkala untuk menyempurnakan alur navigasi aplikasi finansial.",
+        "Melakukan wawancara dan observasi dengan empat pegawai untuk mengidentifikasi kebutuhan pengguna pada dua proyek aplikasi.",
+        "Menyusun information architecture, user flow, wireframe, high-fidelity interface, dan prototipe interaktif secara mandiri menggunakan Figma.",
+        "Mempresentasikan desain kepada pegawai dan kepala bidang, lalu menyerahkan prototipe sebagai referensi pengembangan lebih lanjut.",
       ],
     },
     {
-      year: "2022 — 2024",
-      role: "UI/UX Designer",
-      company: "Nexus Product Lab",
+      year: "Mei 2024 — Jun 2025",
+      role: "Staff Komunikasi dan Informasi",
+      company: "HIMSI Universitas Alma Ata",
       description:
-        "Merancang pengalaman pengguna (UX) dan antarmuka (UI) untuk aplikasi seluler dan platform e-commerce.",
+        "Bertanggung jawab atas kebutuhan publikasi dan informasi organisasi melalui kanal Instagram himpunan.",
       achievements: [
-        "Membuat wireframe high-fidelity dan prototipe interaktif di Figma untuk lebih dari 12 proyek klien.",
-        "Mengembangkan sitemap dan information architecture yang meningkatkan conversion rate checkout pelanggan sebesar 22%.",
-        "Bekerjasama erat dengan tim developer untuk memastikan keakuratan implementasi visual.",
+        "Memproduksi puluhan konten visual menggunakan Canva dan Figma untuk mendukung publikasi acara dan informasi organisasi.",
+        "Mengerjakan desain poster kegiatan seperti Kunjungan Industri 2024, Study Club Design System, dan Webinar Plugin Figma.",
+        "Merancang desain lanyard kepengurusan HIMSI.",
       ],
     },
     {
-      year: "2021 — 2022",
-      role: "Front-End Developer Intern",
-      company: "ByteCraft Technology",
+      year: "Jan — Apr 2025",
+      role: "Tim Komunikasi dan Informasi",
+      company: "KKN-T Kelompok 30, Universitas Alma Ata (Mangiran)",
       description:
-        "Mengembangkan halaman web responsif dan komponen antarmuka terstruktur menggunakan React dan Tailwind CSS.",
+        "Menangani dokumentasi dan publikasi program kerja KKN selama satu periode penuh.",
       achievements: [
-        "Mengonversi desain Figma ke dalam komponen React dengan type-safety TypeScript.",
-        "Memastikan aksesibilitas (WCAG 2.1) dan optimasi gambar untuk mempercepat loading website.",
+        "Mengelola dokumentasi dan publikasi seluruh rangkaian kegiatan KKN-T.",
+        "Menyunting video edukasi yang digunakan sebagai materi publikasi program.",
+        "Tercatat sebagai salah satu pencipta dua karya yang didaftarkan hak ciptanya ke Kementerian Hukum Republik Indonesia.",
+      ],
+    },
+    {
+      year: "Sep — Des 2024",
+      role: "Independent Study UI/UX Design & Game Development",
+      company: "BISA AI Academy (MSIB Batch 7)",
+      description:
+        "Mengikuti program studi independen bersertifikat Kampus Merdeka dan berkontribusi sebagai UI/UX Designer pada proyek capstone FanFunds.",
+      achievements: [
+        "Mengerjakan layar aplikasi, design system, dan prototipe interaktif capstone menggunakan Figma.",
+        "Terlibat dalam penyusunan user persona, user flow, dan A/B testing bersama 30 responden.",
+      ],
+    },
+    {
+      year: "Nov 2024",
+      role: "Pembicara Webinar",
+      company: "BISA AI Academy — “Mengoptimalkan Desain dengan Plugin Figma”",
+      description:
+        "Mengisi sesi webinar teknis tentang penggunaan plugin Figma untuk mempercepat alur kerja desain.",
+      achievements: [
+        "Menyampaikan materi dan demonstrasi praktik penggunaan plugin Figma.",
+        "Memandu diskusi peserta webinar yang diikuti puluhan peserta.",
       ],
     },
   ],
   education: [
     {
-      year: "2019 — 2023",
-      degree: "Sarjana Komputer (S.Kom) - Teknik Informatika",
-      institution: "Universitas Bina Nusantara",
+      year: "Sep 2022 — Jul 2026",
+      degree: "S1 Sistem Informasi",
+      institution: "Universitas Alma Ata",
       description:
-        "Fokus pada Human-Computer Interaction (HCI), Software Engineering, dan Web Development. Lulus dengan predikat Sangat Memuaskan.",
+        "IPK 3,87/4,00. Fokus pada UI/UX Design: riset pengguna, information architecture, prototipe interaktif, dan usability testing.",
     },
   ],
 };

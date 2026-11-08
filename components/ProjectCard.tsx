@@ -56,10 +56,13 @@ export default function ProjectCard({ project }: ProjectCardProps) {
   };
 
   return (
-    <ScrollReveal>
-      <article className="group flex flex-col gap-6 border-b border-border pb-16 pt-10 scroll-mt-24 transition-colors">
-        {/* Editorial Index Number & Tags Header */}
-        <div className="flex flex-wrap items-center justify-between gap-4">
+    <ScrollReveal className="h-full">
+      <article className="group flex h-full flex-col gap-6 border-b border-border pb-14 pt-10 scroll-mt-24 transition-colors md:border-b-0 md:pb-0 md:pt-0">
+        {/* On multi-column rows the header block is tall enough that every cover starts on the
+            same line, so a row reads as one band instead of three staggered images. */}
+        <div className="flex flex-col gap-6 lg:min-h-[17rem]">
+          {/* Editorial Index Number & Tags Header */}
+          <div className="flex flex-wrap items-center justify-between gap-4">
           <span className="font-heading text-xl font-extrabold tracking-widest text-accent">
             {project.number} —
           </span>
@@ -78,7 +81,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
 
         {/* Project Title & Metadata Sub-header */}
         <div className="space-y-2">
-          <h3 className="font-heading text-3xl font-extrabold tracking-tight text-text-primary group-hover:text-accent transition-colors md:text-4xl lg:text-5xl leading-tight">
+          <h3 className="font-heading text-2xl font-extrabold tracking-tight text-text-primary group-hover:text-accent transition-colors md:text-3xl leading-tight">
             <Link
               href={`/work/${project.slug}`}
               data-cursor="project"
@@ -90,11 +93,16 @@ export default function ProjectCard({ project }: ProjectCardProps) {
 
           <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs font-semibold tracking-wider text-text-muted uppercase pt-1">
             <span>{project.category}</span>
-            <span>•</span>
-            <span>{project.year}</span>
-            <span>•</span>
+            {project.year && (
+              <>
+                <span aria-hidden="true">•</span>
+                <span>{project.year}</span>
+              </>
+            )}
+            <span aria-hidden="true">•</span>
             <span>Role: {project.role}</span>
           </div>
+        </div>
         </div>
 
         {/* Interactive Mouse-Follow 3D Tilt Project Visual Container */}
@@ -137,7 +145,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         </motion.div>
 
         {/* Description & Link */}
-        <div className="mt-2 flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
+        <div className="mt-auto flex flex-col items-start justify-between gap-4 pt-2 md:flex-row md:items-center">
           <p className="max-w-2xl text-base text-text-secondary leading-relaxed">
             {project.shortDescription}
           </p>
@@ -145,7 +153,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           <Link
             href={`/work/${project.slug}`}
             data-cursor="cta"
-            className="inline-flex items-center gap-1.5 font-heading text-sm font-bold text-text-primary transition-colors hover:text-accent group-hover:translate-x-1"
+            className="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap font-heading text-sm font-bold text-text-primary transition-colors hover:text-accent group-hover:translate-x-1"
           >
             <span>View Case Study</span>
             <ArrowUpRight

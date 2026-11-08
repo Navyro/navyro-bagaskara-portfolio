@@ -4,31 +4,24 @@ import React, { useState } from "react";
 import SectionHeading from "@/components/SectionHeading";
 import ProjectCard from "@/components/ProjectCard";
 import ScrollReveal from "@/components/ScrollReveal";
-import { projectsData } from "@/data/projects";
+import { projectsData, Project } from "@/data/projects";
 
-type CategoryFilter = "All" | "UI/UX" | "Web" | "Mobile" | "Front-End";
+type CategoryFilter = "All" | Project["category"];
 
 export default function WorkPage() {
   const [activeFilter, setActiveFilter] = useState<CategoryFilter>("All");
 
+  // Filters come from the data itself: a filter that can only ever return an empty list
+  // is not a filter, it is a dead end.
   const categories: CategoryFilter[] = [
     "All",
-    "UI/UX",
-    "Web",
-    "Mobile",
-    "Front-End",
+    ...Array.from(new Set(projectsData.map((p) => p.category))),
   ];
 
   const filteredProjects =
     activeFilter === "All"
       ? projectsData
-      : projectsData.filter(
-          (p) =>
-            p.category === activeFilter ||
-            p.tags.some(
-              (tag) => tag.toLowerCase() === activeFilter.toLowerCase()
-            )
-        );
+      : projectsData.filter((p) => p.category === activeFilter);
 
   return (
     <div className="w-full py-16 lg:py-24">
@@ -53,11 +46,12 @@ export default function WorkPage() {
                 key={cat}
                 type="button"
                 data-cursor="cta"
+                aria-pressed={activeFilter === cat}
                 onClick={() => setActiveFilter(cat)}
-                className={`rounded-btn px-4 py-2 text-xs font-semibold tracking-wide transition-all ${
+                className={`inline-flex min-h-11 items-center rounded-btn px-4 text-xs font-semibold tracking-wide transition-all ${
                   activeFilter === cat
                     ? "bg-text-primary text-background shadow-sm"
-                    : "bg-surface text-text-secondary border border-border hover:border-text-primary hover:text-text-primary"
+                    : "border border-border bg-surface text-text-secondary hover:border-text-primary hover:text-text-primary"
                 }`}
               >
                 {cat}
@@ -68,7 +62,7 @@ export default function WorkPage() {
 
         {/* Project List */}
         {filteredProjects.length > 0 ? (
-          <div className="space-y-4">
+          <div className="grid grid-cols-1 gap-x-10 gap-y-14 md:grid-cols-2">
             {filteredProjects.map((project) => (
               <ProjectCard
                 key={project.slug}

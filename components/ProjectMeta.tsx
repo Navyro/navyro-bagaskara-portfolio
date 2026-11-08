@@ -2,9 +2,9 @@ import React from "react";
 
 interface ProjectMetaProps {
   role: string;
-  year: string;
-  duration: string;
-  team: string;
+  year?: string;
+  duration?: string;
+  team?: string;
   tools: string[];
 }
 
@@ -15,6 +15,8 @@ export default function ProjectMeta({
   team,
   tools,
 }: ProjectMetaProps) {
+  const yearLabel = year ? (duration ? `${year} (${duration})` : year) : undefined;
+
   return (
     <div className="grid grid-cols-2 gap-6 rounded-card border border-border bg-surface p-6 sm:grid-cols-4 md:p-8">
       <div>
@@ -28,21 +30,23 @@ export default function ProjectMeta({
 
       <div>
         <span className="block text-xs font-semibold uppercase tracking-wider text-text-muted">
-          Year &amp; Duration
+          {duration ? "Year & Duration" : "Year"}
         </span>
         <span className="mt-1 block text-sm font-semibold text-text-primary">
-          {year} ({duration})
+          {yearLabel ?? "—"}
         </span>
       </div>
 
-      <div>
-        <span className="block text-xs font-semibold uppercase tracking-wider text-text-muted">
-          Team
-        </span>
-        <span className="mt-1 block text-sm font-semibold text-text-primary">
-          {team}
-        </span>
-      </div>
+      {team && (
+        <div>
+          <span className="block text-xs font-semibold uppercase tracking-wider text-text-muted">
+            Team
+          </span>
+          <span className="mt-1 block text-sm font-semibold text-text-primary">
+            {team}
+          </span>
+        </div>
+      )}
 
       <div>
         <span className="block text-xs font-semibold uppercase tracking-wider text-text-muted">

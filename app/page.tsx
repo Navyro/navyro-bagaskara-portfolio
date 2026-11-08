@@ -64,7 +64,7 @@ export default function HomePage() {
             </div>
           </ScrollReveal>
 
-          <div className="space-y-4">
+          <div className="grid grid-cols-1 gap-x-10 gap-y-14 md:grid-cols-2 lg:grid-cols-3">
             {featuredProjects.map((project) => (
               <ProjectCard
                 key={project.slug}

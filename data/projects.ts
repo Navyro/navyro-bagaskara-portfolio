@@ -13,7 +13,7 @@ export interface CaseStudyData {
   liveUrl?: string;
   testing?: string;
   finalResult: string;
-  reflection: string;
+  reflection?: string;
 }
 
 export interface Project {
@@ -23,10 +23,13 @@ export interface Project {
   category: "UI/UX" | "Web" | "Mobile" | "Front-End";
   tags: string[];
   role: string;
-  year: string;
-  duration: string;
-  team: string;
+  /** Only filled when the source material states it. */
+  year?: string;
+  duration?: string;
+  team?: string;
   tools: string[];
+  /** Framing used for this project's screenshots. */
+  screenFrame: "phone" | "desktop";
   shortDescription: string;
   featured: boolean;
   coverImage: string;
@@ -34,189 +37,292 @@ export interface Project {
   caseStudy: CaseStudyData;
 }
 
+/**
+ * Real projects only. Sources: `TENTANG SAYA/CV_Navyro_Bagaskara_EN.pdf` (dates, roles,
+ * measured results, prototype links) and the screenshot sets under `TENTANG SAYA/`
+ * (screen names, team attribution in filenames). Nothing here is invented: fields the
+ * sources do not state stay empty and are not rendered.
+ */
 export const projectsData: Project[] = [
   {
-    slug: "nexabank-mobile-app",
+    slug: "sipenelitian-uaa",
     number: "01",
-    title: "NexaBank — Mobile Banking Experience Redesign",
-    category: "Mobile",
-    tags: ["UI/UX Design", "Mobile App", "User Research", "FinTech"],
-    role: "Lead UI/UX Designer",
-    year: "2024",
-    duration: "3 Bulan",
-    team: "1 UI/UX Designer, 2 Developers, 1 Product Manager",
-    tools: ["Figma", "FigJam", "Protopie", "UsabilityHub"],
-    shortDescription:
-      "Perancangan ulang aplikasi perbankan seluler untuk menyederhanakan transaksi harian, meningkatkan kejelasan visual informasi keuangan, dan mengurangi rasio drop-off pengguna sebesar 28%.",
-    featured: true,
-    coverImage: "/images/nexabank-cover.png",
-    galleryImages: [
-      "/images/nexabank-cover.png",
-      "/images/nexabank-screen1.svg",
-      "/images/nexabank-screen2.svg",
-    ],
-    caseStudy: {
-      overview:
-        "NexaBank adalah aplikasi perbankan digital yang melayani lebih dari 150.000 pengguna aktif bulanan. Meskipun memiliki fitur finansial yang lengkap, pengguna sering mengeluhkan kerumitan navigasi saat ingin melakukan transfer cepat dan pembayaran tagihan rutin.",
-      problem:
-        "Berdasarkan analisis analitik dan ulasan pengguna di toko aplikasi, 42% pengguna mengalami kegagalan saat pertama kali mencoba transfer antarbank karena hirarki tombol yang tersembunyi dalam 4 tingkatan menu. Selain itu, tampilan saldo dan riwayat transaksi terasa menumpuk tanpa separasi visual yang jelas.",
-      research:
-        "Saya memimpin sesi wawancara mendalam terhadap 12 responden dari kelompok usia 22–45 tahun serta menyebarkan kuesioner ke 80 pengguna aktif. Hasilnya menunjukkan bahwa 75% pengguna hanya menggunakan 3 fitur utama sehari-hari: Cek Saldo, Transfer Cepat, dan Riwayat Transaksi.",
-      keyInsights: [
-        "Pengguna menginginkan akses langsung ke fitur utama tanpa perlu membuka hamburger menu.",
-        "Keterangan status transaksi (Berhasil/Pending/Gagal) membutuhkan kontras visual yang lebih intuitif.",
-        "Input nomor rekening memerlukan validasi langsung (real-time feedback) sebelum konfirmasi pembayaran.",
-      ],
-      define:
-        "Fokus utama redesain ini adalah memangkas langkah transaksi dari 5 ketukan menjadi maksimal 2 ketukan dari halaman beranda (Home dashboard).",
-      ideation:
-        "Melalui eksplorasi sketsa dan pemetaan fungsionalitas, kami menyusun skema 'Quick Actions Bar' di bagian bawah layar utama, serta kartu saldo modular yang dapat di-swipe untuk melihat rekening sekunder.",
-      informationArchitecture:
-        "Mengorganisir ulang struktur navigasi bawah (Bottom Navigation Bar) menjadi 4 tab utama yang jelas: Beranda, Transaksi, Analisis Keuangan, dan Pengaturan Profil.",
-      userFlow:
-        "Alur Transfer Cepat: Beranda → Ketuk 'Transfer' → Pilih Kontak Favorit / Input Rekening → Masukkan Nominal → Otentikasi Biometrik → Struk Sukses.",
-      wireframes:
-        "Membuat wireframe low-fidelity untuk menguji tata letak informasi sebelum memasuki tahap visual design high-fidelity.",
-      uiDesign:
-        "Desain antarmuka menggunakan palet warna navy profesional dengan aksen biru elektrik terukur untuk memberikan kesan terpercaya dan modern. Tipografi mengutamakan keterbacaan angka finansial dengan bobot yang tegas.",
-      prototypeUrl: "https://figma.com/proto/sample-nexabank",
-      testing:
-        "Uji keterpakaian (Usability Testing) menggunakan metode Unmoderated Task Execution pada 10 partisipan. Hasilnya menunjukkan penurunan durasi penyelesaian transaksi dari 45 detik menjadi 14 detik.",
-      finalResult:
-        "Aplikasi NexaBank versi baru berhasil meningkatkan kepuasan pengguna (CSAT) dari 3.2/5 menjadi 4.7/5 serta mengurangi tiket pengaduan kendala navigasi hingga 60%.",
-      reflection:
-        "Proyek ini mengajarkan pentingnya menyederhanakan hirarki visual untuk aplikasi finansial. Menghilangkan elemen dekoratif berlebihan mempercepat proses mental pengguna dalam mengelola uang mereka.",
-    },
-  },
-  {
-    slug: "elevate-design-system",
-    number: "02",
-    title: "Elevate OS — Enterprise Design System & Component Library",
-    category: "Front-End",
-    tags: ["Design System", "Front-End", "React", "TypeScript", "Tailwind CSS"],
-    role: "UI/UX & Front-End Developer",
-    year: "2024",
-    duration: "4 Bulan",
-    team: "2 UI Designers, 2 Front-End Engineers",
-    tools: ["Figma", "React", "TypeScript", "Tailwind CSS", "Storybook"],
-    shortDescription:
-      "Arsitektur design system komprehensif yang menghubungkan komponen visual Figma ke dalam pustaka komponen kode React & TypeScript yang siap pakai untuk produk ekosistem enterprise.",
-    featured: true,
-    coverImage: "/images/elevate-cover.png",
-    galleryImages: [
-      "/images/elevate-cover.png",
-      "/images/elevate-screen1.svg",
-      "/images/elevate-screen2.svg",
-    ],
-    caseStudy: {
-      overview:
-        "Elevate OS diciptakan untuk menyelesaikan ketidakselarasan antarmuka antara tim desain dan tim teknis di 5 produk SaaS internal yang dikembangkan bersamaan.",
-      problem:
-        "Sebelum adanya Elevate OS, setiap produk menggunakan variasi warna tombol, spasi, dan variabel CSS yang berbeda. Hal ini menyebabkan inconsistency antarmuka, duplikasi kode hingga 40%, serta waktu handoff yang lambat.",
-      research:
-        "Kami melakukan audit UI pada lebih dari 120 layar produk eksisting dan menemukan 14 jenis warna biru yang berbeda serta 9 bentuk modal dialog yang redundan.",
-      keyInsights: [
-        "Variabel desain (Design Tokens) harus menjadi sumber kebenaran tunggal (single source of truth) untuk warna, spasi, dan tipografi.",
-        "Komponen React harus memiliki API prop yang intuitif dan ketat menggunakan TypeScript interface.",
-        "Dokumentasi komponen harus dapat diakses secara interaktif melalui Storybook.",
-      ],
-      define:
-        "Standarisasi 3 layer utama: Layer 1 (Tokens), Layer 2 (Base Primitives seperti Button, Input, Badge), Layer 3 (Complex Patterns seperti Data Table, Modal Header).",
-      ideation:
-        "Menyusun konvensi penamaan token yang konsisten (misal: `color-bg-primary`, `space-4`, `radius-btn`) agar langsung selaras dengan utilitas Tailwind CSS.",
-      uiDesign:
-        "Desain komponen dibuat netral, bersih, dan berorientasi pada produktivitas dengan state lengkap: Default, Hover, Focus Ring, Active, Disabled, dan Loading Skeleton.",
-      liveUrl: "https://github.com/navyrobagaskara/elevate-design-system",
-      testing:
-        "Diuji oleh 8 developer internal dengan membangun ulang halaman dashboard sampel. Hasil pengujian menunjukkan kecepatan pengembangan halaman baru meningkat hingga 2.5 kali lipat.",
-      finalResult:
-        "Elevate OS kini diadopsi sepenuhnya oleh seluruh tim produk, menghasilkan konsistensi visual 100% dan mengurangi ukuran bundel CSS produk hingga 30%.",
-      reflection:
-        "Membangun design system bukan sekadar membuat library UI, tetapi juga membangun jembatan komunikasi dan efisiensi antara desainer dan engineer.",
-    },
-  },
-  {
-    slug: "luminary-ecommerce",
-    number: "03",
-    title: "Luminary — Editorial E-Commerce Website",
+    title: "SIPENELITIAN — Sistem Informasi Pengelolaan Data Penelitian UAA",
     category: "Web",
-    tags: ["UI/UX Design", "Web Development", "Next.js", "Editorial Style"],
-    role: "UI/UX Designer + Front-End Specialist",
-    year: "2023",
-    duration: "2 Bulan",
-    team: "Proyek Mandiri (Personal Project)",
-    tools: ["Figma", "Next.js", "TypeScript", "Tailwind CSS"],
+    tags: ["UI/UX Design", "Web App", "Design Thinking", "Usability Testing"],
+    role: "UI/UX Designer",
+    year: "2026",
+    duration: "Mei — Juli 2026",
+    team: "Tim pengembangan LP2M Universitas Alma Ata",
+    tools: ["Figma"],
+    screenFrame: "desktop",
     shortDescription:
-      "Pengalaman e-commerce bergaya editorial profesional untuk brand gaya hidup premium, mengombinasikan tata letak typography-led dengan antarmuka belanja tanpa hambatan.",
+      "Sistem informasi pengelolaan data penelitian untuk LP2M Universitas Alma Ata — dari wawancara pengguna hingga pengujian usability bersama 20 dosen dengan skor SUS 76,75.",
     featured: true,
-    coverImage: "/images/luminary-cover.png",
+    coverImage: "/images/projects/sipenelitian/cover.jpg",
     galleryImages: [
-      "/images/luminary-cover.png",
-      "/images/luminary-screen1.svg",
-      "/images/luminary-screen2.svg",
+      "/images/projects/sipenelitian/cover.jpg",
+      "/images/projects/sipenelitian/screens/01-login.png",
+      "/images/projects/sipenelitian/screens/02-dashboard-admin.png",
+      "/images/projects/sipenelitian/screens/03-hibah-internal-tambah-program-hibah.png",
+      "/images/projects/sipenelitian/screens/04-usulan-masuk-semua-tahun.png",
+      "/images/projects/sipenelitian/screens/05-usulan-masuk-detail-klik-update-ubah-status.png",
+      "/images/projects/sipenelitian/screens/06-laporan-kemajuan-detail-monitoring-logbook.png",
+      "/images/projects/sipenelitian/screens/07-sistem-informasi-pengelolaan-data-penelitian-uaa-laporan-akhir-download-lembar-pengesahan.png",
+      "/images/projects/sipenelitian/screens/08-sistem-informasi-pengelolaan-data-penelitian-uaa-kelola-user-user-ditambahkan.png",
     ],
     caseStudy: {
       overview:
-        "Luminary adalah konsep platform e-commerce yang memadukan majalah editorial dengan toko online premium. Fokusnya adalah menyampaikan cerita di balik produk tanpa mengorbankan fungsionalitas belanja.",
+        "SIPENELITIAN adalah sistem informasi untuk mengelola data penelitian di LP2M Universitas Alma Ata. Sistem ini menangani alur dari usulan penelitian dan hibah internal, pemantauan laporan kemajuan beserta logbook, sampai laporan akhir dan lembar pengesahan — dengan dua peran pengguna: dosen peneliti dan admin LP2M.",
       problem:
-        "Banyak situs e-commerce merek independen terjebak antara tampilan yang terlalu ramai seperti marketplace generik atau terlalu artistik sehingga menyulitkan pembeli menemukan tombol beli dan keranjang.",
+        "Data penelitian yang tersebar di banyak berkas membuat admin LP2M sulit melihat posisi tiap usulan: mana yang masih menunggu tinjauan, mana yang sedang berjalan, dan mana yang terlambat melaporkan kemajuan. Tantangan desainnya adalah menyatukan seluruh status itu ke dalam satu antarmuka tanpa menambah beban kerja admin.",
       research:
-        "Melakukan studi komparatif terhadap 10 situs e-commerce gaya hidup global. Menemukan bahwa rasio konversi tertinggi dicapai saat katalog produk disajikan dengan visual besar dan ruang kosong (whitespace) yang lega.",
+        "Proyek dikerjakan dengan proses Design Thinking, dimulai dari wawancara dan observasi di lingkungan LP2M UAA untuk memetakan alur usulan dan pelaporan yang berjalan, lalu diterjemahkan menjadi information architecture dan prototipe high-fidelity.",
       keyInsights: [
-        "Visual produk resolusi tinggi dengan pencahayaan alami memperkuat nilai estetik produk.",
-        "Tipografi editorial (serif/sans-serif terkontrol) memberikan kesan eksklusif.",
-        "Panel keranjang (Slide-over Cart) membuat alur belanja tetap lancar tanpa memindahkan pembeli dari halaman cerita produk.",
+        "Daftar usulan perlu menampilkan status dan tahun anggaran sekaligus, agar admin dapat menyaring tanpa membuka dokumen satu per satu.",
+        "Perubahan status harus bisa dilakukan langsung dari halaman detail usulan, bukan dari menu terpisah.",
+        "Logbook dan luaran penelitian ditempelkan pada laporan kemajuan supaya riwayat kegiatan tidak terpisah dari laporannya.",
       ],
       define:
-        "Merancang antarmuka web yang terasa seperti membalik halaman majalah mode, namun dibekali arsitektur Front-End Next.js yang sangat cepat.",
+        "Peran dipisahkan dengan jelas. Dosen mengajukan usulan dan mengunggah laporan; admin LP2M memverifikasi, mengubah status, dan mengunduh berkas pengesahan. Masing-masing mendapat halaman masuk dan navigasi sendiri, dengan pola tabel yang sama agar admin tidak perlu mempelajari ulang tiap halaman.",
+      informationArchitecture:
+        "Login → Dashboard Admin → Hibah Internal (tambah program) → Usulan Masuk (semua tahun) → Detail Usulan (perubahan status) → Laporan Kemajuan (monitoring & logbook) → Laporan Akhir (unduh lembar pengesahan) → Kelola User.",
+      userFlow:
+        "Alur admin: masuk → membaca ringkasan di dashboard → meninjau usulan masuk → membuka detail → memperbarui status.\nAlur dosen: masuk → mengajukan usulan → mengisi logbook → mengunggah laporan akhir.",
       uiDesign:
-        "Menggunakan latar belakang krem abu-abu netral (#F7F7F5), teks hitam kontras murni (#171717), serta aksen warna terstruktur. Setiap kartu produk menonjolkan foto tanpa potongan bingkai berlebihan.",
-      liveUrl: "https://luminary-editorial.vercel.app",
+        "Antarmuka dirancang di Figma sebagai dashboard desktop: tabel data dengan penanda status, panel detail di samping daftar, serta form hibah internal dan kelola user yang mengikuti pola tabel yang sama. Warna status dipakai konsisten untuk membedakan tahap usulan.",
+      testing:
+        "Usability testing dilakukan bersama 20 dosen. Hasilnya skor System Usability Scale (SUS) 76,75 — kategori “Acceptable” untuk acceptability dan “Good” untuk usability.",
       finalResult:
-        "Website Luminary berhasil dibangun penuh menggunakan Next.js App Router, memiliki skor performa Google Lighthouse 98, serta responsif sempurna di perangkat seluler maupun desktop.",
+        "Prototipe mencakup delapan layar utama: login, dashboard admin, tambah program hibah internal, daftar usulan semua tahun, detail usulan dengan perubahan status, detail monitoring laporan kemajuan & logbook, laporan akhir dengan unduh lembar pengesahan, dan kelola user.",
       reflection:
-        "Menyeimbangkan keindahan visual editorial dengan ketersediaan informasi belanja yang jelas membutuhkan disiplin hirarki tipografi dan komposisi grid yang presisi.",
+        "Pada sistem administratif, kejelasan status lebih menentukan daripada kemewahan visual. Bagian yang paling sering diuji ulang justru penempatan status dan tombol perubahan status.",
     },
   },
   {
-    slug: "healthpulse-dashboard",
-    number: "04",
-    title: "HealthPulse — Patient Engagement & Telehealth Platform",
-    category: "UI/UX",
-    tags: ["UI/UX Design", "Healthcare", "Web App", "Dashboard"],
+    slug: "fanfunds",
+    number: "02",
+    title: "FanFunds — Aplikasi Donasi untuk Kreator",
+    category: "Mobile",
+    tags: ["UI/UX Design", "Mobile App", "Design System", "A/B Testing"],
     role: "UI/UX Designer",
-    year: "2023",
-    duration: "3 Bulan",
-    team: "1 UI/UX Designer, 1 Health Domain Expert",
-    tools: ["Figma", "Miro", "Useberry"],
+    year: "2024",
+    duration: "Oktober — Desember 2024",
+    team: "Tim capstone MSIB Batch 7, BISA AI Academy",
+    tools: ["Figma"],
+    screenFrame: "phone",
     shortDescription:
-      "Platform dasbor kesehatan dan konsultasi medis jarak jauh yang dirancang untuk kemudahan penggunaan oleh dokter dan pasien dari berbagai tingkat literasi digital.",
-    featured: false,
-    coverImage: "/images/healthpulse-cover.png",
+      "Aplikasi donasi untuk kreator, dikerjakan sebagai proyek capstone studi independen MSIB Batch 7 — mencakup user persona, user flow, design system, dan A/B testing bersama 30 responden.",
+    featured: true,
+    coverImage: "/images/projects/fanfunds/cover.jpg",
     galleryImages: [
-      "/images/healthpulse-cover.png",
-      "/images/healthpulse-screen1.svg",
+      "/images/projects/fanfunds/cover.jpg",
+      "/images/projects/fanfunds/screens/01-splash-screen.png",
+      "/images/projects/fanfunds/screens/02-onboarding.png",
+      "/images/projects/fanfunds/screens/03-home-discover.png",
+      "/images/projects/fanfunds/screens/04-home-following.png",
+      "/images/projects/fanfunds/screens/05-search.png",
+      "/images/projects/fanfunds/screens/06-list-leaderboard.png",
+      "/images/projects/fanfunds/screens/07-profil-kreator-leaderboard.png",
+      "/images/projects/fanfunds/screens/08-profile-supporter.png",
+      "/images/projects/fanfunds/screens/09-donate-step-4.png",
+      "/images/projects/fanfunds/screens/10-notification-donatur-news.png",
+      "/images/projects/fanfunds/screens/11-notification-donatur-update.png",
     ],
     caseStudy: {
       overview:
-        "HealthPulse menyatukan rekam medis mandiri, jadwal konsultasi dokter online, dan pengingat konsumsi obat dalam satu dasbor terpadu.",
+        "FanFunds adalah aplikasi donasi untuk kreator: pendukung dapat menemukan kreator, memberikan dukungan, lalu melihat posisinya di leaderboard. Proyek ini dikerjakan sebagai capstone MSIB Batch 7 di BISA AI Academy, dengan saya berkontribusi sebagai UI/UX Designer.",
       problem:
-        "Aplikasi layanan kesehatan sering kali membingungkan bagi pengguna lansia atau orang yang membutuhkan pertolongan medis cepat karena istilah medis yang rumit dan tata letak dasbor yang padat.",
+        "Aplikasi donasi sering berhenti pada satu transaksi selesai. Tantangannya adalah membuat dukungan terasa sebagai hubungan berkelanjutan antara kreator dan pendukung — lewat pembaruan kreator, notifikasi, dan leaderboard.",
       research:
-        "Mengadakan riset kualitatif dengan 6 pengguna lanjut usia dan 4 dokter umum. Hasil riset menekankan perlunya ukuran teks yang mudah dibaca dan tombol tindakan medis yang berukuran besar.",
+        "Kontribusi riset mencakup penyusunan user persona dan user flow sebagai dasar perancangan, lalu dilanjutkan A/B testing bersama 30 responden untuk menguji varian rancangan.",
       keyInsights: [
-        "Ukuran target sentuh (touch target) pada perangkat tablet/seluler harus minimal 48px.",
-        "Status janji temu dokter harus menampilkan indikator waktu secara eksplisit.",
-        "Kontras warna antara teks dan latar belakang wajib memenuhi standar WCAG AAA.",
+        "Posisi donatur perlu terlihat dari halaman profil, tidak hanya di daftar leaderboard global.",
+        "Notifikasi dibedakan antara pembaruan kreator dan kabar donatur lain, agar keduanya tidak melebur menjadi satu jenis pesan.",
       ],
       define:
-        "Menyederhanakan dasbor pasien menjadi 3 kartu ringkasan utama: Janji Mendatang, Jadwal Obat Hari Ini, dan Hasil Laboratorium Terbaru.",
+        "Pengalaman dibagi menjadi tiga sumbu: menemukan kreator (discover), memberi dukungan (donate), dan memantau dampak dukungan (leaderboard serta notifikasi).",
+      informationArchitecture:
+        "Splash → Onboarding → Home (Discover / Following) → Pencarian → Leaderboard → Profil Kreator → Profil Supporter → Donasi → Notifikasi.",
+      userFlow:
+        "Donatur: onboarding → discover → memilih kreator → donasi bertahap → konfirmasi. Setelah donasi, posisi dan riwayat dukungan muncul di profil supporter dan leaderboard.",
       uiDesign:
-        "Palet warna hijau sage tenang dan biru lembut untuk memberikan sensasi psikologis yang meredakan kecemasan pasien.",
+        "Layar home, explore, pembayaran, dan leaderboard dirancang di Figma bersama design system proyek. Komponen tombol, kartu kreator, dan status progres donasi dipakai ulang lintas layar agar konsisten.",
+      testing:
+        "A/B testing dilakukan bersama 30 responden untuk membandingkan varian rancangan sebelum difinalisasi.",
       finalResult:
-        "Prototipe HealthPulse berhasil lolos uji aksesibilitas dengan skor kemudahan navigasi 92/100 dalam pengujian dengan kelompok pengguna lansia.",
+        "Sebelas layar: splash, onboarding, dua varian home (discover dan following), pencarian, daftar leaderboard, profil kreator, profil supporter, langkah donasi, serta dua notifikasi donatur.",
       reflection:
-        "Desain untuk sektor kesehatan menuntut empati ekstra terhadap kondisi mental dan fisik pengguna saat mengakses aplikasi.",
+        "Bekerja dalam tim capstone membuat saya terbiasa menyerahkan komponen design system, bukan sekadar file desain.",
+    },
+  },
+  {
+    slug: "penagihan-limbah-rt",
+    number: "03",
+    title: "Aplikasi Penagihan Limbah Rumah Tangga",
+    category: "Mobile",
+    tags: ["UI/UX Design", "Mobile App", "User Research"],
+    role: "UI/UX Designer (Mandiri)",
+    year: "2025",
+    duration: "Agustus — Oktober 2025",
+    team: "Individu",
+    tools: ["Figma"],
+    screenFrame: "phone",
+    shortDescription:
+      "Aplikasi penagihan iuran limbah untuk pengurus RT: mencatat tagihan warga, menandai tunggakan, dan menyusun laporan bulanan. Dikerjakan mandiri dari riset pengguna hingga prototipe interaktif.",
+    featured: true,
+    coverImage: "/images/projects/penagihan-limbah/cover.jpg",
+    galleryImages: [
+      "/images/projects/penagihan-limbah/cover.jpg",
+      "/images/projects/penagihan-limbah/screens/01-splash-screen.png",
+      "/images/projects/penagihan-limbah/screens/02-admin-login.png",
+      "/images/projects/penagihan-limbah/screens/03-dashboard.png",
+      "/images/projects/penagihan-limbah/screens/04-tagihan-individu-tunggakan-1.png",
+      "/images/projects/penagihan-limbah/screens/05-detail-tagihan-kelompok-warga-rt-01-feb-nunggak.png",
+      "/images/projects/penagihan-limbah/screens/06-laporan.png",
+    ],
+    caseStudy: {
+      overview:
+        "Aplikasi penagihan limbah rumah tangga untuk pengurus RT: mencatat tagihan warga, menandai tunggakan, dan menyusun laporan pemasukan. Dikerjakan secara mandiri dari riset pengguna, information architecture, hingga prototipe interaktif.",
+      problem:
+        "Pencatatan iuran limbah di tingkat RT umumnya masih manual, sehingga tunggakan sulit dilacak dan laporan bulanan harus dihitung ulang setiap periode.",
+      research:
+        "Riset pengguna dilakukan secara mandiri melalui wawancara dan observasi untuk memahami cara pengurus RT mencatat iuran dan menagih tunggakan.",
+      keyInsights: [
+        "Pengurus berpikir per kelompok warga (RT), bukan per individu — struktur data aplikasi harus mengikuti cara berpikir itu.",
+        "Tunggakan perlu tampil sebagai status yang menonjol, bukan tersembunyi di dalam detail tagihan.",
+      ],
+      define:
+        "Aplikasi dibagi menjadi dua sisi pengalaman: admin (login, dashboard, kelola tagihan, laporan) dan warga (melihat tagihan serta tunggakannya).",
+      informationArchitecture:
+        "Splash → Admin Login → Dashboard → Tagihan Individu → Detail Tagihan Kelompok → Laporan.",
+      userFlow:
+        "Admin masuk → melihat ringkasan pemasukan di dashboard → membuka tagihan warga → memeriksa tunggakan per kelompok RT → menyusun laporan periode.",
+      uiDesign:
+        "Antarmuka disusun di Figma dengan satu bahasa visual: kartu status tagihan, tabel tunggakan, dan ringkasan pemasukan pada dashboard. Status lunas dan menunggak dibedakan lewat warna, bukan hanya teks.",
+      finalResult:
+        "Enam layar: splash screen, admin login, dashboard, tagihan individu dengan tunggakan, detail tagihan kelompok warga RT 01, dan laporan.",
+      reflection:
+        "Mengerjakan sendiri dari riset sampai prototipe menuntut setiap keputusan punya alasan yang bisa dijelaskan, bukan hanya terlihat rapi.",
+    },
+  },
+  {
+    slug: "mediassist",
+    number: "04",
+    title: "Mediassist — Layanan Kesehatan & Konsultasi Dokter",
+    category: "Mobile",
+    tags: ["UI/UX Design", "Mobile App", "Team Project"],
+    role: "UI/UX Designer — layar Daftar Dokter & Detail Dokter",
+    team: "4 orang (Akbar, Amelda, Navyro Bagaskara, Dimas)",
+    tools: ["Figma"],
+    screenFrame: "phone",
+    shortDescription:
+      "Konsep aplikasi layanan kesehatan untuk mencari dokter, melihat jadwal praktik, dan berkonsultasi lewat chat. Dikerjakan tim beranggotakan empat orang dengan pembagian layar per anggota.",
+    featured: false,
+    coverImage: "/images/projects/mediassist/cover.jpg",
+    galleryImages: [
+      "/images/projects/mediassist/cover.jpg",
+      "/images/projects/mediassist/screens/01-onboarding-akbar.png",
+      "/images/projects/mediassist/screens/02-home-amelda.png",
+      "/images/projects/mediassist/screens/03-list-dokter-navyro.png",
+      "/images/projects/mediassist/screens/04-detail-dokter-navyro.png",
+      "/images/projects/mediassist/screens/05-jadwal-amelda.png",
+      "/images/projects/mediassist/screens/06-chat-dimas.png",
+    ],
+    caseStudy: {
+      overview:
+        "Mediassist adalah konsep aplikasi layanan kesehatan: mencari dokter, melihat jadwal, lalu berkonsultasi lewat chat. Proyek tim beranggotakan empat orang dengan pembagian layar per anggota.",
+      problem:
+        "Mencari dokter dan mengatur jadwal konsultasi biasanya tersebar di kanal berbeda — daftar dokter di satu tempat, jadwal di tempat lain, konsultasi di tempat ketiga. Konsep ini menyatukan ketiganya dalam satu alur.",
+      define:
+        "Pekerjaan dibagi per layar: onboarding, home, dan jadwal dipegang anggota lain; saya mengerjakan daftar dokter dan detail dokter; chat dikerjakan anggota lainnya.",
+      informationArchitecture:
+        "Onboarding → Home → Daftar Dokter → Detail Dokter → Jadwal → Chat.",
+      userFlow:
+        "Pengguna mengenal layanan lewat onboarding → melihat dokter yang tersedia → membuka detail dokter untuk memeriksa profil dan jadwal praktik → melanjutkan ke penjadwalan atau chat.",
+      uiDesign:
+        "Layar yang saya rancang: daftar dokter dengan kartu dokter dan penyaring spesialis, serta detail dokter berisi profil, jadwal praktik, dan aksi konsultasi. Keduanya memakai komponen yang sama dengan layar home dan jadwal milik anggota tim agar satu aplikasi terasa utuh.",
+      finalResult:
+        "Enam layar yang membentuk satu alur: onboarding, home, daftar dokter, detail dokter, jadwal, dan chat.",
+      reflection:
+        "Pada proyek tim, konsistensi komponen antaranggota lebih menentukan kualitas akhir daripada kerumitan satu layar.",
+    },
+  },
+  {
+    slug: "kick-swift",
+    number: "05",
+    title: "Kick Swift — Konsep Aplikasi Belanja Sepatu",
+    category: "Mobile",
+    tags: ["UI/UX Design", "Mobile App", "E-Commerce"],
+    role: "UI/UX Designer",
+    tools: ["Figma"],
+    screenFrame: "phone",
+    shortDescription:
+      "Konsep aplikasi belanja sepatu: katalog, pencarian, detail produk dengan pemilihan ukuran, dan keranjang belanja.",
+    featured: false,
+    coverImage: "/images/projects/kick-swift/cover.jpg",
+    galleryImages: [
+      "/images/projects/kick-swift/cover.jpg",
+      "/images/projects/kick-swift/screens/01-splash3.png",
+      "/images/projects/kick-swift/screens/02-onboard-1.png",
+      "/images/projects/kick-swift/screens/03-home.png",
+      "/images/projects/kick-swift/screens/04-search.png",
+      "/images/projects/kick-swift/screens/05-details.png",
+      "/images/projects/kick-swift/screens/06-troli.png",
+    ],
+    caseStudy: {
+      overview:
+        "Kick Swift adalah konsep aplikasi belanja sepatu: katalog dengan kategori dan produk populer, pencarian, detail produk, dan keranjang.",
+      problem:
+        "Pada belanja sepatu, ukuran adalah keputusan paling rawan. Pengguna perlu melihat ketersediaan ukuran dan material sebelum menambah produk ke keranjang, tanpa harus mundur ke katalog.",
+      informationArchitecture:
+        "Splash → Onboarding → Home → Pencarian → Detail Produk (galeri, material, ukuran) → Keranjang.",
+      userFlow:
+        "Pengguna membuka aplikasi → menelusuri kategori atau mencari → membuka detail produk → memilih ukuran → menambahkan ke keranjang → memeriksa ringkasan sebelum checkout.",
+      uiDesign:
+        "Home menampilkan kategori, sepatu populer, dan produk yang sedang dicari. Halaman detail memuat galeri, material, dan pemilih ukuran. Keranjang merangkum item beserta harga sebelum checkout, dengan hierarki visual yang menempatkan harga dan tombol aksi sebagai fokus.",
+      finalResult:
+        "Enam layar: splash, onboarding, home, pencarian, detail produk, dan keranjang.",
+    },
+  },
+  {
+    slug: "jogging-id",
+    number: "06",
+    title: "Jogging ID — Pelacak Lari & Tantangan",
+    category: "Mobile",
+    tags: ["UI/UX Design", "Mobile App", "Activity Tracking"],
+    role: "UI/UX Designer",
+    tools: ["Figma"],
+    screenFrame: "phone",
+    shortDescription:
+      "Konsep aplikasi pelacak lari: mencatat rute, waktu, dan hasil latihan, serta menyimpan riwayat dan tantangan mingguan.",
+    featured: false,
+    coverImage: "/images/projects/jogging-id/cover.jpg",
+    galleryImages: [
+      "/images/projects/jogging-id/cover.jpg",
+      "/images/projects/jogging-id/screens/01-splash-screen-3.png",
+      "/images/projects/jogging-id/screens/02-on-boarding.png",
+      "/images/projects/jogging-id/screens/03-home.png",
+      "/images/projects/jogging-id/screens/04-start-run.png",
+      "/images/projects/jogging-id/screens/05-week-1-day-1-out-door.png",
+      "/images/projects/jogging-id/screens/06-result-workout.png",
+      "/images/projects/jogging-id/screens/07-result.png",
+      "/images/projects/jogging-id/screens/08-challenges.png",
+      "/images/projects/jogging-id/screens/09-profile.png",
+    ],
+    caseStudy: {
+      overview:
+        "Jogging ID adalah konsep aplikasi pelacak lari: mencatat rute, waktu, dan hasil latihan, lalu menyimpan riwayat serta tantangan mingguan.",
+      problem:
+        "Saat berlari, pengguna hanya bisa melirik layar sepersekian detik. Informasi terpenting — jarak, waktu, dan pace — harus terbaca tanpa mengalihkan perhatian dari jalan.",
+      informationArchitecture:
+        "Splash → Onboarding → Home → Mulai Lari → Sesi Berlari → Ringkasan Hasil → Riwayat → Tantangan → Profil.",
+      userFlow:
+        "Pengguna membuka home → menekan mulai lari → memantau jarak, waktu, dan pace selama sesi → menyelesaikan sesi → menerima ringkasan hasil yang tersimpan di riwayat.",
+      uiDesign:
+        "Layar sesi berlari memakai tipografi besar dan kontras tinggi untuk jarak, waktu, dan pace, dengan tombol jeda yang mudah dijangkau satu tangan. Ringkasan hasil menampilkan rute dan data latihan, sementara halaman tantangan memakai sistem progres mingguan agar pengguna punya alasan kembali.",
+      finalResult:
+        "Sembilan layar: splash, onboarding, home, mulai lari, sesi lari luar ruangan, ringkasan latihan, hasil, tantangan, dan profil.",
     },
   },
 ];

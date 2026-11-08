@@ -8,6 +8,8 @@ interface ProjectCoverProps {
   ratio?: "4/5" | "16/9";
   priority?: boolean;
   className?: string;
+  /** Responsive hint for the browser; must match the frame's real rendered width. */
+  sizes?: string;
 }
 
 const RATIO_CLASS: Record<NonNullable<ProjectCoverProps["ratio"]>, string> = {
@@ -28,6 +30,7 @@ export default function ProjectCover({
   ratio = "4/5",
   priority = false,
   className = "",
+  sizes = "(min-width: 768px) 45vw, 100vw",
 }: ProjectCoverProps) {
   return (
     <div
@@ -37,7 +40,7 @@ export default function ProjectCover({
         src={src}
         alt={alt}
         fill
-        sizes="(min-width: 1024px) 1182px, 100vw"
+        sizes={sizes}
         priority={priority}
         className="object-contain object-center"
       />

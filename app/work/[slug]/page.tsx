@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowUpRight, ArrowRight } from "lucide-react";
 import ProjectMeta from "@/components/ProjectMeta";
 import ProjectCover from "@/components/ProjectCover";
+import ProjectScreens from "@/components/ProjectScreens";
 import CaseStudySection from "@/components/CaseStudySection";
 import ScrollReveal from "@/components/ScrollReveal";
 import ReadingProgressBar from "@/components/ReadingProgressBar";
@@ -74,14 +75,16 @@ export default function CaseStudyDetailPage({ params }: CaseStudyPageProps) {
           />
         </div>
 
-        {/* Main Cover Visual Container */}
+        {/* Main Cover Visual Container — the cover artwork is 4:5, so the frame follows it
+            instead of a 16:9 box that would leave wide empty gutters on both sides. */}
         <div className="mt-12">
           <ProjectCover
             src={project.coverImage}
             alt={project.title}
-            ratio="16/9"
+            ratio="4/5"
             priority
-            className="shadow-sm"
+            sizes="(min-width: 768px) 560px, 100vw"
+            className="mx-auto max-w-[560px] shadow-sm"
           />
         </div>
 
@@ -143,9 +146,11 @@ export default function CaseStudyDetailPage({ params }: CaseStudyPageProps) {
           {/* Information Architecture & User Flow */}
           <CaseStudySection
             title="05. Information Architecture & Flow"
-            content={`${project.caseStudy.informationArchitecture || ""}\n\n${
-              project.caseStudy.userFlow || ""
-            }`}
+            content={
+              [project.caseStudy.informationArchitecture, project.caseStudy.userFlow]
+                .filter(Boolean)
+                .join("\n\n") || undefined
+            }
           />
 
           {/* Wireframes & UI Design */}
@@ -153,19 +158,13 @@ export default function CaseStudyDetailPage({ params }: CaseStudyPageProps) {
             title="06. Wireframing & UI Design"
             content={project.caseStudy.uiDesign}
           >
-            {/* Gallery Images */}
+            {/* Gallery of the real product screens */}
             {project.galleryImages && project.galleryImages.length > 1 && (
-              <div className="mt-6 space-y-6">
-                {project.galleryImages.slice(1).map((img, idx) => (
-                  <ProjectCover
-                    key={idx}
-                    src={img}
-                    alt={`${project.title} Screen ${idx + 1}`}
-                    ratio="16/9"
-                    className="shadow-sm"
-                  />
-                ))}
-              </div>
+              <ProjectScreens
+                images={project.galleryImages.slice(1)}
+                frame={project.screenFrame}
+                title={project.title}
+              />
             )}
           </CaseStudySection>
 
@@ -221,7 +220,7 @@ export default function CaseStudyDetailPage({ params }: CaseStudyPageProps) {
                 </div>
 
                 <div className="lg:col-span-5">
-                  <ProjectCover src={nextProject.coverImage} alt={nextProject.title} ratio="16/9" />
+                  <ProjectCover src={nextProject.coverImage} alt={nextProject.title} ratio="4/5" />
                 </div>
               </div>
             </Link>

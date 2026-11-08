@@ -20,7 +20,7 @@ ASSERTIONS="$ROOT/tests/ux/layout.assertions.js"
 ROUTES=(
   "/:home"
   "/work:work"
-  "/work/nexabank-mobile-app:case-study"
+  "/work/fanfunds:case-study"
   "/about:about"
   "/contact:contact"
   "/resume:resume"
