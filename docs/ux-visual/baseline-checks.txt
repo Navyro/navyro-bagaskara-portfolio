@@ -1,0 +1,65 @@
+FAIL  hero.h1-is-full-name                       home@1440        "Navyro BagaskaraNavyro Bagaskara▌"
+FAIL  contrast.no-informative-low-contrast       home@1440        [{"text":"Mobile","ratio":3.99},{"text":"2024","ratio":3.99},{"text":"Role: Lead UI/UX Designe","ratio":3.99},
+FAIL  targets.min-24px                           home@1440        [{"t":"RESUME","w":72,"h":16},{"t":"Lihat Semua Proyek (","w":178,"h":20},{"t":"View Case Study","w":137,"h":2
+FAIL  type.no-text-below-12px                    home@1440        11px/600
+FAIL  images.frame-matches-artwork               home@1440        [{"src":"nexabank-cover.png","srcR":1,"boxR":1.78},{"src":"elevate-cover.png","srcR":1,"boxR":1.78},{"src":"lu
+FAIL  cards.equal-height-in-row                  home@1440        [{"delta":23,"hs":[256,233,256,233]},{"delta":152,"hs":[338,300,186]}]
+FAIL  contrast.no-informative-low-contrast       work@1440        [{"text":"Filter:","ratio":3.99},{"text":"Mobile","ratio":3.99},{"text":"2024","ratio":3.99},{"text":"Role: Le
+FAIL  targets.min-24px                           work@1440        [{"t":"RESUME","w":72,"h":16},{"t":"View Case Study","w":137,"h":20},{"t":"View Case Study","w":137,"h":20},{"
+FAIL  type.no-text-below-12px                    work@1440        11px/600
+FAIL  images.frame-matches-artwork               work@1440        [{"src":"nexabank-cover.png","srcR":1,"boxR":1.78},{"src":"elevate-cover.png","srcR":1,"boxR":1.78},{"src":"lu
+FAIL  sticky.progress-bar-under-header           case-study@1440  bar.top=61 header.bottom=77 delta=-16
+FAIL  sticky.progress-bar-not-covered            case-study@1440  hit=sticky top-0 z-40 w-full border-b border
+FAIL  contrast.no-informative-low-contrast       case-study@1440  [{"text":"Reading Case Study:","ratio":3.99},{"text":"100% COMPLETED","ratio":3.99},{"text":"Role","ratio":3.7
+FAIL  targets.min-24px                           case-study@1440  [{"t":"RESUME","w":72,"h":16},{"t":"KEMBALI KE DAFTAR PR","w":213,"h":16},{"t":"HealthPulse — Patien","w":351,
+FAIL  images.frame-matches-artwork               case-study@1440  [{"src":"nexabank-cover.png","srcR":1,"boxR":1.78},{"src":"elevate-cover.png","srcR":1,"boxR":1.6}]
+FAIL  contrast.no-informative-low-contrast       about@1440       [{"text":"2024 — Sekarang","ratio":3.99},{"text":"2022 — 2024","ratio":3.99},{"text":"2021 — 2022","ratio":3.9
+FAIL  targets.min-24px                           about@1440       [{"t":"RESUME","w":72,"h":16},{"t":"Work & Case Studies","w":138,"h":17},{"t":"About & Experience","w":131,"h"
+FAIL  contrast.no-informative-low-contrast       contact@1440     [{"text":"ALAMAT EMAIL UTAMA","ratio":3.7},{"text":"PROFIL PROFESIONAL","ratio":3.7}]
+FAIL  targets.min-24px                           contact@1440     [{"t":"RESUME","w":72,"h":16},{"t":"Work & Case Studies","w":138,"h":17},{"t":"About & Experience","w":131,"h"
+FAIL  contact.form-has-transport                 contact@1440     mailto:/action present in form markup or transport flag
+FAIL  contrast.no-informative-low-contrast       resume@1440      [{"text":"Ringkasan Kualifikasi","ratio":3.7},{"text":"Pengalaman Kerja","ratio":3.7},{"text":"2024 — Sekarang
+FAIL  targets.min-24px                           resume@1440      [{"t":"RESUME","w":72,"h":16},{"t":"Work & Case Studies","w":138,"h":17},{"t":"About & Experience","w":131,"h"
+FAIL  hero.h1-is-full-name                       home@768         "Navyro BagaskaraNavyro Bagaskara▌"
+FAIL  contrast.no-informative-low-contrast       home@768         [{"text":"Mobile","ratio":3.99},{"text":"2024","ratio":3.99},{"text":"Role: Lead UI/UX Designe","ratio":3.99},
+FAIL  targets.min-24px                           home@768         [{"t":"RESUME","w":72,"h":16},{"t":"Selengkapnya Tentang","w":215,"h":20},{"t":"Download Resume ↗","w":138,"h"
+FAIL  type.no-text-below-12px                    home@768         11px/600
+FAIL  images.frame-matches-artwork               home@768         [{"src":"nexabank-cover.png","srcR":1,"boxR":1.78},{"src":"elevate-cover.png","srcR":1,"boxR":1.78},{"src":"lu
+FAIL  cards.equal-height-in-row                  home@768         [{"delta":204,"hs":[456,430,252]}]
+FAIL  contrast.no-informative-low-contrast       work@768         [{"text":"Filter:","ratio":3.99},{"text":"Mobile","ratio":3.99},{"text":"2024","ratio":3.99},{"text":"Role: Le
+FAIL  targets.min-24px                           work@768         [{"t":"RESUME","w":72,"h":16},{"t":"Work & Case Studies","w":138,"h":17},{"t":"About & Experience","w":131,"h"
+FAIL  type.no-text-below-12px                    work@768         11px/600
+FAIL  images.frame-matches-artwork               work@768         [{"src":"nexabank-cover.png","srcR":1,"boxR":1.78},{"src":"elevate-cover.png","srcR":1,"boxR":1.78},{"src":"lu
+FAIL  sticky.progress-bar-under-header           case-study@768   bar.top=61 header.bottom=69 delta=-8
+FAIL  contrast.no-informative-low-contrast       case-study@768   [{"text":"Reading Case Study:","ratio":3.99},{"text":"100% COMPLETED","ratio":3.99},{"text":"Role","ratio":3.7
+FAIL  targets.min-24px                           case-study@768   [{"t":"RESUME","w":72,"h":16},{"t":"KEMBALI KE DAFTAR PR","w":213,"h":16},{"t":"HealthPulse — Patien","w":351,
+FAIL  images.frame-matches-artwork               case-study@768   [{"src":"nexabank-cover.png","srcR":1,"boxR":1.78},{"src":"elevate-cover.png","srcR":1,"boxR":1.6}]
+FAIL  contrast.no-informative-low-contrast       about@768        [{"text":"2024 — Sekarang","ratio":3.99},{"text":"2022 — 2024","ratio":3.99},{"text":"2021 — 2022","ratio":3.9
+FAIL  targets.min-24px                           about@768        [{"t":"RESUME","w":72,"h":16},{"t":"Work & Case Studies","w":138,"h":17},{"t":"About & Experience","w":131,"h"
+FAIL  contrast.no-informative-low-contrast       contact@768      [{"text":"ALAMAT EMAIL UTAMA","ratio":3.7},{"text":"PROFIL PROFESIONAL","ratio":3.7}]
+FAIL  targets.min-24px                           contact@768      [{"t":"RESUME","w":72,"h":16},{"t":"Work & Case Studies","w":138,"h":17},{"t":"About & Experience","w":131,"h"
+FAIL  contact.form-has-transport                 contact@768      mailto:/action present in form markup or transport flag
+FAIL  contrast.no-informative-low-contrast       resume@768       [{"text":"Ringkasan Kualifikasi","ratio":3.7},{"text":"Pengalaman Kerja","ratio":3.7},{"text":"2024 — Sekarang
+FAIL  targets.min-24px                           resume@768       [{"t":"RESUME","w":72,"h":16},{"t":"Work & Case Studies","w":138,"h":17},{"t":"About & Experience","w":131,"h"
+FAIL  hero.h1-is-full-name                       home@390         "Navyro BagaskaraNavyro Bagask▌"
+FAIL  contrast.no-informative-low-contrast       home@390         [{"text":"Mobile","ratio":3.99},{"text":"2024","ratio":3.99},{"text":"Role: Lead UI/UX Designe","ratio":3.99},
+FAIL  targets.min-44px                           home@390         [{"t":"NAVYRO.","w":73,"h":28},{"t":"Switch visual theme","w":36,"h":36},{"t":"Toggle navigation me","w":67,"h
+FAIL  type.no-text-below-12px                    home@390         11px/600
+FAIL  images.frame-matches-artwork               home@390         [{"src":"nexabank-cover.png","srcR":1,"boxR":1.79},{"src":"elevate-cover.png","srcR":1,"boxR":1.79},{"src":"lu
+FAIL  contrast.no-informative-low-contrast       work@390         [{"text":"Filter:","ratio":3.99},{"text":"Mobile","ratio":3.99},{"text":"2024","ratio":3.99},{"text":"Role: Le
+FAIL  targets.min-44px                           work@390         [{"t":"NAVYRO.","w":73,"h":28},{"t":"Switch visual theme","w":36,"h":36},{"t":"Toggle navigation me","w":67,"h
+FAIL  type.no-text-below-12px                    work@390         11px/600
+FAIL  images.frame-matches-artwork               work@390         [{"src":"nexabank-cover.png","srcR":1,"boxR":1.79},{"src":"elevate-cover.png","srcR":1,"boxR":1.79},{"src":"lu
+FAIL  sticky.progress-bar-under-header           case-study@390   bar.top=61 header.bottom=69 delta=-8
+FAIL  contrast.no-informative-low-contrast       case-study@390   [{"text":"100% COMPLETED","ratio":3.99},{"text":"Role","ratio":3.7},{"text":"Year & Duration","ratio":3.7},{"t
+FAIL  targets.min-44px                           case-study@390   [{"t":"NAVYRO.","w":73,"h":28},{"t":"Switch visual theme","w":36,"h":36},{"t":"Toggle navigation me","w":67,"h
+FAIL  images.frame-matches-artwork               case-study@390   [{"src":"nexabank-cover.png","srcR":1,"boxR":1.79},{"src":"elevate-cover.png","srcR":1,"boxR":1.61}]
+FAIL  contrast.no-informative-low-contrast       about@390        [{"text":"2024 — Sekarang","ratio":3.99},{"text":"2022 — 2024","ratio":3.99},{"text":"2021 — 2022","ratio":3.9
+FAIL  targets.min-44px                           about@390        [{"t":"NAVYRO.","w":73,"h":28},{"t":"Switch visual theme","w":36,"h":36},{"t":"Toggle navigation me","w":67,"h
+FAIL  contrast.no-informative-low-contrast       contact@390      [{"text":"ALAMAT EMAIL UTAMA","ratio":3.7},{"text":"PROFIL PROFESIONAL","ratio":3.7}]
+FAIL  targets.min-44px                           contact@390      [{"t":"NAVYRO.","w":73,"h":28},{"t":"Switch visual theme","w":36,"h":36},{"t":"Toggle navigation me","w":67,"h
+FAIL  contact.form-has-transport                 contact@390      mailto:/action present in form markup or transport flag
+FAIL  contrast.no-informative-low-contrast       resume@390       [{"text":"Ringkasan Kualifikasi","ratio":3.7},{"text":"Pengalaman Kerja","ratio":3.7},{"text":"2024 — Sekarang
+FAIL  targets.min-44px                           resume@390       [{"t":"NAVYRO.","w":73,"h":28},{"t":"Switch visual theme","w":36,"h":36},{"t":"Toggle navigation me","w":67,"h
+----
+checks: 111   failures: 63
