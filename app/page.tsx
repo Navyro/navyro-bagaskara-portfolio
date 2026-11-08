@@ -57,7 +57,7 @@ export default function HomePage() {
               />
               <Link
                 href="/work"
-                className="mb-12 inline-flex items-center gap-1.5 font-heading text-control font-bold text-accent hover:underline md:mb-16"
+                className="tap mb-12 inline-flex items-center gap-1.5 font-heading text-control font-bold text-accent hover:underline md:mb-16"
               >
                 Lihat Semua Proyek ({projectsData.length}) <ArrowRight size={16} />
               </Link>
@@ -154,7 +154,7 @@ export default function HomePage() {
               />
               <Link
                 href="/about"
-                className="mb-12 inline-flex items-center gap-1.5 font-heading text-control font-bold text-text-primary hover:text-accent md:mb-16"
+                className="tap mb-12 inline-flex items-center gap-1.5 font-heading text-control font-bold text-text-primary hover:text-accent md:mb-16"
               >
                 Lihat Detail Karir <ArrowRight size={16} />
               </Link>
@@ -202,13 +202,13 @@ export default function HomePage() {
                 <div className="pt-4 flex flex-wrap gap-4">
                   <Link
                     href="/about"
-                    className="inline-flex items-center gap-2 font-heading text-control font-bold text-text-primary hover:text-accent"
+                    className="tap-block inline-flex items-center gap-2 font-heading text-control font-bold text-text-primary hover:text-accent"
                   >
                     Selengkapnya Tentang Saya <ArrowUpRight size={18} />
                   </Link>
                   <Link
                     href="/resume"
-                    className="inline-flex items-center gap-2 font-heading text-control font-bold text-text-secondary hover:text-text-primary"
+                    className="tap-block inline-flex items-center gap-2 font-heading text-control font-bold text-text-secondary hover:text-text-primary"
                   >
                     Download Resume ↗
                   </Link>

@@ -46,7 +46,7 @@ export default function CaseStudyDetailPage({ params }: CaseStudyPageProps) {
         {/* Back Link */}
         <Link
           href="/work"
-          className="inline-flex items-center gap-2 text-meta font-semibold tracking-wider text-text-secondary hover:text-text-primary transition-colors mb-8"
+          className="tap inline-flex items-center gap-2 text-meta font-semibold tracking-wider text-text-secondary hover:text-text-primary transition-colors mb-8"
         >
           <ArrowLeft size={16} /> KEMBALI KE DAFTAR PROYEK
         </Link>
@@ -230,13 +230,13 @@ export default function CaseStudyDetailPage({ params }: CaseStudyPageProps) {
           <div className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-border pt-8 text-meta font-semibold">
             <Link
               href={`/work/${prevProject.slug}`}
-              className="inline-flex items-center gap-1.5 text-text-secondary hover:text-text-primary transition-colors"
+              className="tap inline-flex items-center gap-1.5 text-text-secondary hover:text-text-primary transition-colors"
             >
               <ArrowLeft size={14} /> {prevProject.title}
             </Link>
             <Link
               href={`/work/${nextProject.slug}`}
-              className="inline-flex items-center gap-1.5 text-text-secondary hover:text-accent transition-colors"
+              className="tap inline-flex items-center gap-1.5 text-text-secondary hover:text-accent transition-colors"
             >
               {nextProject.title} <ArrowRight size={14} />
             </Link>

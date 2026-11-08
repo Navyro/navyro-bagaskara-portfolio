@@ -32,7 +32,7 @@ export default function Navbar() {
           {/* Logo / Brand Name */}
           <Link
             href="/"
-            className="font-heading text-h3 font-bold tracking-tight text-text-primary transition-opacity hover:opacity-75"
+            className="inline-flex items-center font-heading text-h3 font-bold tracking-tight text-text-primary transition-opacity hover:opacity-75 max-md:py-2.5 max-md:-my-2.5"
           >
             NAVYRO<span className="text-accent">.</span>
           </Link>
@@ -56,7 +56,7 @@ export default function Navbar() {
               {/* Resume Link */}
               <Link
                 href="/resume"
-                className="inline-flex items-center gap-1 text-meta font-semibold tracking-wider text-text-primary transition-colors hover:text-accent"
+                className="tap inline-flex items-center gap-1 text-meta font-semibold tracking-wider text-text-primary transition-colors hover:text-accent"
               >
                 RESUME <ArrowUpRight size={14} className="text-text-muted" />
               </Link>
@@ -71,7 +71,7 @@ export default function Navbar() {
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="flex items-center gap-2 text-meta font-semibold tracking-wider text-text-primary"
+              className="tap flex items-center gap-2 text-meta font-semibold tracking-wider text-text-primary"
               aria-label="Toggle navigation menu"
             >
               <span>{mobileMenuOpen ? "CLOSE" : "MENU"}</span>

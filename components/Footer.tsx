@@ -26,12 +26,12 @@ export default function Footer() {
             <p className="text-meta font-semibold tracking-wider opacity-50 uppercase">
               Navigation
             </p>
-            <ul className="mt-4 flex flex-col gap-3 text-control">
+            <ul className="mt-4 flex flex-col max-md:gap-0 md:gap-3 text-control">
               <li>
                 <Link
                   href="/work"
                   data-cursor="cta"
-                  className="transition-colors hover:text-accent"
+                  className="tap-block transition-colors hover:text-accent"
                 >
                   Work &amp; Case Studies
                 </Link>
@@ -40,7 +40,7 @@ export default function Footer() {
                 <Link
                   href="/about"
                   data-cursor="cta"
-                  className="transition-colors hover:text-accent"
+                  className="tap-block transition-colors hover:text-accent"
                 >
                   About &amp; Experience
                 </Link>
@@ -49,7 +49,7 @@ export default function Footer() {
                 <Link
                   href="/contact"
                   data-cursor="cta"
-                  className="transition-colors hover:text-accent"
+                  className="tap-block transition-colors hover:text-accent"
                 >
                   Contact
                 </Link>
@@ -58,7 +58,7 @@ export default function Footer() {
                 <Link
                   href="/resume"
                   data-cursor="cta"
-                  className="transition-colors hover:text-accent"
+                  className="tap-block transition-colors hover:text-accent"
                 >
                   Resume / CV ↗
                 </Link>
@@ -71,12 +71,12 @@ export default function Footer() {
             <p className="text-meta font-semibold tracking-wider opacity-50 uppercase">
               Connect
             </p>
-            <ul className="mt-4 flex flex-col gap-3 text-control">
+            <ul className="mt-4 flex flex-col max-md:gap-0 md:gap-3 text-control">
               <li>
                 <a
                   href={`mailto:${profileData.email}`}
                   data-cursor="cta"
-                  className="inline-flex items-center gap-1 transition-colors hover:text-accent"
+                  className="tap-block inline-flex items-center gap-1 transition-colors hover:text-accent"
                 >
                   Email <ArrowUpRight size={14} />
                 </a>
@@ -87,22 +87,26 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   data-cursor="cta"
-                  className="inline-flex items-center gap-1 transition-colors hover:text-accent"
+                  className="tap-block inline-flex items-center gap-1 transition-colors hover:text-accent"
                 >
                   LinkedIn <ArrowUpRight size={14} />
                 </a>
               </li>
-              <li>
-                <a
-                  href={profileData.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  data-cursor="cta"
-                  className="inline-flex items-center gap-1 transition-colors hover:text-accent"
-                >
-                  GitHub <ArrowUpRight size={14} />
-                </a>
-              </li>
+              {/* Only rendered when the URL is real: an <a> without an href is a dead
+                  target that looks clickable and does nothing. */}
+              {profileData.github && (
+                <li>
+                  <a
+                    href={profileData.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-cursor="cta"
+                    className="tap-block inline-flex items-center gap-1 transition-colors hover:text-accent"
+                  >
+                    GitHub <ArrowUpRight size={14} />
+                  </a>
+                </li>
+              )}
             </ul>
           </div>
         </div>

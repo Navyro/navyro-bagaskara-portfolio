@@ -153,7 +153,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           <Link
             href={`/work/${project.slug}`}
             data-cursor="cta"
-            className="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap font-heading text-control font-bold text-text-primary transition-colors hover:text-accent group-hover:translate-x-1"
+            className="tap inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap font-heading text-control font-bold text-text-primary transition-colors hover:text-accent group-hover:translate-x-1"
           >
             <span>View Case Study</span>
             <ArrowUpRight

@@ -49,7 +49,7 @@ export default function AboutPage() {
                 <Link
                   href="/resume"
                   data-cursor="cta"
-                  className="inline-flex items-center gap-2 rounded-btn bg-text-primary px-6 py-3 text-control font-semibold text-background hover:bg-black transition-colors"
+                  className="inline-flex min-h-11 items-center gap-2 rounded-btn bg-text-primary px-6 py-3 text-control font-semibold text-background hover:bg-black transition-colors"
                 >
                   Lihat &amp; Unduh Resume <Download size={16} />
                 </Link>

@@ -77,6 +77,36 @@
   }
 }
 
+/* CL-8 — hit targets. Padding grows the clickable box; the matching negative margin
+   keeps the painted layout identical. 24px is the WCAG 2.2 SC 2.5.8 pointer minimum;
+   44px is the touch minimum below 768px. */
+@layer components {
+  .tap,
+  .tap-block {
+    padding-block: 0.25rem;
+    margin-block: -0.25rem;
+  }
+
+  .tap {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .tap-block {
+    display: block;
+  }
+}
+
+@media (max-width: 767px) {
+  /* Below 768px the box must really grow: negative margins there would make
+     neighbouring targets overlap by up to 16px on wrapped rows and lists. */
+  .tap,
+  .tap-block {
+    padding-block: 0.875rem;
+    margin-block: 0;
+  }
+}
+
 /* Reduced motion preference support */
 @media (prefers-reduced-motion: reduce) {
   *,

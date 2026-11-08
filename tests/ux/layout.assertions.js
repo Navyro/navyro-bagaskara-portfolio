@@ -123,9 +123,11 @@
     /* ---------- targets ---------- */
     const min = innerWidth <= 767 ? 44 : 24;
     const small = [];
+    const tapBoxes = [];
     for (const el of document.querySelectorAll('a[href], button')) {
       if (!visible(el)) continue;
       const r = rect(el);
+      tapBoxes.push({ el, r });
       if (r.width < min || r.height < min) {
         small.push({
           t: (el.getAttribute('aria-label') || el.textContent || '').trim().slice(0, 20),
@@ -135,6 +137,38 @@
       }
     }
     push(`targets.min-${min}px`, small.length === 0, JSON.stringify(small.slice(0, 5)) + ` (${small.length} total)`);
+
+    /* Grown hit boxes must not collide: two targets overlapping means the tap lands
+       on whichever paints last, which is worse than a small target. Sticky and fixed
+       layers (the header) legitimately sit above scrolled content, so those pairs are
+       not collisions. */
+    const inFloatingLayer = (el) => {
+      let node = el;
+      while (node && node !== document.body) {
+        const pos = getComputedStyle(node).position;
+        if (pos === 'sticky' || pos === 'fixed') return true;
+        node = node.parentElement;
+      }
+      return false;
+    };
+    const collisions = [];
+    for (let i = 0; i < tapBoxes.length; i += 1) {
+      for (let j = i + 1; j < tapBoxes.length; j += 1) {
+        const a = tapBoxes[i];
+        const b = tapBoxes[j];
+        if (a.el.contains(b.el) || b.el.contains(a.el)) continue;
+        if (inFloatingLayer(a.el) && inFloatingLayer(b.el)) continue;
+        if (inFloatingLayer(a.el) || inFloatingLayer(b.el)) continue;
+        const ox = Math.min(a.r.left + a.r.width, b.r.left + b.r.width) - Math.max(a.r.left, b.r.left);
+        const oy = Math.min(a.r.top + a.r.height, b.r.top + b.r.height) - Math.max(a.r.top, b.r.top);
+        if (ox > 0.5 && oy > 0.5) {
+          collisions.push(
+            `${(a.el.textContent || '').trim().slice(0, 16)} x ${(b.el.textContent || '').trim().slice(0, 16)} ${Math.round(ox)}x${Math.round(oy)}`
+          );
+        }
+      }
+    }
+    push('targets.no-overlap', collisions.length === 0, collisions.slice(0, 4).join('; '));
 
     /* ---------- type scale ---------- */
     const sizes = {};

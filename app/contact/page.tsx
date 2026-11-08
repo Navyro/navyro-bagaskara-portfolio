@@ -36,7 +36,7 @@ export default function ContactPage() {
                 <a
                   href={`mailto:${profileData.email}`}
                   data-cursor="cta"
-                  className="mt-3 block font-heading text-h3 font-bold text-text-primary hover:text-accent transition-colors break-all"
+                  className="tap-block mt-3 block font-heading text-h3 font-bold text-text-primary hover:text-accent transition-colors break-all"
                 >
                   {profileData.email}
                 </a>
@@ -60,7 +60,7 @@ export default function ContactPage() {
                       target="_blank"
                       rel="noopener noreferrer"
                       data-cursor="cta"
-                      className="group flex items-center justify-between font-heading text-body font-bold text-text-primary transition-colors hover:text-accent"
+                      className="tap-block group flex items-center justify-between font-heading text-body font-bold text-text-primary transition-colors hover:text-accent"
                     >
                       <span className="flex items-center gap-3">
                         <MessageCircle size={20} className="text-accent" />
@@ -79,7 +79,7 @@ export default function ContactPage() {
                         target="_blank"
                         rel="noopener noreferrer"
                         data-cursor="cta"
-                        className="group flex items-center justify-between font-heading text-body font-bold text-text-primary transition-colors hover:text-accent"
+                        className="tap-block group flex items-center justify-between font-heading text-body font-bold text-text-primary transition-colors hover:text-accent"
                       >
                         <span className="flex items-center gap-3">
                           <Linkedin size={20} className="text-accent" />
@@ -96,7 +96,7 @@ export default function ContactPage() {
                     <a
                       href={`tel:${profileData.phone.replace(/[^0-9+]/g, "")}`}
                       data-cursor="cta"
-                      className="group flex items-center justify-between font-heading text-body font-bold text-text-primary transition-colors hover:text-accent"
+                      className="tap-block group flex items-center justify-between font-heading text-body font-bold text-text-primary transition-colors hover:text-accent"
                     >
                       <span className="flex items-center gap-3">
                         <Phone size={20} className="text-accent" />
