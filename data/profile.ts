@@ -13,6 +13,28 @@ export interface EducationItem {
   description: string;
 }
 
+export interface CertificationItem {
+  title: string;
+  issuer: string;
+  /**
+   * Display string taken from the certificate itself. Month-only values ("Okt") are allowed
+   * where the issuer prints no date — never fill in a year that is not documented.
+   */
+  date?: string;
+  note?: string;
+  /** Only featured items are rendered as open rows; the rest live in the grouped index. */
+  featured?: boolean;
+  group: string;
+  /** Public verification URL, only when one was actually found in the source files. */
+  url?: string;
+}
+
+export interface CertificationGroup {
+  label: string;
+  count: number;
+  detail: string;
+}
+
 export interface ProfileData {
   name: string;
   role: string;
@@ -32,6 +54,9 @@ export interface ProfileData {
   };
   experience: ExperienceItem[];
   education: EducationItem[];
+  certifications: CertificationItem[];
+  /** Grouped index of every credential, collapsed by default on /resume. */
+  certificationGroups: CertificationGroup[];
 }
 
 /**
@@ -109,17 +134,6 @@ export const profileData: ProfileData = {
       ],
     },
     {
-      year: "Sep — Des 2024",
-      role: "Independent Study UI/UX Design & Game Development",
-      company: "BISA AI Academy (MSIB Batch 7)",
-      description:
-        "Mengikuti program studi independen bersertifikat Kampus Merdeka dan berkontribusi sebagai UI/UX Designer pada proyek capstone FanFunds.",
-      achievements: [
-        "Mengerjakan layar aplikasi, design system, dan prototipe interaktif capstone menggunakan Figma.",
-        "Terlibat dalam penyusunan user persona, user flow, dan A/B testing bersama 30 responden.",
-      ],
-    },
-    {
       year: "Nov 2024",
       role: "Pembicara Webinar",
       company: "BISA AI Academy — “Mengoptimalkan Desain dengan Plugin Figma”",
@@ -138,6 +152,279 @@ export const profileData: ProfileData = {
       institution: "Universitas Alma Ata",
       description:
         "IPK 3,87/4,00. Fokus pada UI/UX Design: riset pengguna, information architecture, prototipe interaktif, dan usability testing.",
+    },
+  ],
+  // Sumber: TENTANG SAYA/ (35 file sertifikat, 34 kredensial unik).
+  // MSIB sengaja tidak lagi ada di `experience` — sertifikatnya menjadi satu-satunya
+  // tempat klaim tersebut, supaya tidak tampil dua kali dengan isi yang sama.
+  certifications: [
+    {
+      title: "Flexible Kickstart UI UX Design Journey",
+      issuer: "Rakamin Academy",
+      date: "Nov 2026",
+      note: "Excellent Grade",
+      featured: true,
+      group: "UI/UX & design",
+    },
+    {
+      title: "Introduction to Figma",
+      issuer: "Simplilearn SkillUp",
+      date: "Nov 2026",
+      featured: true,
+      group: "UI/UX & design",
+    },
+    {
+      title: "STEMSEL UI/UX Associate Certification",
+      issuer: "STEMSEL Foundation",
+      date: "Des 2024 — Des 2027",
+      featured: true,
+      group: "UI/UX & design",
+    },
+    {
+      title: "Enterprise Design Thinking Practitioner",
+      issuer: "IBM SkillsBuild",
+      date: "Okt 2026",
+      featured: true,
+      group: "UI/UX & design",
+      url: "https://www.credly.com/go/ZB9Eoa6R",
+    },
+    {
+      title: "Studi Independen Bersertifikat UI/UX — Batch 7",
+      issuer: "Bisa.ai · MSIB Kampus Merdeka",
+      date: "Des 2024",
+      featured: true,
+      group: "Kampus Merdeka & kampus",
+    },
+    {
+      title: "Belajar Membuat Front-End Web untuk Pemula",
+      issuer: "Dicoding",
+      date: "Jun 2024",
+      featured: true,
+      group: "Web development",
+      url: "https://www.dicoding.com/certificates/81P2NKLOYXOY",
+    },
+    {
+      title: "AI Fluency for Creative Work",
+      issuer: "Anthropic × Ringling College of Art + Design",
+      date: "Okt",
+      featured: true,
+      group: "AI & tooling",
+    },
+    {
+      title: "AAEPT — skor 497",
+      issuer: "Alma Ata Language Training Centre",
+      date: "2024",
+      note: "English proficiency",
+      featured: true,
+      group: "Kampus Merdeka & kampus",
+    },
+
+    // — Sisa kredensial: hanya muncul di indeks kelompok (tertutup secara default) —
+    {
+      title: "Dasar-Dasar AI 2026",
+      issuer: "Canva",
+      date: "Nov 2026",
+      group: "AI & tooling",
+    },
+    {
+      title: "AI Fluency: AI Capabilities & Limitations",
+      issuer: "Anthropic",
+      date: "Okt",
+      group: "AI & tooling",
+    },
+    {
+      title: "AI Fluency: Framework & Foundations",
+      issuer: "Anthropic",
+      date: "Okt",
+      group: "AI & tooling",
+    },
+    {
+      title: "AI Fluency for Builders",
+      issuer: "Anthropic × Codepath.org",
+      date: "Okt",
+      group: "AI & tooling",
+    },
+    {
+      title: "AI Fluency for Students",
+      issuer: "Anthropic × Ringling College of Art + Design",
+      date: "Okt",
+      group: "AI & tooling",
+    },
+    {
+      title: "Claude 101",
+      issuer: "Anthropic",
+      date: "Okt",
+      group: "AI & tooling",
+    },
+    {
+      title: "Introduction to Claude Cowork",
+      issuer: "Anthropic",
+      date: "Okt",
+      group: "AI & tooling",
+    },
+    {
+      title: "Essential Skills: Adaptability",
+      issuer: "GNIK × Kementerian Ketenagakerjaan RI",
+      date: "Okt 2026",
+      note: "Nilai 100",
+      group: "Soft skills",
+    },
+    {
+      title: "Essential Skills: Digital Disruption & Transformation",
+      issuer: "GNIK × Kementerian Ketenagakerjaan RI",
+      date: "Okt 2026",
+      note: "Nilai 100",
+      group: "Soft skills",
+    },
+    {
+      title: "Essential Skills: Digital Literacy",
+      issuer: "GNIK × Kementerian Ketenagakerjaan RI",
+      date: "Okt 2026",
+      note: "Nilai 100",
+      group: "Soft skills",
+    },
+    {
+      title: "Essential Skills: Self Efficacy",
+      issuer: "GNIK × Kementerian Ketenagakerjaan RI",
+      date: "Okt 2026",
+      note: "Nilai 100",
+      group: "Soft skills",
+    },
+    {
+      title: "Essential Skills: Emotional Intelligence",
+      issuer: "GNIK × Kementerian Ketenagakerjaan RI",
+      date: "Okt 2026",
+      note: "Nilai 95",
+      group: "Soft skills",
+    },
+    {
+      title: "Essential Skills: Social Influence",
+      issuer: "GNIK × Kementerian Ketenagakerjaan RI",
+      date: "Okt 2026",
+      note: "Nilai 95",
+      group: "Soft skills",
+    },
+    {
+      title: "Essential Skills: Integrity at Work",
+      issuer: "GNIK × Kementerian Ketenagakerjaan RI",
+      date: "Okt 2026",
+      note: "Nilai 94",
+      group: "Soft skills",
+    },
+    {
+      title: "Essential Skills: Emotional Resilience",
+      issuer: "GNIK × Kementerian Ketenagakerjaan RI",
+      date: "Okt 2026",
+      note: "Nilai 90",
+      group: "Soft skills",
+    },
+    {
+      title: "Google Ads Creative Certification",
+      issuer: "Google Skillshop",
+      date: "Okt 2026",
+      group: "Marketing & SEO",
+    },
+    {
+      title: "Google Analytics Certification (2026)",
+      issuer: "Google Skillshop",
+      date: "Nov 2026",
+      group: "Marketing & SEO",
+    },
+    {
+      title: "Getting Started with Semrush for Agencies",
+      issuer: "Semrush Academy",
+      date: "2026",
+      group: "Marketing & SEO",
+    },
+    {
+      title: "Technical SEO and AI Search Essentials",
+      issuer: "Semrush Academy",
+      date: "2026",
+      group: "Marketing & SEO",
+    },
+    {
+      title: "Manajemen Risiko Berbasis SNI ISO 31000",
+      issuer: "BSN e-learning",
+      date: "Okt 2026",
+      note: "Sangat Baik",
+      group: "Manajemen & kepatuhan",
+    },
+    {
+      title: "SNI ISO 37001:2016 Sistem Manajemen Anti Penyuapan",
+      issuer: "BSN e-learning",
+      date: "Okt 2026",
+      note: "Sangat Baik",
+      group: "Manajemen & kepatuhan",
+    },
+    {
+      title: "Sistem Manajemen K3 Berbasis SNI ISO 45001:2018",
+      issuer: "BSN e-learning",
+      date: "Okt 2026",
+      note: "Sangat Baik",
+      group: "Manajemen & kepatuhan",
+    },
+    {
+      title: "Belajar Dasar Pemrograman Web",
+      issuer: "Dicoding",
+      date: "Jun 2024",
+      group: "Web development",
+      url: "https://www.dicoding.com/certificates/1OP8WRV11XQK",
+    },
+    {
+      title: "Belajar Dasar Pemrograman JavaScript",
+      issuer: "Dicoding",
+      date: "Jun 2024",
+      group: "Web development",
+      url: "https://www.dicoding.com/certificates/72ZDV59RQZYW",
+    },
+    {
+      title: "Kepesertaan Studi Independen Bersertifikat Batch 7",
+      issuer: "Kemdikbudristek — MSIB",
+      date: "2024",
+      group: "Kampus Merdeka & kampus",
+    },
+    {
+      title: "KKN Tematik / Proyek Membangun Desa",
+      issuer: "LP2M Universitas Alma Ata",
+      date: "Jan — Mar 2025",
+      group: "Kampus Merdeka & kampus",
+    },
+  ],
+  certificationGroups: [
+    {
+      label: "UI/UX & design",
+      count: 4,
+      detail: "Rakamin Academy, Simplilearn, STEMSEL Foundation, IBM SkillsBuild",
+    },
+    {
+      label: "AI & tooling",
+      count: 8,
+      detail: "Canva Dasar-Dasar AI 2026 dan 7 kursus AI Fluency dari Anthropic",
+    },
+    {
+      label: "Soft skills",
+      count: 8,
+      detail: "GNIK × Kementerian Ketenagakerjaan RI — nilai 90 sampai 100",
+    },
+    {
+      label: "Kampus Merdeka & kampus",
+      count: 4,
+      detail: "MSIB Batch 7, kepesertaan MSIB, KKN-T UAA, AAEPT",
+    },
+    {
+      label: "Marketing & SEO",
+      count: 4,
+      detail: "Google Ads, Google Analytics, 2 sertifikat Semrush Academy",
+    },
+    {
+      label: "Web development",
+      count: 3,
+      detail: "Dicoding — Dasar Web, JavaScript, dan Front-End untuk Pemula",
+    },
+    {
+      label: "Manajemen & kepatuhan",
+      count: 3,
+      detail: "BSN e-learning — ISO 31000, ISO 37001, ISO 45001 (Sangat Baik)",
     },
   ],
 };

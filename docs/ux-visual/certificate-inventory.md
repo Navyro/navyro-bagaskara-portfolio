@@ -119,4 +119,32 @@ Opsional kalau targetmu agensi digital: **Google Analytics Certification (2026)*
 
 - `scripts/extract-certificates.cjs` — skrip ekstraksi, bisa dijalankan ulang kapan saja.
 - `pdf-parse@1.1.1` masuk devDependencies.
-- Belum ada perubahan pada `data/profile.ts`, `/resume`, atau `public/` — daftar ini belum dipasang ke situs, menunggu pilihanmu di bagian B dan keputusan di bagian D.
+
+## F. Implementasi (keputusan pemilik, sudah terpasang)
+
+| Keputusan | Yang dikerjakan |
+| --- | --- |
+| MSIB dobel | Entri *experience* "Independent Study UI/UX — BISA AI Academy" **dihapus**; klaim MSIB kini hanya hidup di daftar sertifikat sebagai "Studi Independen Bersertifikat UI/UX — Batch 7" |
+| Anthropic tanpa tanggal | Tidak ada tahun karangan. Baris unggulan memakai `Okt` + catatan kaki: "Anthropic tidak mencetak tanggal pada sertifikatnya; bulan Okt dikonfirmasi langsung oleh pemilik, tahun tidak dicantumkan" |
+| ISO | Tidak masuk 8 baris unggulan, tetap ada di indeks kelompok "Manajemen & kepatuhan — 3 sertifikat (ISO 31000 / 37001 / 45001)" |
+| ALTC | Diringkas jadi satu baris unggulan "AAEPT — skor 497" (Alma Ata Language Training Centre, 2024) |
+
+### Bentuk akhir di `/resume`
+
+- 8 baris terbuka: Rakamin, Simplilearn Figma, STEMSEL, IBM Design Thinking, MSIB UI/UX, Dicoding Front-End, Anthropic AI Fluency for Creative Work, AAEPT 497.
+- `<details>` tertutup: "Semua 34 sertifikat menurut kelompok" berisi 7 kelompok (4 + 8 + 8 + 4 + 4 + 3 + 3 = 34).
+- Tinggi blok: 44 px saat tertutup (hanya baris ringkasan), 285 px saat terbuka.
+
+### Verifikasi
+
+| Cek | Hasil |
+| --- | --- |
+| Jumlah item di `data/profile.ts` | 34, cocok dengan 7 kelompok yang dijumlahkan (dicek skrip, bukan manual) |
+| `npx tsc --noEmit` | bersih |
+| Kolom baris sertifikat (1440) | judul 678 px, penerbit 272 px, tanggal 104 px; semua penerbit 1 baris |
+| Mobile 390 | menumpuk 1 kolom, tidak ada overflow horizontal |
+| Hit area `<summary>` | 56 px (≥ 44 px) |
+| `bash scripts/run-ux-checks.sh` | **111 cek, 26 gagal** — sama seperti sebelum perubahan, tidak ada regresi |
+
+Catatan: dua baris sempat memakai `text-[11px]` (badge + catatan kaki) dan langsung menambah 3 kegagalan
+`type.no-text-below-12px` di `/resume`; keduanya dikembalikan ke `text-xs`.

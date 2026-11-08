@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { Download, CheckCircle2 } from "lucide-react";
+import { Download, CheckCircle2, ChevronDown } from "lucide-react";
 import ScrollReveal from "@/components/ScrollReveal";
 import { profileData } from "@/data/profile";
 
@@ -113,6 +113,80 @@ export default function ResumePage() {
                   </span>
                 </div>
               ))}
+            </div>
+
+            {/* Certifications — 8 rows shown, the complete 34 listed as a grouped index */}
+            <div className="py-8 border-b border-border">
+              <div className="flex flex-wrap items-baseline justify-between gap-2">
+                <h3 className="font-heading text-xs font-bold uppercase tracking-wider text-text-muted">
+                  Sertifikasi &amp; Pelatihan
+                </h3>
+                <span className="text-xs font-semibold text-text-muted">
+                  {profileData.certifications.length} kredensial
+                </span>
+              </div>
+
+              <ul className="mt-4 divide-y divide-border">
+                {profileData.certifications
+                  .filter((cert) => cert.featured)
+                  .map((cert) => (
+                    <li
+                      key={cert.title}
+                      className="grid grid-cols-1 gap-x-4 gap-y-0.5 py-3 sm:grid-cols-[minmax(0,1fr)_minmax(0,17rem)_6.5rem] sm:items-baseline"
+                    >
+                      <span className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
+                        <span className="text-sm font-semibold text-text-primary">
+                          {cert.title}
+                        </span>
+                        {cert.note && (
+                          <span className="rounded-full border border-border bg-background px-2 py-0.5 text-xs font-semibold text-accent">
+                            {cert.note}
+                          </span>
+                        )}
+                      </span>
+                      <span className="text-xs text-text-secondary">{cert.issuer}</span>
+                      {cert.date && (
+                        <span className="whitespace-nowrap text-xs font-semibold text-text-muted sm:text-right">
+                          {cert.date}
+                        </span>
+                      )}
+                    </li>
+                  ))}
+              </ul>
+
+              <p className="mt-3 text-xs leading-relaxed text-text-muted">
+                Anthropic tidak mencetak tanggal pada sertifikatnya; bulan Okt dikonfirmasi
+                langsung oleh pemilik, tahun tidak dicantumkan.
+              </p>
+
+              <details className="group mt-1">
+                <summary className="flex min-h-11 cursor-pointer list-none items-center gap-2 py-3 text-xs font-bold uppercase tracking-wider text-accent transition-colors hover:text-accent-hover [&::-webkit-details-marker]:hidden">
+                  <ChevronDown
+                    size={16}
+                    aria-hidden="true"
+                    className="transition-transform duration-200 group-open:rotate-180"
+                  />
+                  Semua {profileData.certifications.length} sertifikat menurut kelompok
+                </summary>
+                <ul className="mt-1 space-y-2.5 border-t border-border pt-4">
+                  {profileData.certificationGroups.map((group) => (
+                    <li
+                      key={group.label}
+                      className="flex flex-wrap items-baseline gap-x-3 gap-y-0.5"
+                    >
+                      <span className="text-sm font-semibold text-text-primary sm:w-56 sm:shrink-0">
+                        {group.label}
+                      </span>
+                      <span className="text-xs font-semibold text-accent">
+                        {group.count} sertifikat
+                      </span>
+                      <span className="text-xs text-text-secondary sm:flex-1">
+                        {group.detail}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </details>
             </div>
 
             {/* Skills */}
