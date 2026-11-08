@@ -27,8 +27,8 @@ export default function Navbar() {
     <>
       <ScrollProgressBar />
 
-      <header className="sticky top-0 z-40 w-full border-b border-border bg-background/90 backdrop-blur-md transition-all duration-200">
-        <div className="mx-auto flex max-w-editorial items-center justify-between px-6 py-4 lg:px-12 lg:py-5">
+      <header className="sticky top-0 z-40 h-[var(--header-h)] w-full border-b border-border bg-background/90 backdrop-blur-md transition-all duration-200">
+        <div className="mx-auto flex h-full max-w-editorial items-center justify-between px-6 lg:px-12">
           {/* Logo / Brand Name */}
           <Link
             href="/"

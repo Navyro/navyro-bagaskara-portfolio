@@ -22,7 +22,7 @@ export default function CaseStudySection({
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
         {/* Left Column Section Title */}
         <div className="lg:col-span-4">
-          <h3 className="font-heading text-xl font-bold tracking-tight text-text-primary lg:text-2xl sticky top-24">
+          <h3 className="font-heading text-xl font-bold tracking-tight text-text-primary lg:text-2xl sticky top-[calc(var(--header-h)+var(--sticky-gap)+13px)]">
             {title}
           </h3>
         </div>

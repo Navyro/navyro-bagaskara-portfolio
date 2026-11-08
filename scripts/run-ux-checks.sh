@@ -46,23 +46,27 @@ for vp in "${VIEWPORTS[@]}"; do
       process.stdin.on("data", (d) => (s += d)).on("end", () => {
         let t = s.trim();
         if (t.startsWith("\"")) t = JSON.parse(t);
+        const filter = process.argv[1] || "";
         try {
           const rows = JSON.parse(t);
-          const filter = process.argv[1] || "";
+          let emitted = 0;
           for (const r of rows) {
             if (filter && !r.id.startsWith(filter)) continue;
+            emitted++;
             console.log((r.pass ? "PASS" : "FAIL") + "\t" + r.id + "\t" + r.detail);
           }
+          if (emitted === 0) console.log("SKIP\t-" + filter + "\tno matching checks on this route");
         } catch (e) {
           console.log("FAIL\tparse\t" + t.slice(0, 160));
         }
       });
     ' "$FILTER")
 
-    if [ -z "$out" ]; then out="FAIL	no-output	$raw"; fi
+    if [ -z "$out" ]; then out="FAIL	parse	$raw"; fi
 
     while IFS=$'\t' read -r status id detail; do
       [ -z "${id:-}" ] && continue
+      [ "$status" = "SKIP" ] && continue
       total=$((total + 1))
       if [ "$status" = "FAIL" ]; then
         fail=$((fail + 1))

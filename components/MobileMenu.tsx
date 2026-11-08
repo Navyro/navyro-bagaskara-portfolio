@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ArrowUpRight } from "lucide-react";
+import { profileData } from "@/data/profile";
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -23,7 +24,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
   ];
 
   return (
-    <div className="fixed inset-x-0 top-[61px] z-30 flex flex-col border-b border-border bg-background px-6 py-8 shadow-lg md:hidden animate-in slide-in-from-top-2">
+    <div className="fixed inset-x-0 top-[var(--header-h)] z-30 flex flex-col border-b border-border bg-background px-6 py-8 shadow-lg md:hidden animate-in slide-in-from-top-2">
       <nav className="flex flex-col gap-6">
         {links.map((link) => {
           const active =
@@ -55,10 +56,10 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
       <div className="mt-8 pt-4">
         <p className="text-xs text-text-muted">Direct Email</p>
         <a
-          href="mailto:navyro.bagaskara@email.com"
+          href={`mailto:${profileData.email}`}
           className="text-sm font-medium text-text-primary hover:underline"
         >
-          navyro.bagaskara@email.com
+          {profileData.email}
         </a>
       </div>
     </div>

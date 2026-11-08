@@ -28,6 +28,12 @@ const config: Config = {
       maxWidth: {
         editorial: "1280px",
       },
+      height: {
+        header: "var(--header-h)",
+      },
+      inset: {
+        header: "var(--header-h)",
+      },
       borderRadius: {
         btn: "8px",
         card: "12px",

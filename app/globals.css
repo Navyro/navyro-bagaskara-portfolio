@@ -3,12 +3,27 @@
 @tailwind utilities;
 
 @layer base {
+  /* Layout metrics — single sources of truth for sticky offsets.
+     --header-h must equal the rendered height of <header>; the header pins its own
+     height to this token so the two can never drift apart. */
+  :root {
+    --header-h: 69px;
+    --sticky-gap: 24px;
+  }
+
+  @media (min-width: 1024px) {
+    :root {
+      --header-h: 77px;
+    }
+  }
+
   /* Light Theme Tokens */
   :root {
     --background: #F7F7F5;
     --surface: #FFFFFF;
     --text-primary: #171717;
     --text-secondary: #555555;
+    /* Informative tertiary text: >= 4.5:1 on both --background and --surface. */
     --text-muted: #888888;
     --border: #E2E2DF;
     --accent: #1F4FFF;
