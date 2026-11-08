@@ -45,15 +45,16 @@ rather than guessed; the UI degrades to `—` / hides the row.
 
 ## Layout defects found during this pass and fixed
 
-1. **`/work` was 12 067 px tall at 1440.** A 4:5 cover in a full-width single column rendered at
-   1164×1456, so six cards needed ~11 screens of scrolling. Fixed with a `md:grid-cols-2` grid
+1. **`/work` was 12 192 px tall at 1440.** A 4:5 cover in a full-width single column rendered at
+   1182×1478, so six cards needed ~12 screens of scrolling. Fixed with a `md:grid-cols-2` grid
    (home: `md:grid-cols-2 lg:grid-cols-3`, because it shows three featured projects) plus a smaller
-   card title (`text-2xl md:text-3xl`). Page is now **4 490 px**, cover 561×702.
+   card title (`text-2xl md:text-3xl`). Page is now **4 523 px**, cover 570×713.
 2. **Cover tops were staggered** by 17–24 px inside a row because tag chips wrap differently per
    card. The tags + title block is now one flex column with `lg:min-h-[17rem]`; all covers in a row
-   start at the same y (`1313` on home, `767 / 1970 / 3171` on `/work`).
-3. **Card heights were uneven** (`990/1016`, `972/936`). `ScrollReveal className="h-full"` +
-   `article.h-full` + `mt-auto` footer slot → every row is now exactly equal (`1136, 1136` …).
+   start at the same y (`1311` on home, `767 / 1973 / 3180` on `/work`).
+3. **Card heights were uneven** (`1847/1895`, `1821`). `ScrollReveal className="h-full"` +
+   `article.h-full` + `mt-auto` footer slot → every row is now exactly equal (`1147, 1147` …,
+   `996` on home).
 4. **"View Case Study" wrapped to three 65 px lines** once the card was halved in width.
    `shrink-0 whitespace-nowrap` → one line, 137×20.
 5. **Case-study hero** framed a 4:5 cover in a 16:9 box, leaving wide empty side gutters
@@ -64,12 +65,14 @@ rather than guessed; the UI degrades to `—` / hides the row.
 
 | Surface | Before | After |
 | --- | --- | --- |
-| `/work` document height | 12 067 px | 4 490 px |
-| `/work` cover | 1164 × 1456 | 561 × 702 |
-| `/work` card heights | 1799–1873 | 1110/1136, equal per row |
-| `/` Selected Work | 1 column, cover 1164 wide | 3 columns, cover ~362 × 451 |
-| case-study hero | 1164 × 654 (16:9, gutters) | 558 × 698 (4:5, no gutters) |
+| `/work` document height | 12 192 px | 4 523 px |
+| `/work` cover | 1182 × 1478 | 570 × 713 |
+| `/work` card heights | 1821–1895 | 1147/1121, equal per row |
+| `/` document height | 10 807 px | 6 182 px |
+| `/` Selected Work | 1 column, cover 1182 wide, tops staggered by 1874 px | 3 columns, cover ~362 × 451, tops all `1311` |
+| case-study hero | 1182 × 664 (16:9, gutters) | 558 × 698 (4:5, no gutters) |
 
+All numbers above are measured at a **1440×900** viewport (`agent-browser set viewport 1440 900`).
 Mobile 390: no horizontal overflow, cover 341×426, tags wrap to a second row without collision.
 
 ## Suite
