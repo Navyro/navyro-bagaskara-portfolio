@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
@@ -8,44 +8,6 @@ import { profileData } from "@/data/profile";
 
 export default function Hero() {
   const shouldReduceMotion = useReducedMotion();
-  const fullTitle = profileData.name;
-
-  const [displayedText, setDisplayedText] = useState(
-    shouldReduceMotion ? fullTitle : ""
-  );
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [typingSpeed, setTypingSpeed] = useState(75);
-
-  useEffect(() => {
-    if (shouldReduceMotion) return;
-
-    const handleTyping = () => {
-      if (!isDeleting) {
-        // Typing forward
-        if (displayedText.length < fullTitle.length) {
-          setDisplayedText(fullTitle.substring(0, displayedText.length + 1));
-          setTypingSpeed(75);
-        } else {
-          // Finished typing full name -> pause for 2.5s before deleting
-          setTypingSpeed(2500);
-          setIsDeleting(true);
-        }
-      } else {
-        // Deleting backward
-        if (displayedText.length > 0) {
-          setDisplayedText(fullTitle.substring(0, displayedText.length - 1));
-          setTypingSpeed(45);
-        } else {
-          // Finished deleting -> pause briefly then re-type
-          setIsDeleting(false);
-          setTypingSpeed(400);
-        }
-      }
-    };
-
-    const timer = setTimeout(handleTyping, typingSpeed);
-    return () => clearTimeout(timer);
-  }, [displayedText, isDeleting, typingSpeed, fullTitle, shouldReduceMotion]);
 
   return (
     <section className="w-full bg-background pt-16 pb-20 md:pt-24 md:pb-28 lg:pt-32 lg:pb-36 border-b border-border">
@@ -62,21 +24,17 @@ export default function Hero() {
             {profileData.role}
           </motion.div>
 
-          {/* Step 2 — Continuous Typewriter Name Loop */}
-          <h1 className="mt-6 font-heading text-4xl font-extrabold tracking-tight text-text-primary sm:text-6xl lg:text-7xl leading-[1.15] min-h-[1.2em]">
-            <span className="sr-only">{fullTitle}</span>
-            <span aria-hidden="true">
-              {displayedText}
-              {!shouldReduceMotion && (
-                <motion.span
-                  animate={{ opacity: [1, 0, 1] }}
-                  transition={{ duration: 0.65, repeat: Infinity }}
-                  className="inline-block text-accent font-light ml-0.5"
-                >
-                  ▌
-                </motion.span>
-              )}
-            </span>
+          {/* Step 2 — Identity is text, not a performance: the name is always complete. */}
+          <h1 className="mt-6 flex items-baseline font-heading text-4xl font-extrabold tracking-tight text-text-primary sm:text-6xl lg:text-7xl leading-[1.15]">
+            <span>{profileData.name}</span>
+            {!shouldReduceMotion && (
+              <motion.span
+                aria-hidden="true"
+                animate={{ opacity: [1, 0, 1] }}
+                transition={{ duration: 1.1, repeat: Infinity, ease: "linear" }}
+                className="ml-1 inline-block h-[0.9em] w-[3px] flex-shrink-0 bg-accent"
+              />
+            )}
           </h1>
 
           {/* Step 3 — Statement */}
