@@ -24,7 +24,7 @@
     --text-primary: #171717;
     --text-secondary: #555555;
     /* Informative tertiary text: >= 4.5:1 on both --background and --surface. */
-    --text-muted: #888888;
+    --text-muted: #6B6B6B;
     --border: #E2E2DF;
     --accent: #1F4FFF;
     --accent-hover: #163FCC;
@@ -38,7 +38,7 @@
     --surface: #17171A;
     --text-primary: #F4F4F6;
     --text-secondary: #A0A0AB;
-    --text-muted: #71717A;
+    --text-muted: #9C9CA6;
     --border: #27272A;
     --accent: #38BDF8;
     --accent-hover: #0284C7;
