@@ -305,6 +305,74 @@
       push('contact.no-false-success-copy', !/Berhasil Terkirim/.test(document.body.innerText), 'no false "Berhasil Terkirim" claim');
     }
 
+    /* ---------- skip link (keyboard route past the navbar) ---------- */
+    {
+      const skip = document.querySelector('a[href="#main"]');
+      const target = document.querySelector('#main');
+      let reachable = false;
+      let hiddenAtRest = false;
+      if (skip) {
+        const atRest = skip.getBoundingClientRect();
+        hiddenAtRest = atRest.bottom <= 0;
+        // Measure the focused state, not a 150ms transition mid-flight.
+        const prevTransition = skip.style.transition;
+        skip.style.transition = 'none';
+        skip.focus();
+        void skip.offsetHeight;
+        const focusedRect = skip.getBoundingClientRect();
+        reachable = document.activeElement === skip && focusedRect.top >= 0;
+        skip.blur();
+        skip.style.transition = prevTransition;
+      }
+      push(
+        'a11y.skip-link',
+        Boolean(skip) && Boolean(target) && hiddenAtRest && reachable,
+        skip
+          ? `href=${skip.getAttribute('href')} target=${target ? target.tagName.toLowerCase() : 'missing'} offscreenAtRest=${hiddenAtRest} focusable=${reachable}`
+          : 'no a[href="#main"]'
+      );
+      push(
+        'a11y.main-focusable',
+        Boolean(target) && target.tabIndex === -1,
+        target ? `main tabIndex=${target.tabIndex}` : 'no #main element'
+      );
+    }
+
+    /* ---------- scroll reveal must never hide content (CL-13) ----------
+       The page hides reveal targets only while `html.reveal-ready` exists, and that class is
+       removed by a failsafe if the client bundle never mounts. Reproduce the dead-bundle
+       state here: no class, no per-element revealed flags, transitions off (otherwise we
+       would measure a fade in flight). Content must still be fully visible and unmoved.
+       State is restored afterwards so nothing later in the suite sees a mutated page. */
+    {
+      const html = document.documentElement;
+      const reveals = [...document.querySelectorAll('[data-reveal]')];
+      const hadReady = html.classList.contains('reveal-ready');
+      const hadFlags = reveals.map((el) => el.hasAttribute('data-revealed'));
+
+      html.classList.remove('reveal-ready');
+      for (const el of reveals) {
+        el.removeAttribute('data-revealed');
+        el.style.transition = 'none';
+      }
+      void html.offsetHeight;
+
+      const hiddenNoJs = reveals.filter((el) => Number(getComputedStyle(el).opacity) < 0.99).length;
+      const displacedNoJs = reveals.filter((el) => getComputedStyle(el).transform !== 'none').length;
+
+      for (let i = 0; i < reveals.length; i += 1) {
+        reveals[i].style.transition = '';
+        if (hadFlags[i]) reveals[i].setAttribute('data-revealed', '');
+      }
+      if (hadReady) html.classList.add('reveal-ready');
+
+      push(
+        'reveal.no-js-safe',
+        reveals.length > 0 && hiddenNoJs === 0 && displacedNoJs === 0,
+        `${reveals.length} targets · hidden without js=${hiddenNoJs} · displaced=${displacedNoJs}`
+      );
+    }
+
     window.scrollTo(0, 0);
     return JSON.stringify(results);
   };

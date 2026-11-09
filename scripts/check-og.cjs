@@ -24,6 +24,7 @@ const ROOT = path.resolve(__dirname, "..");
 const IMAGE = path.join(ROOT, "public", "og-image.png");
 const SOURCE = path.join(ROOT, "scripts", "og-image.html");
 const LAYOUT = path.join(ROOT, "app", "layout.tsx");
+const SITE_LIB = path.join(ROOT, "lib", "site.ts");
 const MAX_KB = 1024;
 
 const problems = [];
@@ -58,17 +59,25 @@ async function main() {
   }
 
   const layout = fs.readFileSync(LAYOUT, "utf8");
+  // The OG constants moved to lib/site.ts so layout, sitemap and robots share one origin
+  // and one image; the dimensions may therefore live in either file.
+  const sources = [layout, fs.existsSync(SITE_LIB) ? fs.readFileSync(SITE_LIB, "utf8") : ""].join("\n");
   check("metadata.metadataBase", /metadataBase:\s*new URL\(/.test(layout), "declared", "no metadataBase — relative OG URLs cannot resolve");
-  check("metadata.og-image", /openGraph:\s*\{[\s\S]*?images:\s*\[/.test(layout), "openGraph.images declared", "openGraph.images is not declared");
+  check(
+    "metadata.og-image",
+    /openGraph:\s*\{[\s\S]*?images:\s*\[/.test(layout),
+    "openGraph.images declared",
+    "openGraph.images is not declared"
+  );
   check(
     "metadata.og-dimensions",
-    /width:\s*1200/.test(layout) && /height:\s*630/.test(layout),
+    /width:\s*1200/.test(sources) && /height:\s*630/.test(sources),
     "1200x630 declared",
     "og image dimensions are not declared"
   );
   check("metadata.twitter-card", /card:\s*"summary_large_image"/.test(layout), "summary_large_image", "twitter card is not summary_large_image");
 
-  const relative = [...layout.matchAll(/url:\s*"([^"]+)"/g)].map((m) => m[1]).filter((u) => !/^https?:\/\//.test(u));
+  const relative = [...sources.matchAll(/url:\s*"([^"]+)"/g)].map((m) => m[1]).filter((u) => !/^https?:\/\//.test(u));
   const bad = relative.filter((u) => !u.startsWith("/"));
   check("metadata.url-shape", bad.length === 0, `relative paths only: ${relative.join(", ") || "none"}`, `unexpected url values: ${bad.join(", ")}`);
 

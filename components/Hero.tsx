@@ -14,15 +14,10 @@ export default function Hero() {
       <div className="mx-auto max-w-editorial px-6 lg:px-12">
         <div className="max-w-4xl">
           {/* Step 1 — Eyebrow */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, ease: "easeOut" }}
-            className="inline-flex items-center gap-2 text-meta font-bold tracking-widest text-accent uppercase"
-          >
+          <div className="rise inline-flex items-center gap-2 text-meta font-bold tracking-widest text-accent uppercase">
             <span className="h-2 w-2 rounded-full bg-accent animate-pulse" />
             {profileData.role}
-          </motion.div>
+          </div>
 
           {/* Step 2 — Identity is text, not a performance: the name is always complete. */}
           <h1 className="mt-6 flex items-baseline font-heading text-display font-extrabold text-text-primary leading-[1.05]">
@@ -38,22 +33,12 @@ export default function Hero() {
           </h1>
 
           {/* Step 3 — Statement */}
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
-            className="mt-8 max-w-2xl text-h3 text-text-secondary leading-relaxed font-normal"
-          >
+          <p className="rise rise-1 mt-8 max-w-2xl text-h3 text-text-secondary leading-relaxed font-normal">
             {profileData.shortStatement}
-          </motion.p>
+          </p>
 
           {/* Step 4 — Action CTAs */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.5, ease: "easeOut" }}
-            className="mt-10 flex flex-wrap items-center gap-4"
-          >
+          <div className="rise rise-2 mt-10 flex flex-wrap items-center gap-4">
             <motion.div
               whileHover={{ y: -2, scale: 1.01 }}
               whileTap={{ scale: 0.98 }}
@@ -89,7 +74,7 @@ export default function Hero() {
                 />
               </Link>
             </motion.div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

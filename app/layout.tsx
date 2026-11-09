@@ -4,6 +4,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CustomCursor from "@/components/CustomCursor";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { profileData } from "@/data/profile";
+import { OG_IMAGE, SITE_DESCRIPTION, SITE_TITLE, siteUrl } from "@/lib/site";
 import "./globals.css";
 
 const manrope = Manrope({
@@ -18,28 +20,38 @@ const inter = Inter({
   display: "swap",
 });
 
-/* Absolute URLs are required for Open Graph / Twitter cards. Set NEXT_PUBLIC_SITE_URL
-   in production (e.g. https://navyro.vercel.app); on Vercel the project URL is used as a
-   fallback so a preview deployment still previews correctly. */
-const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ??
-  (process.env.VERCEL_PROJECT_PRODUCTION_URL
-    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-    : "http://localhost:3000");
-
-const ogImage = {
-  url: "/og-image.png",
-  width: 1200,
-  height: 630,
-  alt: "Navyro Bagaskara — UI/UX Designer & Front-End",
-  type: "image/png",
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: profileData.name,
+  jobTitle: profileData.role,
+  description: profileData.shortStatement,
+  url: siteUrl,
+  image: `${siteUrl}${OG_IMAGE.url}`,
+  email: `mailto:${profileData.email}`,
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Bekasi",
+    addressRegion: "Jawa Barat",
+    addressCountry: "ID",
+  },
+  // Every fact below matches TENTANG SAYA/CV_Navyro_Bagaskara_EN.pdf verbatim.
+  alumniOf: {
+    "@type": "CollegeOrUniversity",
+    name: profileData.education[0].institution,
+  },
+  knowsAbout: [
+    ...profileData.skills.uiux,
+    ...profileData.skills.frontend,
+    ...profileData.skills.tools,
+  ],
+  sameAs: profileData.linkedin ? [profileData.linkedin] : [],
 };
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "Navyro Bagaskara — UI/UX Designer + Front-End",
-  description:
-    "Personal Portfolio & Case Studies of Navyro Bagaskara. Specializing in UI/UX Design, Product Strategy, and Front-End Web Development with Next.js & Tailwind CSS.",
+  title: SITE_TITLE,
+  description: SITE_DESCRIPTION,
   keywords: [
     "Navyro Bagaskara",
     "UI/UX Designer",
@@ -51,21 +63,21 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Navyro Bagaskara" }],
   openGraph: {
-    title: "Navyro Bagaskara — UI/UX Designer + Front-End",
+    title: SITE_TITLE,
     description:
       "Personal Portfolio & Case Studies showcasing UI/UX thinking and Front-End execution.",
     type: "website",
     locale: "id_ID",
     siteName: "Navyro Bagaskara",
     url: "/",
-    images: [ogImage],
+    images: [OG_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Navyro Bagaskara — UI/UX Designer + Front-End",
+    title: SITE_TITLE,
     description:
       "Portfolio & case studies: dari riset pengguna sampai prototipe dan kode siap produksi.",
-    images: [ogImage],
+    images: [OG_IMAGE],
   },
 };
 
@@ -80,6 +92,21 @@ export default function RootLayout({
       className={`${manrope.variable} ${inter.variable}`}
       suppressHydrationWarning
     >
+      <head>
+        {/*
+          Progressive enhancement for the scroll reveal (components/ScrollReveal.tsx).
+          Runs before first paint, so JS-enabled visitors never see content flash in and out.
+          The failsafe removes the class again after 2.5s if the bundle never mounted, so a
+          failed chunk leaves every block visible instead of blank.
+        */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              'document.documentElement.classList.add("reveal-ready");' +
+              'window.setTimeout(function(){if(!window.__revealAlive){document.documentElement.classList.remove("reveal-ready");}},2500);',
+          }}
+        />
+      </head>
       <body className="font-sans antialiased bg-background text-text-primary flex min-h-screen flex-col transition-colors duration-200">
         <ThemeProvider
           attribute="class"
@@ -87,11 +114,22 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange={false}
         >
+          <a href="#main" className="skip-link">
+            Lewati ke konten utama
+          </a>
           <CustomCursor />
           <Navbar />
-          <main className="flex-1">{children}</main>
+          <main id="main" tabIndex={-1} className="flex-1 focus:outline-none">
+            {children}
+          </main>
           <Footer />
         </ThemeProvider>
+        {/* Person structured data: name, role, city, university, tools — nothing that is
+            not already stated on the page or in the CV. */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
       </body>
     </html>
   );

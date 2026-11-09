@@ -17,6 +17,78 @@
     }
   }
 
+  /* Entrance animation for above-the-fold copy (components/Hero.tsx).
+     A CSS animation needs no JavaScript, so the hero cannot end up blank if a chunk fails.
+     `both` keeps the start state during the delay, which is what the old framer-motion
+     initial/animate pair did. */
+  @keyframes rise-in {
+    from {
+      opacity: 0;
+      transform: translateY(var(--rise-from, 16px));
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  .rise {
+    animation: rise-in 0.5s cubic-bezier(0.21, 0.47, 0.32, 0.98) both;
+  }
+
+  .rise-1 {
+    animation-delay: 0.3s;
+    --rise-from: 16px;
+  }
+
+  .rise-2 {
+    animation-delay: 0.5s;
+    --rise-from: 16px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .rise {
+      animation: none;
+    }
+  }
+
+  /* Scroll-reveal (components/ScrollReveal.tsx).
+     Default is VISIBLE. Only `.reveal-ready` — added to <html> by an inline script in the
+     document head — arms the hidden pre-reveal state, and a 2.5s failsafe removes it again
+     if the bundle never mounts. Content therefore cannot be lost by a failed script. */
+  [data-reveal] {
+    transition:
+      opacity 0.55s cubic-bezier(0.21, 0.47, 0.32, 0.98),
+      transform 0.55s cubic-bezier(0.21, 0.47, 0.32, 0.98);
+  }
+
+  .reveal-ready [data-reveal]:not([data-revealed]) {
+    opacity: 0;
+  }
+
+  .reveal-ready [data-reveal="up"]:not([data-revealed]) {
+    transform: translateY(24px);
+  }
+
+  .reveal-ready [data-reveal="left"]:not([data-revealed]) {
+    transform: translateX(-24px);
+  }
+
+  .reveal-ready [data-reveal="right"]:not([data-revealed]) {
+    transform: translateX(24px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-reveal] {
+      transition: none;
+    }
+
+    .reveal-ready [data-reveal]:not([data-revealed]) {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
   /* Light Theme Tokens */
   :root {
     --background: #F7F7F5;
@@ -81,6 +153,31 @@
    keeps the painted layout identical. 24px is the WCAG 2.2 SC 2.5.8 pointer minimum;
    44px is the touch minimum below 768px. */
 @layer components {
+  /* Skip link: first thing a keyboard user reaches. Off-screen until focused, then it
+     sits over the header with inverse colours so it is impossible to miss. */
+  .skip-link {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    padding: 0.75rem 1.25rem;
+    border-radius: 0 0 0.5rem 0;
+    background: var(--inverse-bg);
+    color: var(--inverse-text);
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-decoration: none;
+    transform: translateY(-120%);
+    transition: transform 0.15s ease;
+  }
+
+  .skip-link:focus,
+  .skip-link:focus-visible {
+    transform: translateY(0);
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
   .tap,
   .tap-block {
     padding-block: 0.25rem;
