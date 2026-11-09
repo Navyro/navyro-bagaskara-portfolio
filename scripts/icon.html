@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>NB icon source</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* 512x512 source for app/icon.png and app/apple-icon.png.
+         Full-bleed accent square (no transparent corners): browsers round it themselves and a
+         bleed square survives dark, light and pinned-tab rendering without a halo. */
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 512px; height: 512px; background: #1f4fff; overflow: hidden; }
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Manrope", system-ui, sans-serif;
+      }
+      .mark {
+        font-weight: 800;
+        font-size: 236px;
+        line-height: 1;
+        letter-spacing: -0.055em;
+        color: #ffffff;
+        /* Optical centring: the glyph pair leans left because "N" is wider than "B". */
+        transform: translate(-6px, -10px);
+      }
+    </style>
+  </head>
+  <body>
+    <span class="mark">NB</span>
+  </body>
+</html>

@@ -24,6 +24,7 @@ ROUTES=(
   "/about:about"
   "/contact:contact"
   "/resume:resume"
+  "/nope:not-found"
 )
 VIEWPORTS=("1440 900" "768 1024" "390 844")
 

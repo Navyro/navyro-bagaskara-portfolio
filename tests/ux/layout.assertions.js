@@ -338,6 +338,66 @@
       );
     }
 
+    /* ---------- 404 page must resolve in one glance (CL-12) ----------
+       Only runs on the route that renders <NotFound/>. The old version forced `min-h-[70vh]`
+       and added ~240px of empty space above the footer, so a one-sentence page scrolled.
+       Four separate claims, because they can fail independently:
+         exits-in-view — both ways out are above the fold on every viewport
+         no-forced-height — <main> is the larger of its content and the leftover space, never
+                            a fixed 70vh slice (that is what created the void)
+         no-blank-scroll — any scrolling that remains is footer content, never emptiness
+         left-grid — the headline starts on the same left edge as the navbar content */
+    {
+      const wrap = document.querySelector('[data-not-found]');
+      if (wrap) {
+        // The suite scrolls to the bottom to settle reveals; measure from the top edge.
+        window.scrollTo({ top: 0, behavior: 'auto' });
+        void document.documentElement.offsetHeight;
+
+        const main = document.querySelector('main');
+        const header = document.querySelector('header');
+        const footer = document.querySelector('footer');
+        const exits = [...main.querySelectorAll('a[href]')].filter(visible);
+        const exitsBottom = exits.length ? Math.max(...exits.map((a) => rect(a).bottom)) : -1;
+        const box = wrap.firstElementChild || wrap;
+        const kids = [...box.children];
+        const cs = getComputedStyle(wrap);
+        // Intrinsic height of the block: first child's top to last child's bottom, plus the
+        // wrapper's own padding. Measured this way because the wrapper stretches with <main>.
+        const contentH = kids.length
+          ? rect(kids[kids.length - 1]).bottom - rect(kids[0]).top + parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom)
+          : rect(wrap).height;
+        const mainH = rect(main).height;
+        const leftover = window.innerHeight - (header ? rect(header).height : 0) - (footer ? rect(footer).height : 0);
+        const overflow = document.scrollingElement.scrollHeight - window.innerHeight;
+        const footerH = footer ? rect(footer).height : 0;
+        const h1 = main.querySelector('h1');
+        const navLink = header ? header.querySelector('a[href]') : null;
+
+        push(
+          'notfound.exits-in-view',
+          exits.length >= 2 && exitsBottom > 0 && exitsBottom <= window.innerHeight - 8,
+          `${exits.length} exits · lowest bottom=${px(exitsBottom)} · viewport=${window.innerHeight}`
+        );
+        push(
+          'notfound.no-forced-height',
+          // +8 tolerance: measuring children' outer span misses ~5px of trailing line-box overhead.
+          mainH <= Math.max(contentH, leftover) + 8,
+          `main=${px(mainH)} content=${px(contentH)} leftover=${px(leftover)}`
+        );
+        push(
+          'notfound.no-blank-scroll',
+          overflow <= 0 || overflow <= footerH,
+          `overflow=${px(overflow)} footer=${px(footerH)} (scroll must be footer content only)`
+        );
+        push(
+          'notfound.left-grid',
+          Boolean(h1) && Boolean(navLink) && Math.abs(rect(h1).left - rect(navLink).left) <= 2,
+          h1 && navLink ? `headline left=${px(rect(h1).left)} nav left=${px(rect(navLink).left)}` : 'no h1 or navbar link'
+        );
+      }
+    }
+
     /* ---------- scroll reveal must never hide content (CL-13) ----------
        The page hides reveal targets only while `html.reveal-ready` exists, and that class is
        removed by a failsafe if the client bundle never mounts. Reproduce the dead-bundle
@@ -368,7 +428,8 @@
 
       push(
         'reveal.no-js-safe',
-        reveals.length > 0 && hiddenNoJs === 0 && displacedNoJs === 0,
+        // Routes without reveal targets (404) have nothing to hide; the invariant still holds.
+        hiddenNoJs === 0 && displacedNoJs === 0,
         `${reveals.length} targets · hidden without js=${hiddenNoJs} · displaced=${displacedNoJs}`
       );
     }

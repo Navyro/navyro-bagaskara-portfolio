@@ -11,6 +11,9 @@
  *   jsonld       the homepage ships one valid application/ld+json Person block whose name,
  *                jobTitle and url are present and whose sameAs entries are absolute https.
  *   skip-link    every page has one a[href="#main"] and a matching #main target.
+ *   icons        the tab / homescreen icons exist, are served with the right type and size,
+ *                and the document links them (Next App Router: app/icon.png,
+ *                app/apple-icon.png). Before CL-12 there was no favicon at all.
  *   no-js-safe   no server-rendered element carries inline opacity:0 (CL-13: content must not
  *                depend on JavaScript to become visible).
  *
@@ -108,6 +111,42 @@ async function main() {
     if (inlineHidden > 0) jsProblems.push(`${route} x${inlineHidden}`);
   }
   check("a11y.skip-link", skipProblems.length === 0, skipProblems.length ? skipProblems.join(", ") : `${ROUTES.length} routes`);
+
+  // Icons are read from the filesystem AND from the served document: a PNG in app/ that Next
+  // does not link (or a link to a file that 404s) are different failures.
+  const iconFiles = [
+    { file: "app/icon.png", bytes: 512 },
+    { file: "app/apple-icon.png", bytes: 180 },
+  ];
+  const missingIcons = iconFiles.filter((i) => !fs.existsSync(path.join(ROOT, i.file))).map((i) => i.file);
+  const iconUrls = [
+    { url: "/icon.png", size: "512x512" },
+    { url: "/apple-icon.png", size: "180x180" },
+  ];
+  const badIcons = [];
+  for (const icon of iconUrls) {
+    const res = await fetch(`${BASE}${icon.url}`);
+    const buf = Buffer.from(await res.arrayBuffer());
+    const isPng = buf.length > 8 && buf[1] === 0x50 && buf[2] === 0x4e && buf[3] === 0x47;
+    const type = res.headers.get("content-type") || "";
+    // PNG IHDR carries width/height big-endian at bytes 16..23.
+    const w = buf.length > 24 ? buf.readUInt32BE(16) : 0;
+    const h = buf.length > 24 ? buf.readUInt32BE(20) : 0;
+    if (res.status !== 200 || !isPng || !type.includes("image/png") || `${w}x${h}` !== icon.size) {
+      badIcons.push(`${icon.url} ${res.status} ${type} ${w}x${h}`);
+    }
+  }
+  const homeLinksIcon = /<link[^>]+rel="icon"[^>]+href="\/icon\.png/.test(home.body);
+  const homeLinksApple = /<link[^>]+rel="apple-touch-icon"[^>]+href="\/apple-icon\.png/.test(home.body);
+  check(
+    "icons.present",
+    missingIcons.length === 0 && badIcons.length === 0 && homeLinksIcon && homeLinksApple,
+    missingIcons.length
+      ? `missing file(s): ${missingIcons.join(", ")} (run npm run build:icons)`
+      : badIcons.length
+        ? badIcons.join(", ")
+        : `2 files · linked=${homeLinksIcon && homeLinksApple}`
+  );
   check("render.no-js-hidden", jsProblems.length === 0, jsProblems.length ? jsProblems.join(", ") : "no inline opacity:0 in server HTML");
 
   console.log(lines.join("\n"));
