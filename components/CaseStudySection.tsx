@@ -1,29 +1,49 @@
 import React from "react";
 
 interface CaseStudySectionProps {
+  /** "01", "02", … — derived from position among the sections that actually render. */
+  number?: string;
   title: string;
   content?: string;
   bulletItems?: string[];
   children?: React.ReactNode;
 }
 
+/**
+ * Single source of truth for "does this section render?" — the page uses it to number only the
+ * sections that will appear (CL-9: hardcoded "07." titles left gaps like 02 → 04 whenever a
+ * project had no usability-testing copy).
+ */
+export function sectionHasContent({
+  content,
+  bulletItems,
+  children,
+}: Pick<CaseStudySectionProps, "content" | "bulletItems" | "children">) {
+  return Boolean(content) || Boolean(bulletItems && bulletItems.length > 0) || Boolean(children);
+}
+
 export default function CaseStudySection({
+  number,
   title,
   content,
   bulletItems,
   children,
 }: CaseStudySectionProps) {
-  if (!content && (!bulletItems || bulletItems.length === 0) && !children) {
+  if (!sectionHasContent({ content, bulletItems, children })) {
     return null;
   }
 
   return (
-    <section className="py-10 border-b border-border last:border-b-0">
+    <section
+      data-case-section
+      data-section-number={number}
+      className="py-10 border-b border-border last:border-b-0"
+    >
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
         {/* Left Column Section Title */}
         <div className="lg:col-span-4">
           <h3 className="font-heading text-h3 font-bold tracking-tight text-text-primary sticky top-[calc(var(--header-h)+var(--sticky-gap)+13px)]">
-            {title}
+            {number ? `${number}. ${title}` : title}
           </h3>
         </div>
 

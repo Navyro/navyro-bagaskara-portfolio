@@ -5,7 +5,7 @@ import { ArrowLeft, ArrowUpRight, ArrowRight } from "lucide-react";
 import ProjectMeta from "@/components/ProjectMeta";
 import ProjectCover from "@/components/ProjectCover";
 import ProjectScreens from "@/components/ProjectScreens";
-import CaseStudySection from "@/components/CaseStudySection";
+import CaseStudySection, { sectionHasContent } from "@/components/CaseStudySection";
 import ScrollReveal from "@/components/ScrollReveal";
 import ReadingProgressBar from "@/components/ReadingProgressBar";
 import { projectsData } from "@/data/projects";
@@ -36,6 +36,38 @@ export default function CaseStudyDetailPage({ params }: CaseStudyPageProps) {
     projectsData[
       (currentIndex - 1 + projectsData.length) % projectsData.length
     ];
+
+  const gallery = project.galleryImages && project.galleryImages.length > 1 && (
+    <ProjectScreens
+      images={project.galleryImages.slice(1)}
+      frame={project.screenFrame}
+      title={project.title}
+    />
+  );
+
+  // Ordered source of truth for the case-study body. Numbering is assigned after filtering,
+  // so the visible sequence is always 01..N with no gaps.
+  const sections = [
+    { title: "Project Overview", content: project.caseStudy.overview },
+    { title: "Problem Statement", content: project.caseStudy.problem },
+    {
+      title: "User Research & Insights",
+      content: project.caseStudy.research,
+      bulletItems: project.caseStudy.keyInsights,
+    },
+    { title: "Define & Strategy", content: project.caseStudy.define },
+    {
+      title: "Information Architecture & Flow",
+      content:
+        [project.caseStudy.informationArchitecture, project.caseStudy.userFlow]
+          .filter(Boolean)
+          .join("\n\n") || undefined,
+    },
+    { title: "Wireframing & UI Design", content: project.caseStudy.uiDesign, children: gallery },
+    { title: "Usability Testing & Iteration", content: project.caseStudy.testing },
+    { title: "Final Result & Impact", content: project.caseStudy.finalResult },
+    { title: "Personal Reflection & Learnings", content: project.caseStudy.reflection },
+  ].filter(sectionHasContent);
 
   return (
     <article className="w-full py-12 lg:py-20">
@@ -117,77 +149,20 @@ export default function CaseStudyDetailPage({ params }: CaseStudyPageProps) {
           </div>
         )}
 
-        {/* Detailed Case Study Content Sections */}
+        {/* Detailed Case Study Content Sections — the numbers come from this array, so a
+            section without copy can never leave a gap (CL-9). */}
         <div className="mt-16 border-t border-border">
-          {/* Overview */}
-          <CaseStudySection
-            title="01. Project Overview"
-            content={project.caseStudy.overview}
-          />
-
-          {/* Problem */}
-          <CaseStudySection
-            title="02. Problem Statement"
-            content={project.caseStudy.problem}
-          />
-
-          {/* Research & Key Insights */}
-          <CaseStudySection
-            title="03. User Research & Insights"
-            content={project.caseStudy.research}
-            bulletItems={project.caseStudy.keyInsights}
-          />
-
-          {/* Define & Ideation */}
-          <CaseStudySection
-            title="04. Define & Strategy"
-            content={project.caseStudy.define}
-          />
-
-          {/* Information Architecture & User Flow */}
-          <CaseStudySection
-            title="05. Information Architecture & Flow"
-            content={
-              [project.caseStudy.informationArchitecture, project.caseStudy.userFlow]
-                .filter(Boolean)
-                .join("\n\n") || undefined
-            }
-          />
-
-          {/* Wireframes & UI Design */}
-          <CaseStudySection
-            title="06. Wireframing & UI Design"
-            content={project.caseStudy.uiDesign}
-          >
-            {/* Gallery of the real product screens */}
-            {project.galleryImages && project.galleryImages.length > 1 && (
-              <ProjectScreens
-                images={project.galleryImages.slice(1)}
-                frame={project.screenFrame}
-                title={project.title}
-              />
-            )}
-          </CaseStudySection>
-
-          {/* Testing */}
-          {project.caseStudy.testing && (
+          {sections.map((section, index) => (
             <CaseStudySection
-              title="07. Usability Testing & Iteration"
-              content={project.caseStudy.testing}
-            />
-          )}
-
-          {/* Final Result */}
-          <CaseStudySection
-            title="08. Final Result & Impact"
-            content={project.caseStudy.finalResult}
-          />
-
-          {/* Reflection */}
-          <CaseStudySection
-            title="09. Personal Reflection & Learnings"
-            content={project.caseStudy.reflection}
-          />
+              key={section.title}
+              number={String(index + 1).padStart(2, "0")}
+              title={section.title}
+              content={section.content}
+              bulletItems={section.bulletItems}
+            >
+              {section.children}
+            </CaseStudySection>
+          ))}
         </div>
 
         {/* Feature ③: Interactive Next Project Transition Showcase Card */}

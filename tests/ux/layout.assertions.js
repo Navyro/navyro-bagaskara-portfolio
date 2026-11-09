@@ -338,6 +338,53 @@
       );
     }
 
+    /* ---------- case-study section numbers must be contiguous from 01 (CL-9) ----------
+       The titles used to hardcode "07." next to copy that may be absent, so a project with no
+       usability-testing section rendered 06 → 08. Numbers are now derived from the rendered
+       order; this check fails if the derived number and the headline ever disagree again. */
+    {
+      const sections = [...document.querySelectorAll('[data-case-section]')];
+      if (sections.length) {
+        const numbers = sections.map((el) => el.getAttribute('data-section-number') || '');
+        const expected = numbers.map((_, i) => String(i + 1).padStart(2, '0'));
+        const headlinePrefix = sections.map((el) => ((el.querySelector('h3') || {}).textContent || '').trim().slice(0, 2));
+        const firstGap = numbers.findIndex((n, i) => n !== expected[i]);
+        const headlineMismatch = headlinePrefix.findIndex((h, i) => h !== expected[i]);
+        push(
+          'casestudy.section-numbers',
+          firstGap === -1 && headlineMismatch === -1,
+          `numbers ${numbers.join(' ')} · expected ${expected.join(' ')}` +
+            (firstGap === -1 ? '' : ` · first gap at index ${firstGap}`) +
+            (headlineMismatch === -1 ? '' : ` · headline mismatch at index ${headlineMismatch}`)
+        );
+      }
+    }
+
+    /* ---------- /work states its result count and offers no dead-end filter (CL-10) ----------
+       The filter cost a decision and returned one project, kept its state out of the URL, and
+       never said how many results it had. The count line is now derived from the data, so this
+       check fails if the number and the rendered cards ever drift apart. */
+    {
+      const countEl = document.querySelector('[data-work-count]');
+      if (countEl) {
+        const declared = Number(countEl.getAttribute('data-work-count-value'));
+        const cards = new Set(
+          [...document.querySelectorAll('main a[href^="/work/"]')].map((a) => a.getAttribute('href'))
+        );
+        const filters = document.querySelectorAll('main [aria-pressed]').length;
+        push(
+          'work.count-matches-cards',
+          Number.isFinite(declared) && declared === cards.size && cards.size > 0,
+          `declared=${declared} cards=${cards.size}`
+        );
+        push(
+          'work.no-dead-end-filter',
+          filters === 0,
+          filters === 0 ? 'no filter controls on a 6-project index' : `${filters} filter control(s) reintroduced`
+        );
+      }
+    }
+
     /* ---------- 404 page must resolve in one glance (CL-12) ----------
        Only runs on the route that renders <NotFound/>. The old version forced `min-h-[70vh]`
        and added ~240px of empty space above the footer, so a one-sentence page scrolled.

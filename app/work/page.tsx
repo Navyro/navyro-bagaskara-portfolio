@@ -1,27 +1,27 @@
-"use client";
-
-import React, { useState } from "react";
+import React from "react";
 import SectionHeading from "@/components/SectionHeading";
 import ProjectCard from "@/components/ProjectCard";
 import ScrollReveal from "@/components/ScrollReveal";
-import { projectsData, Project } from "@/data/projects";
+import { projectsData } from "@/data/projects";
 
-type CategoryFilter = "All" | Project["category"];
-
+/**
+ * Project index — server rendered.
+ *
+ * CL-10: this page used to carry a category filter that cost a decision and returned a single
+ * item (5 of the 6 projects are one platform, 1 is the other), kept its state in `useState` so
+ * the view was not shareable, and never said how many results it had. The filter is gone; what
+ * remains is the fact it was standing in for — how many projects there are, split by platform,
+ * derived from the data rather than typed.
+ */
 export default function WorkPage() {
-  const [activeFilter, setActiveFilter] = useState<CategoryFilter>("All");
+  const platformCounts = projectsData.reduce<Record<string, number>>((acc, project) => {
+    acc[project.category] = (acc[project.category] ?? 0) + 1;
+    return acc;
+  }, {});
 
-  // Filters come from the data itself: a filter that can only ever return an empty list
-  // is not a filter, it is a dead end.
-  const categories: CategoryFilter[] = [
-    "All",
-    ...Array.from(new Set(projectsData.map((p) => p.category))),
-  ];
-
-  const filteredProjects =
-    activeFilter === "All"
-      ? projectsData
-      : projectsData.filter((p) => p.category === activeFilter);
+  const breakdown = Object.entries(platformCounts)
+    .map(([category, count]) => `${count} ${category.toLowerCase()}`)
+    .join(" · ");
 
   return (
     <div className="w-full py-16 lg:py-24">
@@ -35,55 +35,23 @@ export default function WorkPage() {
           />
         </ScrollReveal>
 
-        {/* Category Filters */}
+        {/* Count line: the honest version of what the old filter implied */}
         <ScrollReveal delay={0.1}>
-          <div className="mb-12 flex flex-wrap items-center gap-2 border-b border-border pb-6">
-            <span className="mr-2 text-meta font-bold tracking-wider text-text-muted uppercase">
-              Filter:
-            </span>
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                type="button"
-                data-cursor="cta"
-                aria-pressed={activeFilter === cat}
-                onClick={() => setActiveFilter(cat)}
-                className={`inline-flex min-h-11 items-center rounded-btn px-4 text-meta font-semibold tracking-wide transition-all ${ activeFilter === cat ? "bg-text-primary text-background shadow-sm" : "border border-border bg-surface text-text-secondary hover:border-text-primary hover:text-text-primary" }`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
+          <p
+            data-work-count
+            data-work-count-value={projectsData.length}
+            className="mb-10 border-b border-border pb-6 text-meta font-semibold uppercase tracking-wider text-text-muted"
+          >
+            {projectsData.length} proyek · {breakdown}
+          </p>
         </ScrollReveal>
 
         {/* Project List */}
-        {filteredProjects.length > 0 ? (
-          <div className="grid grid-cols-1 gap-x-10 gap-y-14 md:grid-cols-2">
-            {filteredProjects.map((project) => (
-              <ProjectCard
-                key={project.slug}
-                project={project}
-              />
-            ))}
-          </div>
-        ) : (
-          <div className="my-16 rounded-card border border-border bg-surface p-12 text-center">
-            <h3 className="font-heading text-h3 font-bold text-text-primary">
-              Tidak ada proyek dalam kategori ini
-            </h3>
-            <p className="mt-2 text-control text-text-secondary">
-              Silakan pilih kategori filter lain di atas untuk melihat karya.
-            </p>
-            <button
-              type="button"
-              data-cursor="cta"
-              onClick={() => setActiveFilter("All")}
-              className="mt-6 rounded-btn bg-text-primary px-6 py-2.5 text-meta font-semibold text-background hover:bg-black"
-            >
-              Tampilkan Semua Proyek
-            </button>
-          </div>
-        )}
+        <div className="grid grid-cols-1 gap-x-10 gap-y-14 md:grid-cols-2">
+          {projectsData.map((project) => (
+            <ProjectCard key={project.slug} project={project} />
+          ))}
+        </div>
       </div>
     </div>
   );

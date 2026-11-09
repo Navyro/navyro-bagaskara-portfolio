@@ -30,7 +30,20 @@
         /* Optical centring: the glyph pair leans left because "N" is wider than "B". */
         transform: translate(-6px, -10px);
       }
+
+      /* Maskable variant (?maskable=1): launchers crop to a circle of 80% diameter, so the mark
+         has to sit inside that circle. 150px keeps the half-diagonal far inside the 204px
+         radius instead of touching the crop edge. */
+      .maskable .mark {
+        font-size: 150px;
+        transform: translate(-4px, -6px);
+      }
     </style>
+    <script>
+      if (new URLSearchParams(location.search).has("maskable")) {
+        document.documentElement.classList.add("maskable");
+      }
+    </script>
   </head>
   <body>
     <span class="mark">NB</span>

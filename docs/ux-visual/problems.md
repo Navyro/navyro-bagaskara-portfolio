@@ -101,7 +101,7 @@ Ranked by severity × reach (surfaces) × centrality ÷ effort.
 - **Acceptance criteria:** every pointer target ≥24×24px hit area at ≥768px and ≥44×44px at ≤767px,
   measured on the anchor's own box.
 
-### CL-9 · Case-study numbering skips a number  [P2]
+### CL-9 · Case-study numbering skips a number  [P2]  [fixed]
 - **Root cause:** section titles are hardcoded `"07. Usability Testing & Iteration"` strings authored
   next to the data, while `CaseStudySection` hides sections whose content is missing.
 - **Findings:** C-3.
@@ -109,7 +109,7 @@ Ranked by severity × reach (surfaces) × centrality ÷ effort.
 - **Evidence:** heading lists `…06, 08, 09`.
 - **Acceptance criteria:** visible section numbers are contiguous from 01 on all 4 case studies.
 
-### CL-10 · Work filter costs a decision and yields one item  [P2]  — deferred
+### CL-10 · Work filter costs a decision and yields one item  [P2]  [fixed]
 - **Root cause:** filter UI designed for a large catalogue, shipped against 4 projects, one per category;
   state is local and not reflected in the URL.
 - **Findings:** W-1, W-2, W-3.
@@ -117,7 +117,7 @@ Ranked by severity × reach (surfaces) × centrality ÷ effort.
 - **Acceptance criteria:** if the filter remains, it must (a) state the result count, (b) appear in the
   URL so the view is shareable, and (c) only be shown when `projects.length` justifies it.
 
-### CL-11 · Placeholder identity data published  [P1] — deferred (needs owner input)
+### CL-11 · Placeholder identity data published  [P1]  [fixed]
 - **Root cause:** `data/profile.ts`, `data/projects.ts`, `public/Navyro_Bagaskara_CV.pdf` and the
   hardcoded email in `MobileMenu` were never replaced with the owner's real material.
 - **Findings:** CT-2, CT-3, R-1, R-2, R-4, plus all placeholder project content.
@@ -127,10 +127,10 @@ Ranked by severity × reach (surfaces) × centrality ÷ effort.
   CV; no invented employer or project appears.
 - **Why deferred:** requires facts only the owner holds (city, degree years, roles, per-project role).
 
-### CL-12 · 404 page scrolls on a one-glance screen  [P3] — deferred
+### CL-12 · 404 page scrolls on a one-glance screen  [P3]  [fixed]
 - **Findings:** N-1, N-2.
 
-### CL-13 · `ScrollReveal` never reveals blocks that were never intersected  [P3] — deferred
+### CL-13 · `ScrollReveal` never reveals blocks that were never intersected  [P3]  [fixed]
 - **Findings:** H-10. Fix is a `@media print` / no-JS fallback and an initial `opacity:1` under
   `(scripting: none)`.
 
