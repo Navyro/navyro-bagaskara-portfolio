@@ -8,7 +8,10 @@
     "start": "next start",
     "lint": "next lint",
     "check:links": "node scripts/check-links.cjs",
-    "check:ux": "bash scripts/run-ux-checks.sh"
+    "check:ux": "bash scripts/run-ux-checks.sh",
+    "build:og": "node scripts/build-og-image.cjs",
+    "check:og": "node scripts/check-og.cjs",
+    "check": "node scripts/check-links.cjs && node scripts/check-og.cjs"
   },
   "dependencies": {
     "clsx": "^2.1.1",
