@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowUpRight, ArrowRight } from "lucide-react";
 import ProjectMeta from "@/components/ProjectMeta";
 import ProjectCover from "@/components/ProjectCover";
+import ProjectHeroShots from "@/components/ProjectHeroShots";
 import ProjectScreens from "@/components/ProjectScreens";
 import CaseStudySection, { sectionHasContent } from "@/components/CaseStudySection";
 import ScrollReveal from "@/components/ScrollReveal";
@@ -37,13 +38,26 @@ export default function CaseStudyDetailPage({ params }: CaseStudyPageProps) {
       (currentIndex - 1 + projectsData.length) % projectsData.length
     ];
 
+  // Every project defines `cardShotAspect`; the fallbacks only keep TypeScript honest and match the
+  // historic frame ratios if a project were ever added without one.
+  const shotAspect = project.cardShotAspect ?? (project.screenFrame === "desktop" ? 1440 / 1024 : 390 / 844);
+
   const gallery = project.galleryImages && project.galleryImages.length > 1 && (
     <ProjectScreens
       images={project.galleryImages.slice(1)}
       frame={project.screenFrame}
       title={project.title}
+      aspect={shotAspect}
     />
   );
+
+  // Hero preview: the first three real screens laid out directly, instead of the composite cover.
+  // The cover is a generated 4:5 canvas with ~25% empty space top and bottom and a light gradient
+  // baked into the JPEG, so it cannot follow the theme. Using the screens themselves removes that
+  // empty space and lets the mat use `--background`, which flips with light/dark mode.
+  // `project.coverImage` is still used by the /work cards and the "Next Case Study" card below, so
+  // the cover files stay in service and are not modified.
+  const heroScreens = project.galleryImages?.slice(1, 4) ?? [];
 
   // Ordered source of truth for the case-study body. Numbering is assigned after filtering,
   // so the visible sequence is always 01..N with no gaps.
@@ -80,7 +94,7 @@ export default function CaseStudyDetailPage({ params }: CaseStudyPageProps) {
           href="/work"
           className="tap inline-flex items-center gap-2 text-meta font-semibold tracking-wider text-text-secondary hover:text-text-primary transition-colors mb-8"
         >
-          <ArrowLeft size={16} /> KEMBALI KE DAFTAR PROYEK
+          <ArrowLeft size={16} /> BACK TO ALL PROJECTS
         </Link>
 
         {/* Header Title */}
@@ -88,7 +102,7 @@ export default function CaseStudyDetailPage({ params }: CaseStudyPageProps) {
           <span className="font-heading text-meta font-bold tracking-widest text-accent uppercase">
             {project.category} · CASE STUDY #{project.number}
           </span>
-          <h1 className="mt-4 font-heading text-h2 font-extrabold tracking-tight text-text-primary sm:text-h1 lg:text-h1 leading-[1.15]">
+          <h1 className="mt-4 break-words font-heading text-h2 font-extrabold tracking-tight text-text-primary sm:text-h1 lg:text-h1 leading-[1.15]">
             {project.title}
           </h1>
           <p className="mt-6 text-h3 text-text-secondary leading-relaxed">
@@ -97,7 +111,7 @@ export default function CaseStudyDetailPage({ params }: CaseStudyPageProps) {
         </div>
 
         {/* Metadata Grid */}
-        <div className="mt-12">
+        <div className="mt-12 min-w-0">
           <ProjectMeta
             role={project.role}
             year={project.year}
@@ -107,17 +121,26 @@ export default function CaseStudyDetailPage({ params }: CaseStudyPageProps) {
           />
         </div>
 
-        {/* Main Cover Visual Container — the cover artwork is 4:5, so the frame follows it
-            instead of a 16:9 box that would leave wide empty gutters on both sides. */}
+        {/* Main Cover Visual Container — now the real screens rather than the composite cover:
+            no baked-in empty space, and the mat follows the theme via `--background`. */}
         <div className="mt-12">
-          <ProjectCover
-            src={project.coverImage}
-            alt={project.title}
-            ratio="4/5"
-            priority
-            sizes="(min-width: 768px) 560px, 100vw"
-            className="mx-auto max-w-[560px] shadow-sm"
-          />
+          {heroScreens.length > 0 ? (
+            <ProjectHeroShots
+              images={heroScreens}
+              frame={project.screenFrame}
+              title={project.title}
+              aspect={shotAspect}
+            />
+          ) : (
+            <ProjectCover
+              src={project.coverImage}
+              alt={project.title}
+              ratio="4/5"
+              priority
+              sizes="(min-width: 768px) 560px, 100vw"
+              className="mx-auto max-w-[560px] shadow-sm"
+            />
+          )}
         </div>
 
         {/* Action CTAs if live/prototype links exist */}
@@ -131,7 +154,7 @@ export default function CaseStudyDetailPage({ params }: CaseStudyPageProps) {
                 data-cursor="cta"
                 className="inline-flex min-h-11 items-center gap-2 rounded-btn bg-accent px-6 py-3 text-control font-semibold text-white transition-all hover:bg-accent-hover shadow-sm"
               >
-                {project.caseStudy.prototypeLabel ?? "Buka Prototype di Figma"}{" "}
+                {project.caseStudy.prototypeLabel ?? "Open Prototype in Figma"}{" "}
                 <ArrowUpRight size={16} />
               </a>
             )}
@@ -143,7 +166,7 @@ export default function CaseStudyDetailPage({ params }: CaseStudyPageProps) {
                 data-cursor="cta"
                 className="inline-flex items-center gap-2 rounded-btn border border-border bg-surface px-6 py-3 text-control font-semibold text-text-primary transition-all hover:border-text-primary"
               >
-                Kunjungi Live Website <ArrowUpRight size={16} />
+                Visit Live Website <ArrowUpRight size={16} />
               </a>
             )}
           </div>

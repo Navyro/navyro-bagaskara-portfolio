@@ -41,12 +41,14 @@ export interface ProfileData {
   shortStatement: string;
   fullBio: string;
   email: string;
-  phone: string;
   /** Optional: only rendered when the link is known to be correct. */
   linkedin?: string;
+  instagram?: string;
   github?: string;
   location: string;
   resumeFilename: string;
+  /** Same CV in Bahasa Indonesia, for local recruiters who prefer it. */
+  resumeFilenameId: string;
   /** 12-page portfolio PDF, 12 MB: labelled with its size wherever it is offered. */
   portfolioFilename: string;
   skills: {
@@ -69,18 +71,19 @@ export const profileData: ProfileData = {
   name: "Navyro Bagaskara",
   role: "UI/UX Designer",
   shortStatement:
-    "Lulusan Sistem Informasi dengan fokus UI/UX Design. Bekerja dari riset pengguna, information architecture, dan user flow hingga high-fidelity interface serta prototipe interaktif di Figma.",
+    "Information Systems graduate with a focus on UI/UX Design. I work from user research, information architecture, and user flows through to high-fidelity interfaces and interactive prototypes in Figma.",
   fullBio:
-    "Saya lulusan Sistem Informasi Universitas Alma Ata (IPK 3,87/4,00) dengan fokus utama UI/UX Design. Pekerjaan saya dimulai dari wawancara dan observasi untuk memahami kebutuhan pengguna, lalu diterjemahkan menjadi information architecture, user flow, wireframe, high-fidelity interface, dan prototipe interaktif di Figma. Saya juga terbiasa menguji hasil desain dengan pengguna menggunakan metode System Usability Scale (SUS), menyusun design system, serta mengerjakan desain konten dan media sosial. Di sisi teknis, saya memiliki dasar pengembangan web (HTML, CSS, JavaScript) yang membuat desain lebih mudah dieksekusi oleh developer.",
+    "Information Systems graduate from Universitas Alma Ata (GPA 3.87/4.00) with a primary focus on UI/UX Design. My work starts with interviews and observation to understand user needs, then turns that into information architecture, user flows, wireframes, high-fidelity interfaces, and interactive prototypes in Figma. I also test designs with users using the System Usability Scale (SUS), build design systems, and work on content and social media design. On the technical side, I have a foundation in web development (HTML, CSS, JavaScript) that makes designs easier for developers to execute.",
   email: "navbagaskara@gmail.com",
-  phone: "+62 857-1272-9833",
   linkedin: "https://www.linkedin.com/in/navyro-bagaskara/",
-  location: "Bekasi, Jawa Barat, Indonesia",
+  instagram: "https://www.instagram.com/navyroo/",
+  location: "Bekasi, West Java, Indonesia",
   resumeFilename: "Navyro_Bagaskara_CV.pdf",
+  resumeFilenameId: "Navyro_Bagaskara_CV_ID.pdf",
   portfolioFilename: "Navyro_Bagaskara_Portofolio.pdf",
   skills: {
     uiux: [
-      "User Research (Wawancara & Observasi)",
+      "User Research (Interviews & Observation)",
       "Information Architecture",
       "User Flow & Sitemap",
       "Wireframing",
@@ -93,68 +96,68 @@ export const profileData: ProfileData = {
     frontend: [
       "HTML5 & Semantic Markup",
       "CSS3 & Responsive Layout",
-      "JavaScript (Dasar)",
+      "JavaScript (Fundamentals)",
       "DOM Manipulation & Event Handling",
-      "Front-End Web Dasar",
+      "Front-End Web Fundamentals",
     ],
     tools: ["Figma", "Canva", "CapCut", "Adobe Lightroom", "Microsoft Word", "Microsoft Excel"],
   },
   experience: [
     {
-      year: "Agu — Okt 2025",
+      year: "Aug — Oct 2025",
       role: "UI/UX Designer Intern",
       company: "Dinas KOMINFO Kabupaten Bantul",
       description:
-        "Magang sebagai satu-satunya desainer pada dua proyek aplikasi internal, mulai dari riset pengguna hingga prototipe yang diserahkan sebagai acuan pengembangan.",
+        "Interned as the sole designer on two internal application projects, from user research through to the prototypes handed over as the development reference.",
       achievements: [
-        "Melakukan wawancara dan observasi dengan empat pegawai untuk mengidentifikasi kebutuhan pengguna pada dua proyek aplikasi.",
-        "Menyusun information architecture, user flow, wireframe, high-fidelity interface, dan prototipe interaktif secara mandiri menggunakan Figma.",
-        "Mempresentasikan desain kepada pegawai dan kepala bidang, lalu menyerahkan prototipe sebagai referensi pengembangan lebih lanjut.",
+        "Conducted interviews and observations with four employees to identify user needs for two application projects.",
+        "Independently developed information architecture, user flows, wireframes, high-fidelity interfaces, and interactive prototypes using Figma.",
+        "Presented designs to employees and the division head, then delivered the prototypes as references for further development.",
       ],
     },
     {
-      year: "Mei 2024 — Jun 2025",
-      role: "Staff Komunikasi dan Informasi",
+      year: "May 2024 — Jun 2025",
+      role: "Communication and Information Staff",
       company: "HIMSI Universitas Alma Ata",
       description:
-        "Bertanggung jawab atas kebutuhan publikasi dan informasi organisasi melalui kanal Instagram himpunan.",
+        "Responsible for the organization's publicity and information through the student association's Instagram channel.",
       achievements: [
-        "Memproduksi puluhan konten visual menggunakan Canva dan Figma untuk mendukung publikasi acara dan informasi organisasi.",
-        "Mengerjakan desain poster kegiatan seperti Kunjungan Industri 2024, Study Club Design System, dan Webinar Plugin Figma.",
-        "Merancang desain lanyard kepengurusan HIMSI.",
+        "Produced dozens of visual content pieces using Canva and Figma to support event publicity and organizational information.",
+        "Designed event posters such as Industrial Visit 2024, Design System Study Club, and Figma Plugin Webinar.",
+        "Designed the lanyard for the HIMSI committee.",
       ],
     },
     {
       year: "Jan — Apr 2025",
-      role: "Tim Komunikasi dan Informasi",
-      company: "KKN-T Kelompok 30, Universitas Alma Ata (Mangiran)",
+      role: "Communication and Information Team",
+      company: "KKN-T Group 30, Universitas Alma Ata (Mangiran)",
       description:
-        "Menangani dokumentasi dan publikasi program kerja KKN selama satu periode penuh.",
+        "Handled documentation and publicity for the KKN program across one full period.",
       achievements: [
-        "Mengelola dokumentasi dan publikasi seluruh rangkaian kegiatan KKN-T.",
-        "Menyunting video edukasi yang digunakan sebagai materi publikasi program.",
-        "Tercatat sebagai salah satu pencipta dua karya yang didaftarkan hak ciptanya ke Kementerian Hukum Republik Indonesia.",
+        "Managed documentation and publicity for the entire KKN-T program.",
+        "Edited the educational video used as program publicity material.",
+        "Listed as a co-creator of two works registered for copyright with the Ministry of Law of the Republic of Indonesia.",
       ],
     },
     {
       year: "Nov 2024",
-      role: "Pembicara Webinar",
-      company: "BISA AI Academy — “Mengoptimalkan Desain dengan Plugin Figma”",
+      role: "Webinar Speaker",
+      company: "BISA AI Academy — “Optimizing Design with Figma Plugins”",
       description:
-        "Mengisi sesi webinar teknis tentang penggunaan plugin Figma untuk mempercepat alur kerja desain.",
+        "Led a technical webinar session on using Figma plugins to speed up the design workflow.",
       achievements: [
-        "Menyampaikan materi dan demonstrasi praktik penggunaan plugin Figma.",
-        "Memandu diskusi peserta webinar yang diikuti puluhan peserta.",
+        "Delivered the presentation and practical demonstrations on using Figma plugins.",
+        "Facilitated discussion among webinar participants, attended by dozens of people.",
       ],
     },
   ],
   education: [
     {
       year: "Sep 2022 — Jul 2026",
-      degree: "S1 Sistem Informasi",
+      degree: "Bachelor's Degree in Information Systems",
       institution: "Universitas Alma Ata",
       description:
-        "IPK 3,87/4,00. Fokus pada UI/UX Design: riset pengguna, information architecture, prototipe interaktif, dan usability testing.",
+        "GPA 3.87/4.00. Focused on UI/UX Design: user research, information architecture, interactive prototyping, and usability testing.",
     },
   ],
   // Sumber: TENTANG SAYA/ (35 file sertifikat, 34 kredensial unik).
@@ -179,27 +182,27 @@ export const profileData: ProfileData = {
     {
       title: "STEMSEL UI/UX Associate Certification",
       issuer: "STEMSEL Foundation",
-      date: "Des 2024 — Des 2027",
+      date: "Dec 2024 — Dec 2027",
       featured: true,
       group: "UI/UX & design",
     },
     {
       title: "Enterprise Design Thinking Practitioner",
       issuer: "IBM SkillsBuild",
-      date: "Okt 2026",
+      date: "Oct 2026",
       featured: true,
       group: "UI/UX & design",
       url: "https://www.credly.com/go/ZB9Eoa6R",
     },
     {
-      title: "Studi Independen Bersertifikat UI/UX — Batch 7",
+      title: "UI/UX Certified Independent Study (SIB) — Batch 7",
       issuer: "Bisa.ai · MSIB Kampus Merdeka",
-      date: "Des 2024",
+      date: "Dec 2024",
       featured: true,
-      group: "Kampus Merdeka & kampus",
+      group: "Kampus Merdeka & university",
     },
     {
-      title: "Belajar Membuat Front-End Web untuk Pemula",
+      title: "Front-End Web Development for Beginners",
       issuer: "Dicoding",
       date: "Jun 2024",
       featured: true,
@@ -209,22 +212,22 @@ export const profileData: ProfileData = {
     {
       title: "AI Fluency for Creative Work",
       issuer: "Anthropic × Ringling College of Art + Design",
-      date: "Okt",
+      date: "Oct",
       featured: true,
       group: "AI & tooling",
     },
     {
-      title: "AAEPT — skor 497",
+      title: "AAEPT — Score 497",
       issuer: "Alma Ata Language Training Centre",
       date: "2024",
       note: "English proficiency",
       featured: true,
-      group: "Kampus Merdeka & kampus",
+      group: "Kampus Merdeka & university",
     },
 
     // — Sisa kredensial: hanya muncul di indeks kelompok (tertutup secara default) —
     {
-      title: "Dasar-Dasar AI 2026",
+      title: "AI Fundamentals 2026",
       issuer: "Canva",
       date: "Nov 2026",
       group: "AI & tooling",
@@ -232,99 +235,99 @@ export const profileData: ProfileData = {
     {
       title: "AI Fluency: AI Capabilities & Limitations",
       issuer: "Anthropic",
-      date: "Okt",
+      date: "Oct",
       group: "AI & tooling",
     },
     {
       title: "AI Fluency: Framework & Foundations",
       issuer: "Anthropic",
-      date: "Okt",
+      date: "Oct",
       group: "AI & tooling",
     },
     {
       title: "AI Fluency for Builders",
       issuer: "Anthropic × Codepath.org",
-      date: "Okt",
+      date: "Oct",
       group: "AI & tooling",
     },
     {
       title: "AI Fluency for Students",
       issuer: "Anthropic × Ringling College of Art + Design",
-      date: "Okt",
+      date: "Oct",
       group: "AI & tooling",
     },
     {
       title: "Claude 101",
       issuer: "Anthropic",
-      date: "Okt",
+      date: "Oct",
       group: "AI & tooling",
     },
     {
       title: "Introduction to Claude Cowork",
       issuer: "Anthropic",
-      date: "Okt",
+      date: "Oct",
       group: "AI & tooling",
     },
     {
       title: "Essential Skills: Adaptability",
       issuer: "GNIK × Kementerian Ketenagakerjaan RI",
-      date: "Okt 2026",
-      note: "Nilai 100",
+      date: "Oct 2026",
+      note: "Score 100",
       group: "Soft skills",
     },
     {
       title: "Essential Skills: Digital Disruption & Transformation",
       issuer: "GNIK × Kementerian Ketenagakerjaan RI",
-      date: "Okt 2026",
-      note: "Nilai 100",
+      date: "Oct 2026",
+      note: "Score 100",
       group: "Soft skills",
     },
     {
       title: "Essential Skills: Digital Literacy",
       issuer: "GNIK × Kementerian Ketenagakerjaan RI",
-      date: "Okt 2026",
-      note: "Nilai 100",
+      date: "Oct 2026",
+      note: "Score 100",
       group: "Soft skills",
     },
     {
       title: "Essential Skills: Self Efficacy",
       issuer: "GNIK × Kementerian Ketenagakerjaan RI",
-      date: "Okt 2026",
-      note: "Nilai 100",
+      date: "Oct 2026",
+      note: "Score 100",
       group: "Soft skills",
     },
     {
       title: "Essential Skills: Emotional Intelligence",
       issuer: "GNIK × Kementerian Ketenagakerjaan RI",
-      date: "Okt 2026",
-      note: "Nilai 95",
+      date: "Oct 2026",
+      note: "Score 95",
       group: "Soft skills",
     },
     {
       title: "Essential Skills: Social Influence",
       issuer: "GNIK × Kementerian Ketenagakerjaan RI",
-      date: "Okt 2026",
-      note: "Nilai 95",
+      date: "Oct 2026",
+      note: "Score 95",
       group: "Soft skills",
     },
     {
       title: "Essential Skills: Integrity at Work",
       issuer: "GNIK × Kementerian Ketenagakerjaan RI",
-      date: "Okt 2026",
-      note: "Nilai 94",
+      date: "Oct 2026",
+      note: "Score 94",
       group: "Soft skills",
     },
     {
       title: "Essential Skills: Emotional Resilience",
       issuer: "GNIK × Kementerian Ketenagakerjaan RI",
-      date: "Okt 2026",
-      note: "Nilai 90",
+      date: "Oct 2026",
+      note: "Score 90",
       group: "Soft skills",
     },
     {
       title: "Google Ads Creative Certification",
       issuer: "Google Skillshop",
-      date: "Okt 2026",
+      date: "Oct 2026",
       group: "Marketing & SEO",
     },
     {
@@ -346,25 +349,25 @@ export const profileData: ProfileData = {
       group: "Marketing & SEO",
     },
     {
-      title: "Manajemen Risiko Berbasis SNI ISO 31000",
+      title: "SNI ISO 31000 Risk Management",
       issuer: "BSN e-learning",
-      date: "Okt 2026",
-      note: "Sangat Baik",
-      group: "Manajemen & kepatuhan",
+      date: "Oct 2026",
+      note: "Very Good",
+      group: "Management & compliance",
     },
     {
-      title: "SNI ISO 37001:2016 Sistem Manajemen Anti Penyuapan",
+      title: "SNI ISO 37001:2016 Anti-Bribery Management System",
       issuer: "BSN e-learning",
-      date: "Okt 2026",
-      note: "Sangat Baik",
-      group: "Manajemen & kepatuhan",
+      date: "Oct 2026",
+      note: "Very Good",
+      group: "Management & compliance",
     },
     {
-      title: "Sistem Manajemen K3 Berbasis SNI ISO 45001:2018",
+      title: "SNI ISO 45001:2018 Occupational Health & Safety Management",
       issuer: "BSN e-learning",
-      date: "Okt 2026",
-      note: "Sangat Baik",
-      group: "Manajemen & kepatuhan",
+      date: "Oct 2026",
+      note: "Very Good",
+      group: "Management & compliance",
     },
     {
       title: "Belajar Dasar Pemrograman Web",
@@ -374,23 +377,23 @@ export const profileData: ProfileData = {
       url: "https://www.dicoding.com/certificates/1OP8WRV11XQK",
     },
     {
-      title: "Belajar Dasar Pemrograman JavaScript",
+      title: "JavaScript Programming Fundamentals",
       issuer: "Dicoding",
       date: "Jun 2024",
       group: "Web development",
       url: "https://www.dicoding.com/certificates/72ZDV59RQZYW",
     },
     {
-      title: "Kepesertaan Studi Independen Bersertifikat Batch 7",
+      title: "Certified Independent Study Batch 7 — Participation",
       issuer: "Kemdikbudristek — MSIB",
       date: "2024",
-      group: "Kampus Merdeka & kampus",
+      group: "Kampus Merdeka & university",
     },
     {
-      title: "KKN Tematik / Proyek Membangun Desa",
+      title: "Thematic KKN / Village Development Project",
       issuer: "LP2M Universitas Alma Ata",
       date: "Jan — Mar 2025",
-      group: "Kampus Merdeka & kampus",
+      group: "Kampus Merdeka & university",
     },
   ],
   certificationGroups: [
@@ -402,32 +405,32 @@ export const profileData: ProfileData = {
     {
       label: "AI & tooling",
       count: 8,
-      detail: "Canva Dasar-Dasar AI 2026 dan 7 kursus AI Fluency dari Anthropic",
+      detail: "Canva AI Fundamentals 2026 plus 7 AI Fluency courses from Anthropic",
     },
     {
       label: "Soft skills",
       count: 8,
-      detail: "GNIK × Kementerian Ketenagakerjaan RI — nilai 90 sampai 100",
+      detail: "GNIK × Ministry of Manpower of the Republic of Indonesia — scores 90 to 100",
     },
     {
-      label: "Kampus Merdeka & kampus",
+      label: "Kampus Merdeka & university",
       count: 4,
-      detail: "MSIB Batch 7, kepesertaan MSIB, KKN-T UAA, AAEPT",
+      detail: "MSIB Batch 7, MSIB participation, KKN-T UAA, AAEPT",
     },
     {
       label: "Marketing & SEO",
       count: 4,
-      detail: "Google Ads, Google Analytics, 2 sertifikat Semrush Academy",
+      detail: "Google Ads, Google Analytics, 2 Semrush Academy certificates",
     },
     {
       label: "Web development",
       count: 3,
-      detail: "Dicoding — Dasar Web, JavaScript, dan Front-End untuk Pemula",
+      detail: "Dicoding — Web Fundamentals, JavaScript, and Front-End for Beginners",
     },
     {
-      label: "Manajemen & kepatuhan",
+      label: "Management & compliance",
       count: 3,
-      detail: "BSN e-learning — ISO 31000, ISO 37001, ISO 45001 (Sangat Baik)",
+      detail: "BSN e-learning — ISO 31000, ISO 37001, ISO 45001 (Very Good)",
     },
   ],
 };

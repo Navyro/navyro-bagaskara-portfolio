@@ -28,11 +28,11 @@ export default function ContactForm() {
     if (errorMessage) setErrorMessage("");
   };
 
-  const subject = formData.subject.trim() || "Pesan dari portfolio";
+  const subject = formData.subject.trim() || "Message from portfolio";
   const body = `${formData.message}\n\n—\n${formData.name}\n${formData.email}`;
 
   const handleCopy = async () => {
-    const text = `Kepada: ${profileData.email}\nSubjek: ${subject}\n\n${body}`;
+    const text = `To: ${profileData.email}\nSubject: ${subject}\n\n${body}`;
     try {
       await navigator.clipboard.writeText(text);
       setCopied(true);
@@ -46,13 +46,13 @@ export default function ContactForm() {
     e.preventDefault();
 
     if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
-      setErrorMessage("Mohon lengkapi seluruh kolom wajib sebelum mengirim.");
+      setErrorMessage("Please fill in all required fields before sending.");
       setStatus("error");
       return;
     }
 
     if (!/^[^\s@]+@[^\s@.]+\.[^\s@]+$/.test(formData.email)) {
-      setErrorMessage("Mohon masukkan format alamat email yang valid.");
+      setErrorMessage("Please enter a valid email address.");
       setStatus("error");
       return;
     }
@@ -67,10 +67,10 @@ export default function ContactForm() {
   return (
     <div className="rounded-card border border-border bg-surface p-6 md:p-10 shadow-sm">
       <h3 className="font-heading text-h3 font-bold tracking-tight text-text-primary">
-        Kirim Pesan Langsung
+        Send a Message
       </h3>
       <p className="mt-2 text-control text-text-secondary">
-        Isi formulir di bawah ini untuk memulai diskusi proyek atau peluang kerja sama.
+        Fill in the form below to start a project conversation or discuss a role.
       </p>
 
       {status === "composing" ? (
@@ -78,12 +78,12 @@ export default function ContactForm() {
           <div className="flex items-center gap-3">
             <CheckCircle2 size={24} className="text-accent" />
             <h4 className="font-heading font-bold text-text-primary">
-              Draf pesan disiapkan
+              Draft ready
             </h4>
           </div>
           <p className="mt-2 text-control text-text-secondary">
-            Aplikasi email Anda seharusnya sudah terbuka dengan pesan ini. Jika tidak, salin
-            teks di bawah dan kirim ke{" "}
+            Your email app should have opened with this message. If it did not, copy the text
+            below and send it to{" "}
             <a
               className="font-semibold text-accent underline"
               href={`mailto:${profileData.email}`}
@@ -95,15 +95,15 @@ export default function ContactForm() {
 
           <dl className="mt-4 space-y-2 rounded-btn border border-border bg-surface p-4 text-meta">
             <div className="flex gap-2">
-              <dt className="w-16 shrink-0 font-bold uppercase tracking-wider text-text-muted">Kepada</dt>
+              <dt className="w-16 shrink-0 font-bold uppercase tracking-wider text-text-muted">To</dt>
               <dd className="text-text-primary">{profileData.email}</dd>
             </div>
             <div className="flex gap-2">
-              <dt className="w-16 shrink-0 font-bold uppercase tracking-wider text-text-muted">Subjek</dt>
+              <dt className="w-16 shrink-0 font-bold uppercase tracking-wider text-text-muted">Subject</dt>
               <dd className="text-text-primary">{subject}</dd>
             </div>
             <div className="flex gap-2">
-              <dt className="w-16 shrink-0 font-bold uppercase tracking-wider text-text-muted">Pesan</dt>
+              <dt className="w-16 shrink-0 font-bold uppercase tracking-wider text-text-muted">Message</dt>
               <dd className="whitespace-pre-line break-words text-text-primary">{body}</dd>
             </div>
           </dl>
@@ -115,14 +115,14 @@ export default function ContactForm() {
               className="inline-flex items-center gap-2 rounded-btn bg-text-primary px-4 py-2.5 text-meta font-semibold text-background transition-colors hover:bg-accent hover:text-white"
             >
               {copied ? <Check size={14} /> : <Copy size={14} />}
-              {copied ? "Tersalin" : "Salin pesan"}
+              {copied ? "Copied" : "Copy message"}
             </button>
             <button
               type="button"
               onClick={() => setStatus("idle")}
               className="inline-flex items-center gap-1.5 text-meta font-bold text-text-secondary underline decoration-border hover:text-text-primary"
             >
-              <ArrowLeft size={13} /> Kembali ke form
+              <ArrowLeft size={13} /> Back to form
             </button>
           </div>
         </div>
@@ -141,7 +141,7 @@ export default function ContactForm() {
                 htmlFor="name"
                 className="block text-meta font-semibold uppercase tracking-wider text-text-primary"
               >
-                Nama Lengkap <span className="text-accent">*</span>
+                Full Name <span className="text-accent">*</span>
               </label>
               <input
                 type="text"
@@ -149,7 +149,7 @@ export default function ContactForm() {
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                placeholder="cth. Alexandra"
+                placeholder="e.g. Alexandra"
                 className="mt-2 w-full rounded-btn border border-border bg-background px-4 py-3 text-control text-text-primary outline-none transition-all focus:border-accent focus:ring-1 focus:ring-accent"
               />
             </div>
@@ -159,7 +159,7 @@ export default function ContactForm() {
                 htmlFor="email"
                 className="block text-meta font-semibold uppercase tracking-wider text-text-primary"
               >
-                Alamat Email <span className="text-accent">*</span>
+                Email Address <span className="text-accent">*</span>
               </label>
               <input
                 type="email"
@@ -167,7 +167,7 @@ export default function ContactForm() {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                placeholder="cth. alexandra@company.com"
+                placeholder="e.g. alexandra@company.com"
                 className="mt-2 w-full rounded-btn border border-border bg-background px-4 py-3 text-control text-text-primary outline-none transition-all focus:border-accent focus:ring-1 focus:ring-accent"
               />
             </div>
@@ -178,7 +178,7 @@ export default function ContactForm() {
               htmlFor="subject"
               className="block text-meta font-semibold uppercase tracking-wider text-text-primary"
             >
-              Subjek / Topik
+              Subject / Topic
             </label>
             <input
               type="text"
@@ -186,7 +186,7 @@ export default function ContactForm() {
               name="subject"
               value={formData.subject}
               onChange={handleChange}
-              placeholder="cth. Tawaran Proyek Redesain Web / Opportunity"
+              placeholder="e.g. Website Redesign / Job Opportunity"
               className="mt-2 w-full rounded-btn border border-border bg-background px-4 py-3 text-control text-text-primary outline-none transition-all focus:border-accent focus:ring-1 focus:ring-accent"
             />
           </div>
@@ -196,7 +196,7 @@ export default function ContactForm() {
               htmlFor="message"
               className="block text-meta font-semibold uppercase tracking-wider text-text-primary"
             >
-              Pesan <span className="text-accent">*</span>
+              Message <span className="text-accent">*</span>
             </label>
             <textarea
               id="message"
@@ -204,7 +204,7 @@ export default function ContactForm() {
               rows={5}
               value={formData.message}
               onChange={handleChange}
-              placeholder="Tuliskan detail proyek atau pertanyaan Anda di sini..."
+              placeholder="Describe your project or question here..."
               className="mt-2 w-full rounded-btn border border-border bg-background px-4 py-3 text-control text-text-primary outline-none transition-all focus:border-accent focus:ring-1 focus:ring-accent"
             />
           </div>
@@ -213,12 +213,11 @@ export default function ContactForm() {
             type="submit"
             className="inline-flex w-full items-center justify-center gap-2 rounded-btn bg-text-primary px-8 py-3.5 text-control font-semibold text-background transition-all hover:bg-accent hover:text-white"
           >
-            <span>Siapkan pesan</span>
+            <span>Compose message</span>
             <Send size={16} />
           </button>
           <p className="text-center text-meta text-text-muted">
-            Pesan dibuka di aplikasi email Anda — tidak ada yang terkirim langsung dari
-            halaman ini.
+            The message opens in your email app — nothing is sent directly from this page.
           </p>
         </form>
       )}

@@ -5,6 +5,11 @@ interface SectionHeadingProps {
   title: string;
   subtitle?: string;
   align?: "left" | "center";
+  /**
+   * Heading level for the title. Defaults to `h2`, which is what every existing call site wants.
+   * Pass `"h1"` only on a page whose main title this is, so the document has exactly one `h1`.
+   */
+  as?: "h1" | "h2";
 }
 
 export default function SectionHeading({
@@ -12,6 +17,7 @@ export default function SectionHeading({
   title,
   subtitle,
   align = "left",
+  as: Heading = "h2",
 }: SectionHeadingProps) {
   return (
     <div
@@ -23,9 +29,9 @@ export default function SectionHeading({
             {number}
           </span>
         )}
-        <h2 data-section-heading className="font-heading text-h2 font-extrabold tracking-tight text-balance text-text-primary lg:text-h1 leading-tight">
+        <Heading data-section-heading className="min-w-0 break-words font-heading text-h2 font-extrabold tracking-tight text-balance text-text-primary lg:text-h1 leading-tight">
           {title}
-        </h2>
+        </Heading>
       </div>
       {subtitle && (
         <p className="mt-3 max-w-2xl text-body leading-relaxed text-text-secondary">

@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Manrope, Inter } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import CustomCursor from "@/components/CustomCursor";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { profileData } from "@/data/profile";
 import { OG_IMAGE, SITE_DESCRIPTION, SITE_TITLE, siteUrl } from "@/lib/site";
@@ -67,7 +66,7 @@ export const metadata: Metadata = {
     description:
       "Personal Portfolio & Case Studies showcasing UI/UX thinking and Front-End execution.",
     type: "website",
-    locale: "id_ID",
+    locale: "en_US",
     siteName: "Navyro Bagaskara",
     url: "/",
     images: [OG_IMAGE],
@@ -76,7 +75,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: SITE_TITLE,
     description:
-      "Portfolio & case studies: dari riset pengguna sampai prototipe dan kode siap produksi.",
+      "Portfolio & case studies: from user research through to prototypes and production-ready code.",
     images: [OG_IMAGE],
   },
 };
@@ -88,7 +87,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="id"
+      lang="en"
       className={`${manrope.variable} ${inter.variable}`}
       suppressHydrationWarning
     >
@@ -115,9 +114,12 @@ export default function RootLayout({
           disableTransitionOnChange={false}
         >
           <a href="#main" className="skip-link">
-            Lewati ke konten utama
+            Skip to main content
           </a>
-          <CustomCursor />
+          {/* No custom cursor: the decorative dot/circle that followed the pointer was removed so the
+              native OS cursor is used everywhere. `components/CustomCursor.tsx` is kept on disk,
+              unused, in case it is wanted again. Links, buttons and inputs therefore keep their
+              default pointer/text cursors, and nothing overlays the project artwork. */}
           <Navbar />
           <main id="main" tabIndex={-1} className="flex-1 focus:outline-none">
             {children}

@@ -1,5 +1,5 @@
 import React from "react";
-import { ArrowUpRight, Linkedin, MessageCircle, Phone } from "lucide-react";
+import { ArrowUpRight, Instagram, Linkedin } from "lucide-react";
 import ContactForm from "@/components/ContactForm";
 import ScrollReveal from "@/components/ScrollReveal";
 import { profileData } from "@/data/profile";
@@ -18,8 +18,8 @@ export default function ContactPage() {
               LET'S TALK.
             </h1>
             <p className="mt-6 text-h3 text-text-secondary leading-relaxed">
-              Terbuka untuk peluang sebagai UI/UX Designer, kerja sama desain produk, maupun
-              diskusi seputar riset pengguna dan design system.
+              Open to UI/UX Designer roles, product design collaborations, and conversations
+              about user research and design systems.
             </p>
           </div>
         </ScrollReveal>
@@ -31,7 +31,7 @@ export default function ContactPage() {
             <ScrollReveal delay={0.1}>
               <div className="rounded-card border border-border bg-surface p-8">
                 <span className="text-meta font-bold tracking-wider text-text-muted uppercase">
-                  ALAMAT EMAIL UTAMA
+                  PRIMARY EMAIL
                 </span>
                 <a
                   href={`mailto:${profileData.email}`}
@@ -41,7 +41,7 @@ export default function ContactPage() {
                   {profileData.email}
                 </a>
                 <p className="mt-2 text-meta text-text-secondary">
-                  Waktu respon rata-rata: kurang dari 24 jam.
+                  Average response time: under 24 hours.
                 </p>
               </div>
             </ScrollReveal>
@@ -50,21 +50,21 @@ export default function ContactPage() {
             <ScrollReveal delay={0.2}>
               <div className="rounded-card border border-border bg-surface p-8 space-y-6">
                 <span className="text-meta font-bold tracking-wider text-text-muted uppercase">
-                  PROFIL PROFESIONAL
+                  PROFESSIONAL PROFILE
                 </span>
 
                 <ul className="space-y-4">
                   <li>
                     <a
-                      href={`https://wa.me/${profileData.phone.replace(/[^0-9]/g, "")}`}
+                      href={profileData.instagram}
                       target="_blank"
                       rel="noopener noreferrer"
                       data-cursor="cta"
                       className="tap-block group flex items-center justify-between font-heading text-body font-bold text-text-primary transition-colors hover:text-accent"
                     >
                       <span className="flex items-center gap-3">
-                        <MessageCircle size={20} className="text-accent" />
-                        <span>WhatsApp — {profileData.phone}</span>
+                        <Instagram size={20} className="text-accent" />
+                        <span>Instagram — @navyroo</span>
                       </span>
                       <ArrowUpRight
                         size={18}
@@ -92,22 +92,6 @@ export default function ContactPage() {
                       </a>
                     </li>
                   )}
-                  <li>
-                    <a
-                      href={`tel:${profileData.phone.replace(/[^0-9+]/g, "")}`}
-                      data-cursor="cta"
-                      className="tap-block group flex items-center justify-between font-heading text-body font-bold text-text-primary transition-colors hover:text-accent"
-                    >
-                      <span className="flex items-center gap-3">
-                        <Phone size={20} className="text-accent" />
-                        <span>Telepon</span>
-                      </span>
-                      <ArrowUpRight
-                        size={18}
-                        className="text-text-muted transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-accent"
-                      />
-                    </a>
-                  </li>
                 </ul>
               </div>
             </ScrollReveal>

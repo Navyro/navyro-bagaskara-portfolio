@@ -36,6 +36,20 @@ export interface Project {
   featured: boolean;
   coverImage: string;
   galleryImages: string[];
+  /**
+   * Screenshot shown inside the device mockup on the /work card, plus its own aspect ratio
+   * (width / height) so the frame can never crop the UI. Chosen from the project's own
+   * `screens/` set — see docs/ux-visual/verification/project-device-mockups.md.
+   */
+  cardShot?: string;
+  cardShotAspect?: number;
+  /**
+   * Optional screens that cycle inside the card's device frame on /work. Only set for a project
+   * whose owner has approved the live preview (currently FanFunds). Every entry must be a real
+   * screenshot from that project's own `screens/` folder with the same aspect as `cardShotAspect`,
+   * otherwise the frame would have to crop it. Omit the field and the card shows `cardShot` only.
+   */
+  cardSlides?: string[];
   caseStudy: CaseStudyData;
 }
 
@@ -49,19 +63,31 @@ export const projectsData: Project[] = [
   {
     slug: "sipenelitian-uaa",
     number: "01",
-    title: "SIPENELITIAN — Sistem Informasi Pengelolaan Data Penelitian UAA",
+    title: "SIPENELITIAN — Research Data Management System, Universitas Alma Ata",
     category: "Web",
     tags: ["UI/UX Design", "Web App", "Design Thinking", "Usability Testing"],
     role: "UI/UX Designer",
     year: "2026",
-    duration: "Mei — Juli 2026",
-    team: "Tim pengembangan LP2M Universitas Alma Ata",
+    duration: "May — Jul 2026",
+    team: "LP2M Universitas Alma Ata development team",
     tools: ["Figma"],
     screenFrame: "desktop",
     shortDescription:
-      "Sistem informasi pengelolaan data penelitian untuk LP2M Universitas Alma Ata — dari wawancara pengguna hingga pengujian usability bersama 20 dosen dengan skor SUS 76,75.",
+      "Research data management system for LP2M Universitas Alma Ata — from user interviews through to usability testing with 20 lecturers, scoring 76.75 on the System Usability Scale.",
     featured: true,
     coverImage: "/images/projects/sipenelitian/cover.jpg",
+    cardShot: "/images/projects/sipenelitian/screens/02-dashboard-admin.png",
+    cardShotAspect: 1440/1024,
+    // Three of the real 1440x1024 app screens, matching cardShotAspect exactly so the laptop screen
+    // never crops or letterboxes. This is a desktop admin app whose screens all share one table
+    // layout, so the candidates were picked by measured pixel difference: these three are the most
+    // distinct available (login form, usulan detail, monitoring logbook). A fourth near-identical
+    // table was left out on purpose — cycling between look-alike tables would read as a stall.
+    cardSlides: [
+      "/images/projects/sipenelitian/screens/01-login.png",
+      "/images/projects/sipenelitian/screens/05-usulan-masuk-detail-klik-update-ubah-status.png",
+      "/images/projects/sipenelitian/screens/06-laporan-kemajuan-detail-monitoring-logbook.png",
+    ],
     galleryImages: [
       "/images/projects/sipenelitian/cover.jpg",
       "/images/projects/sipenelitian/screens/01-login.png",
@@ -74,52 +100,62 @@ export const projectsData: Project[] = [
       "/images/projects/sipenelitian/screens/08-sistem-informasi-pengelolaan-data-penelitian-uaa-kelola-user-user-ditambahkan.png",
     ],
     caseStudy: {
-      prototypeLabel: "Buka Prototype di Figma",
+      prototypeLabel: "Open Prototype in Figma",
       prototypeUrl:
         "https://www.figma.com/proto/NdKat89nkFRm125a1HWl3y/Sistem-Informasi-Pengelolaan-Data-Penelitian-UAA?node-id=1479-95355&t=xU7iF3NW7SaXaF4R-1&scaling=scale-down&content-scaling=fixed&page-id=1365%3A20569",
       overview:
-        "SIPENELITIAN adalah sistem informasi untuk mengelola data penelitian di LP2M Universitas Alma Ata. Sistem ini menangani alur dari usulan penelitian dan hibah internal, pemantauan laporan kemajuan beserta logbook, sampai laporan akhir dan lembar pengesahan — dengan dua peran pengguna: dosen peneliti dan admin LP2M.",
+        "SIPENELITIAN is a research data management system for LP2M at Universitas Alma Ata. It handles the full flow — research proposals and internal grants, progress-report monitoring with logbooks, through to final reports and signed approval sheets — with two user roles: lecturer-researcher and LP2M admin.",
       problem:
-        "Data penelitian yang tersebar di banyak berkas membuat admin LP2M sulit melihat posisi tiap usulan: mana yang masih menunggu tinjauan, mana yang sedang berjalan, dan mana yang terlambat melaporkan kemajuan. Tantangan desainnya adalah menyatukan seluruh status itu ke dalam satu antarmuka tanpa menambah beban kerja admin.",
+        "Research data scattered across many files made it hard for the LP2M admin to see where each proposal stood: which were still awaiting review, which were running, and which were late reporting progress. The design challenge was consolidating all of those states into a single interface without adding to the admin's workload.",
       research:
-        "Proyek dikerjakan dengan proses Design Thinking, dimulai dari wawancara dan observasi di lingkungan LP2M UAA untuk memetakan alur usulan dan pelaporan yang berjalan, lalu diterjemahkan menjadi information architecture dan prototipe high-fidelity.",
+        "The project followed a Design Thinking process, starting with interviews and observation inside the LP2M UAA environment to map the existing proposal and reporting flows, then translating that into an information architecture and a high-fidelity prototype.",
       keyInsights: [
-        "Daftar usulan perlu menampilkan status dan tahun anggaran sekaligus, agar admin dapat menyaring tanpa membuka dokumen satu per satu.",
-        "Perubahan status harus bisa dilakukan langsung dari halaman detail usulan, bukan dari menu terpisah.",
-        "Logbook dan luaran penelitian ditempelkan pada laporan kemajuan supaya riwayat kegiatan tidak terpisah dari laporannya.",
+        "The proposal list needs to show status and budget year together, so the admin can filter without opening documents one by one.",
+        "Status changes have to be possible directly from the proposal detail page, not from a separate menu.",
+        "Logbooks and research outputs are attached to the progress report so the activity history never separates from its report.",
       ],
       define:
-        "Peran dipisahkan dengan jelas. Dosen mengajukan usulan dan mengunggah laporan; admin LP2M memverifikasi, mengubah status, dan mengunduh berkas pengesahan. Masing-masing mendapat halaman masuk dan navigasi sendiri, dengan pola tabel yang sama agar admin tidak perlu mempelajari ulang tiap halaman.",
+        "The roles are clearly separated. Lecturers submit proposals and upload reports; the LP2M admin verifies, changes status, and downloads approval files. Each gets its own sign-in page and navigation, sharing one table pattern so the admin never has to relearn a page.",
       informationArchitecture:
-        "Login → Dashboard Admin → Hibah Internal (tambah program) → Usulan Masuk (semua tahun) → Detail Usulan (perubahan status) → Laporan Kemajuan (monitoring & logbook) → Laporan Akhir (unduh lembar pengesahan) → Kelola User.",
+        "Login → Admin Dashboard → Internal Grants (add program) → Incoming Proposals (all years) → Proposal Detail (status change) → Progress Reports (monitoring & logbook) → Final Reports (download approval sheet) → Manage Users.",
       userFlow:
-        "Alur admin: masuk → membaca ringkasan di dashboard → meninjau usulan masuk → membuka detail → memperbarui status.\nAlur dosen: masuk → mengajukan usulan → mengisi logbook → mengunggah laporan akhir.",
+        "Admin flow: sign in → read the dashboard summary → review incoming proposals → open detail → update status.\nLecturer flow: sign in → submit a proposal → fill in the logbook → upload the final report.",
       uiDesign:
-        "Antarmuka dirancang di Figma sebagai dashboard desktop: tabel data dengan penanda status, panel detail di samping daftar, serta form hibah internal dan kelola user yang mengikuti pola tabel yang sama. Warna status dipakai konsisten untuk membedakan tahap usulan.",
+        "The interface was designed in Figma as a desktop dashboard: data tables with status markers, a detail panel beside the list, and internal-grant and manage-users forms that follow the same table pattern. Status colours are applied consistently to distinguish each stage of a proposal.",
       testing:
-        "Usability testing dilakukan bersama 20 dosen. Hasilnya skor System Usability Scale (SUS) 76,75 — kategori “Acceptable” untuk acceptability dan “Good” untuk usability.",
+        "Usability testing ran with 20 lecturers. It produced a System Usability Scale (SUS) score of 76.75 — “Acceptable” for acceptability and “Good” for usability.",
       finalResult:
-        "Prototipe mencakup delapan layar utama: login, dashboard admin, tambah program hibah internal, daftar usulan semua tahun, detail usulan dengan perubahan status, detail monitoring laporan kemajuan & logbook, laporan akhir dengan unduh lembar pengesahan, dan kelola user.",
+        "The prototype covers eight core screens: login, admin dashboard, add internal grant program, all-years proposal list, proposal detail with status change, progress-report monitoring detail with logbook, final report with approval-sheet download, and manage users.",
       reflection:
-        "Pada sistem administratif, kejelasan status lebih menentukan daripada kemewahan visual. Bagian yang paling sering diuji ulang justru penempatan status dan tombol perubahan status.",
+        "In administrative systems, clear status matters more than visual polish. What got retested most was the placement of status and of the status-change button.",
     },
   },
   {
     slug: "fanfunds",
     number: "02",
-    title: "FanFunds — Aplikasi Donasi untuk Kreator",
+    title: "FanFunds — Donation App for Creators",
     category: "Mobile",
     tags: ["UI/UX Design", "Mobile App", "Design System", "A/B Testing"],
     role: "UI/UX Designer",
     year: "2024",
-    duration: "Oktober — Desember 2024",
-    team: "Tim capstone MSIB Batch 7, BISA AI Academy",
+    duration: "Oct — Dec 2024",
+    team: "MSIB Batch 7 capstone team, BISA AI Academy",
     tools: ["Figma"],
     screenFrame: "phone",
     shortDescription:
-      "Aplikasi donasi untuk kreator, dikerjakan sebagai proyek capstone studi independen MSIB Batch 7 — mencakup user persona, user flow, design system, dan A/B testing bersama 30 responden.",
+      "A donation app for creators, built as the MSIB Batch 7 independent-study capstone — covering user personas, user flows, a design system, and A/B testing with 30 respondents.",
     featured: true,
     coverImage: "/images/projects/fanfunds/cover.jpg",
+    cardShot: "/images/projects/fanfunds/screens/03-home-discover.png",
+    cardShotAspect: 393/852,
+    // Four real FanFunds screens, all 393x852 like cardShot, so the phone screen never crops or
+    // stretches. Chosen for visual variety: discover feed, creator profile, following feed, payment.
+    cardSlides: [
+      "/images/projects/fanfunds/screens/03-home-discover.png",
+      "/images/projects/fanfunds/screens/07-profil-kreator-leaderboard.png",
+      "/images/projects/fanfunds/screens/04-home-following.png",
+      "/images/projects/fanfunds/screens/09-donate-step-4.png",
+    ],
     galleryImages: [
       "/images/projects/fanfunds/cover.jpg",
       "/images/projects/fanfunds/screens/01-splash-screen.png",
@@ -135,51 +171,61 @@ export const projectsData: Project[] = [
       "/images/projects/fanfunds/screens/11-notification-donatur-update.png",
     ],
     caseStudy: {
-      prototypeLabel: "Buka Prototype di Figma",
+      prototypeLabel: "Open Prototype in Figma",
       prototypeUrl:
         "https://www.figma.com/proto/bKf9mTxPznmVp6EMoLCzCU/FanFunds?node-id=240-1604&t=sq8asbpd6QJ80FUn-1&scaling=scale-down&content-scaling=fixed&page-id=235%3A152&starting-point-node-id=240%3A1470&show-proto-sidebar=1",
       overview:
-        "FanFunds adalah aplikasi donasi untuk kreator: pendukung dapat menemukan kreator, memberikan dukungan, lalu melihat posisinya di leaderboard. Proyek ini dikerjakan sebagai capstone MSIB Batch 7 di BISA AI Academy, dengan saya berkontribusi sebagai UI/UX Designer.",
+        "FanFunds is a donation app for creators: supporters find creators, give support, then see where they stand on the leaderboard. It was the MSIB Batch 7 capstone at BISA AI Academy, where I contributed as UI/UX Designer.",
       problem:
-        "Aplikasi donasi sering berhenti pada satu transaksi selesai. Tantangannya adalah membuat dukungan terasa sebagai hubungan berkelanjutan antara kreator dan pendukung — lewat pembaruan kreator, notifikasi, dan leaderboard.",
+        "Donation apps often stop at a single completed transaction. The challenge was making support feel like an ongoing relationship between creator and supporter — through creator updates, notifications, and a leaderboard.",
       research:
-        "Kontribusi riset mencakup penyusunan user persona dan user flow sebagai dasar perancangan, lalu dilanjutkan A/B testing bersama 30 responden untuk menguji varian rancangan.",
+        "My research contribution covered building the user personas and user flows the design rests on, followed by A/B testing with 30 respondents to compare design variants.",
       keyInsights: [
-        "Posisi donatur perlu terlihat dari halaman profil, tidak hanya di daftar leaderboard global.",
-        "Notifikasi dibedakan antara pembaruan kreator dan kabar donatur lain, agar keduanya tidak melebur menjadi satu jenis pesan.",
+        "A donor's standing should be visible from the profile page, not only in the global leaderboard list.",
+        "Notifications separate creator updates from news about other donors, so the two never blur into one message type.",
       ],
       define:
-        "Pengalaman dibagi menjadi tiga sumbu: menemukan kreator (discover), memberi dukungan (donate), dan memantau dampak dukungan (leaderboard serta notifikasi).",
+        "The experience splits into three axes: finding creators (discover), giving support (donate), and tracking the impact of that support (leaderboard and notifications).",
       informationArchitecture:
-        "Splash → Onboarding → Home (Discover / Following) → Pencarian → Leaderboard → Profil Kreator → Profil Supporter → Donasi → Notifikasi.",
+        "Splash → Onboarding → Home (Discover / Following) → Search → Leaderboard → Creator Profile → Supporter Profile → Donate → Notifications.",
       userFlow:
-        "Donatur: onboarding → discover → memilih kreator → donasi bertahap → konfirmasi. Setelah donasi, posisi dan riwayat dukungan muncul di profil supporter dan leaderboard.",
+        "Donor: onboarding → discover → choose a creator → tiered donation → confirmation. After donating, standing and support history appear on the supporter profile and the leaderboard.",
       uiDesign:
-        "Layar home, explore, pembayaran, dan leaderboard dirancang di Figma bersama design system proyek. Komponen tombol, kartu kreator, dan status progres donasi dipakai ulang lintas layar agar konsisten.",
+        "The home, explore, payment, and leaderboard screens were designed in Figma alongside the project design system. Button, creator-card, and donation-progress components are reused across screens to keep them consistent.",
       testing:
-        "A/B testing dilakukan bersama 30 responden untuk membandingkan varian rancangan sebelum difinalisasi.",
+        "A/B testing ran with 30 respondents to compare design variants before finalisation.",
       finalResult:
-        "Sebelas layar: splash, onboarding, dua varian home (discover dan following), pencarian, daftar leaderboard, profil kreator, profil supporter, langkah donasi, serta dua notifikasi donatur.",
+        "Eleven screens: splash, onboarding, two home variants (discover and following), search, leaderboard list, creator profile, supporter profile, the donation steps, and two donor notifications.",
       reflection:
-        "Bekerja dalam tim capstone membuat saya terbiasa menyerahkan komponen design system, bukan sekadar file desain.",
+        "Working in a capstone team got me used to handing over design-system components, not just design files.",
     },
   },
   {
     slug: "penagihan-limbah-rt",
     number: "03",
-    title: "Aplikasi Penagihan Limbah Rumah Tangga",
+    title: "Household Waste Billing App",
     category: "Mobile",
     tags: ["UI/UX Design", "Mobile App", "User Research"],
-    role: "UI/UX Designer (Mandiri)",
+    role: "UI/UX Designer (Independent)",
     year: "2025",
-    duration: "Agustus — Oktober 2025",
-    team: "Individu",
+    duration: "Aug — Oct 2025",
+    team: "Individual",
     tools: ["Figma"],
     screenFrame: "phone",
     shortDescription:
-      "Aplikasi penagihan iuran limbah untuk pengurus RT: mencatat tagihan warga, menandai tunggakan, dan menyusun laporan bulanan. Dikerjakan mandiri dari riset pengguna hingga prototipe interaktif.",
+      "A waste-fee billing app for neighbourhood administrators: record residents' bills, flag arrears, and compile monthly reports. Built independently, from user research through to an interactive prototype.",
     featured: true,
     coverImage: "/images/projects/penagihan-limbah/cover.jpg",
+    cardShot: "/images/projects/penagihan-limbah/screens/06-laporan.png",
+    cardShotAspect: 412/917,
+    // Four real 412x917 screens, same ratio as cardShot. Chosen for variety: dashboard totals,
+    // an individual arrears bill, the RT group bill, and the monthly report.
+    cardSlides: [
+      "/images/projects/penagihan-limbah/screens/03-dashboard.png",
+      "/images/projects/penagihan-limbah/screens/04-tagihan-individu-tunggakan-1.png",
+      "/images/projects/penagihan-limbah/screens/05-detail-tagihan-kelompok-warga-rt-01-feb-nunggak.png",
+      "/images/projects/penagihan-limbah/screens/06-laporan.png",
+    ],
     galleryImages: [
       "/images/projects/penagihan-limbah/cover.jpg",
       "/images/projects/penagihan-limbah/screens/01-splash-screen.png",
@@ -190,47 +236,57 @@ export const projectsData: Project[] = [
       "/images/projects/penagihan-limbah/screens/06-laporan.png",
     ],
     caseStudy: {
-      prototypeLabel: "Buka Prototype di Figma",
+      prototypeLabel: "Open Prototype in Figma",
       prototypeUrl:
         "https://www.figma.com/proto/HiSWS6WN1JP6xyUHWsshhp/Desain-Aplikasi-Penagihan-Limbah-Rumah-Tangga?node-id=52-55&t=U5BmMRSFI1nO4jwn-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1",
       overview:
-        "Aplikasi penagihan limbah rumah tangga untuk pengurus RT: mencatat tagihan warga, menandai tunggakan, dan menyusun laporan pemasukan. Dikerjakan secara mandiri dari riset pengguna, information architecture, hingga prototipe interaktif.",
+        "A household waste billing app for RT administrators: record residents' bills, flag arrears, and compile income reports. Built independently from user research and information architecture through to an interactive prototype.",
       problem:
-        "Pencatatan iuran limbah di tingkat RT umumnya masih manual, sehingga tunggakan sulit dilacak dan laporan bulanan harus dihitung ulang setiap periode.",
+        "Waste-fee collection at the neighbourhood level is usually still manual, so arrears are hard to trace and the monthly report has to be recalculated every period.",
       research:
-        "Riset pengguna dilakukan secara mandiri melalui wawancara dan observasi untuk memahami cara pengurus RT mencatat iuran dan menagih tunggakan.",
+        "User research was carried out independently through interviews and observation, to understand how RT administrators record fees and chase arrears.",
       keyInsights: [
-        "Pengurus berpikir per kelompok warga (RT), bukan per individu — struktur data aplikasi harus mengikuti cara berpikir itu.",
-        "Tunggakan perlu tampil sebagai status yang menonjol, bukan tersembunyi di dalam detail tagihan.",
+        "Administrators think in groups of residents (RT), not individuals — the app's data structure has to follow that mental model.",
+        "Arrears have to appear as a prominent status, not hidden inside a bill's detail.",
       ],
       define:
-        "Aplikasi dibagi menjadi dua sisi pengalaman: admin (login, dashboard, kelola tagihan, laporan) dan warga (melihat tagihan serta tunggakannya).",
+        "The app splits into two experience sides: admin (login, dashboard, manage bills, reports) and resident (viewing bills and arrears).",
       informationArchitecture:
-        "Splash → Admin Login → Dashboard → Tagihan Individu → Detail Tagihan Kelompok → Laporan.",
+        "Splash → Admin Login → Dashboard → Individual Bill → Group Bill Detail → Reports.",
       userFlow:
-        "Admin masuk → melihat ringkasan pemasukan di dashboard → membuka tagihan warga → memeriksa tunggakan per kelompok RT → menyusun laporan periode.",
+        "Admin signs in → sees the income summary on the dashboard → opens a resident's bill → checks arrears per RT group → compiles the period report.",
       uiDesign:
-        "Antarmuka disusun di Figma dengan satu bahasa visual: kartu status tagihan, tabel tunggakan, dan ringkasan pemasukan pada dashboard. Status lunas dan menunggak dibedakan lewat warna, bukan hanya teks.",
+        "The interface was built in Figma on one visual language: bill status cards, arrears tables, and an income summary on the dashboard. Paid and overdue are distinguished by colour, not text alone.",
       finalResult:
-        "Enam layar: splash screen, admin login, dashboard, tagihan individu dengan tunggakan, detail tagihan kelompok warga RT 01, dan laporan.",
+        "Six screens: splash screen, admin login, dashboard, individual bill with arrears, group bill detail for RT 01 residents, and reports.",
       reflection:
-        "Mengerjakan sendiri dari riset sampai prototipe menuntut setiap keputusan punya alasan yang bisa dijelaskan, bukan hanya terlihat rapi.",
+        "Doing everything alone, from research to prototype, meant every decision had to have a reason I could explain — not just look tidy.",
     },
   },
   {
     slug: "mediassist",
     number: "04",
-    title: "Mediassist — Layanan Kesehatan & Konsultasi Dokter",
+    title: "Mediassist — Healthcare & Doctor Consultation",
     category: "Mobile",
     tags: ["UI/UX Design", "Mobile App", "Team Project"],
-    role: "UI/UX Designer — layar Daftar Dokter & Detail Dokter",
-    team: "4 orang (Akbar, Amelda, Navyro Bagaskara, Dimas)",
+    role: "UI/UX Designer — Doctor List & Doctor Detail screens",
+    team: "4 people (Akbar, Amelda, Navyro Bagaskara, Dimas)",
     tools: ["Figma"],
     screenFrame: "phone",
     shortDescription:
-      "Konsep aplikasi layanan kesehatan untuk mencari dokter, melihat jadwal praktik, dan berkonsultasi lewat chat. Dikerjakan tim beranggotakan empat orang dengan pembagian layar per anggota.",
+      "A healthcare app concept for finding doctors, checking clinic schedules, and consulting over chat. Built by a four-person team with screens split per member.",
     featured: false,
     coverImage: "/images/projects/mediassist/cover.jpg",
+    cardShot: "/images/projects/mediassist/screens/02-home-amelda.png",
+    cardShotAspect: 393/852,
+    // Four real 393x852 screens, same ratio as cardShot. Chosen for variety: home, doctor list,
+    // doctor detail, and the appointment schedule.
+    cardSlides: [
+      "/images/projects/mediassist/screens/02-home-amelda.png",
+      "/images/projects/mediassist/screens/03-list-dokter-navyro.png",
+      "/images/projects/mediassist/screens/04-detail-dokter-navyro.png",
+      "/images/projects/mediassist/screens/05-jadwal-amelda.png",
+    ],
     galleryImages: [
       "/images/projects/mediassist/cover.jpg",
       "/images/projects/mediassist/screens/01-onboarding-akbar.png",
@@ -241,40 +297,50 @@ export const projectsData: Project[] = [
       "/images/projects/mediassist/screens/06-chat-dimas.png",
     ],
     caseStudy: {
-      prototypeLabel: "Buka File Figma",
+      prototypeLabel: "Open Figma File",
       prototypeUrl:
         "https://www.figma.com/design/azEpKDmPIhQx2HWyPGqLIS/Tugas-Kelompok-Kelas-UI-UX?node-id=11-125&t=gglQfxRG8MB2f9qn-1",
       overview:
-        "Mediassist adalah konsep aplikasi layanan kesehatan: mencari dokter, melihat jadwal, lalu berkonsultasi lewat chat. Proyek tim beranggotakan empat orang dengan pembagian layar per anggota.",
+        "Mediassist is a healthcare app concept: find a doctor, check the schedule, then consult over chat. A four-person team project with screens split per member.",
       problem:
-        "Mencari dokter dan mengatur jadwal konsultasi biasanya tersebar di kanal berbeda — daftar dokter di satu tempat, jadwal di tempat lain, konsultasi di tempat ketiga. Konsep ini menyatukan ketiganya dalam satu alur.",
+        "Finding a doctor and arranging a consultation usually scatters across separate channels — a doctor list in one place, schedules in another, consultation in a third. This concept brings all three into one flow.",
       define:
-        "Pekerjaan dibagi per layar: onboarding, home, dan jadwal dipegang anggota lain; saya mengerjakan daftar dokter dan detail dokter; chat dikerjakan anggota lainnya.",
+        "Work was split per screen: onboarding, home, and schedule were owned by other members; I built the doctor list and doctor detail; chat was handled by another member.",
       informationArchitecture:
-        "Onboarding → Home → Daftar Dokter → Detail Dokter → Jadwal → Chat.",
+        "Onboarding → Home → Doctor List → Doctor Detail → Schedule → Chat.",
       userFlow:
-        "Pengguna mengenal layanan lewat onboarding → melihat dokter yang tersedia → membuka detail dokter untuk memeriksa profil dan jadwal praktik → melanjutkan ke penjadwalan atau chat.",
+        "A user meets the service through onboarding → browses available doctors → opens a doctor's detail to check profile and clinic schedule → continues to scheduling or chat.",
       uiDesign:
-        "Layar yang saya rancang: daftar dokter dengan kartu dokter dan penyaring spesialis, serta detail dokter berisi profil, jadwal praktik, dan aksi konsultasi. Keduanya memakai komponen yang sama dengan layar home dan jadwal milik anggota tim agar satu aplikasi terasa utuh.",
+        "Screens I designed: the doctor list with doctor cards and specialty filters, and the doctor detail holding profile, clinic schedule, and consultation action. Both reuse the same components as the team's home and schedule screens, so the app reads as one product.",
       finalResult:
-        "Enam layar yang membentuk satu alur: onboarding, home, daftar dokter, detail dokter, jadwal, dan chat.",
+        "Six screens forming one flow: onboarding, home, doctor list, doctor detail, schedule, and chat.",
       reflection:
-        "Pada proyek tim, konsistensi komponen antaranggota lebih menentukan kualitas akhir daripada kerumitan satu layar.",
+        "On a team project, component consistency between members decides final quality more than the complexity of any single screen.",
     },
   },
   {
     slug: "kick-swift",
     number: "05",
-    title: "Kick Swift — Konsep Aplikasi Belanja Sepatu",
+    title: "Kick Swift — Shoe Shopping App Concept",
     category: "Mobile",
     tags: ["UI/UX Design", "Mobile App", "E-Commerce"],
     role: "UI/UX Designer",
     tools: ["Figma"],
     screenFrame: "phone",
     shortDescription:
-      "Konsep aplikasi belanja sepatu: katalog, pencarian, detail produk dengan pemilihan ukuran, dan keranjang belanja.",
+      "A shoe shopping app concept: catalogue, search, product detail with size selection, and a shopping cart.",
     featured: false,
     coverImage: "/images/projects/kick-swift/cover.jpg",
+    cardShot: "/images/projects/kick-swift/screens/03-home.png",
+    cardShotAspect: 1125/2436,
+    // Four real 1125x2436 screens, same ratio as cardShot. Chosen for variety: home, search,
+    // product detail, and the cart.
+    cardSlides: [
+      "/images/projects/kick-swift/screens/03-home.png",
+      "/images/projects/kick-swift/screens/04-search.png",
+      "/images/projects/kick-swift/screens/05-details.png",
+      "/images/projects/kick-swift/screens/06-troli.png",
+    ],
     galleryImages: [
       "/images/projects/kick-swift/cover.jpg",
       "/images/projects/kick-swift/screens/01-splash3.png",
@@ -285,36 +351,48 @@ export const projectsData: Project[] = [
       "/images/projects/kick-swift/screens/06-troli.png",
     ],
     caseStudy: {
-      prototypeLabel: "Buka Prototype di Figma",
+      prototypeLabel: "Open Prototype in Figma",
       prototypeUrl:
         "https://www.figma.com/proto/G42kCFdLB90IHhbSvz6OO2/Srudi-Indemendent?node-id=76-8592&starting-point-node-id=312%3A1485&t=TVNSPIIDYlreerF2-1",
       overview:
-        "Kick Swift adalah konsep aplikasi belanja sepatu: katalog dengan kategori dan produk populer, pencarian, detail produk, dan keranjang.",
+        "Kick Swift is a shoe shopping app concept: a catalogue with categories and popular products, search, product detail, and cart.",
       problem:
-        "Pada belanja sepatu, ukuran adalah keputusan paling rawan. Pengguna perlu melihat ketersediaan ukuran dan material sebelum menambah produk ke keranjang, tanpa harus mundur ke katalog.",
+        "In shoe shopping, size is the riskiest decision. Users need to see size availability and materials before adding a product to the cart, without backing out to the catalogue.",
       informationArchitecture:
-        "Splash → Onboarding → Home → Pencarian → Detail Produk (galeri, material, ukuran) → Keranjang.",
+        "Splash → Onboarding → Home → Search → Product Detail (gallery, material, size) → Cart.",
       userFlow:
-        "Pengguna membuka aplikasi → menelusuri kategori atau mencari → membuka detail produk → memilih ukuran → menambahkan ke keranjang → memeriksa ringkasan sebelum checkout.",
+        "A user opens the app → browses categories or searches → opens a product detail → picks a size → adds to cart → reviews the summary before checkout.",
       uiDesign:
-        "Home menampilkan kategori, sepatu populer, dan produk yang sedang dicari. Halaman detail memuat galeri, material, dan pemilih ukuran. Keranjang merangkum item beserta harga sebelum checkout, dengan hierarki visual yang menempatkan harga dan tombol aksi sebagai fokus.",
+        "Home shows categories, popular shoes, and products being searched for. The detail page holds the gallery, materials, and size picker. The cart summarises items with prices before checkout, with a visual hierarchy that makes price and the action button the focus.",
       finalResult:
-        "Enam layar: splash, onboarding, home, pencarian, detail produk, dan keranjang.",
+        "Six screens: splash, onboarding, home, search, product detail, and cart.",
     },
   },
   {
     slug: "jogging-id",
     number: "06",
-    title: "Jogging ID — Pelacak Lari & Tantangan",
+    title: "Jogging ID — Running Tracker & Challenges",
     category: "Mobile",
     tags: ["UI/UX Design", "Mobile App", "Activity Tracking"],
     role: "UI/UX Designer",
     tools: ["Figma"],
     screenFrame: "phone",
     shortDescription:
-      "Konsep aplikasi pelacak lari: mencatat rute, waktu, dan hasil latihan, serta menyimpan riwayat dan tantangan mingguan.",
+      "A running-tracker app concept: recording route, time, and workout results, plus saved history and weekly challenges.",
     featured: false,
     coverImage: "/images/projects/jogging-id/cover.jpg",
+    cardShot: "/images/projects/jogging-id/screens/07-result.png",
+    cardShotAspect: 390/844,
+    // Four real 390x844 screens, same ratio as cardShot. Chosen for variety: home, the running
+    // workout result, the run summary, and the profile.
+    // `08-challenges.png` is 390x845 (one pixel taller than the screen box) so it is deliberately
+    // left out — including it would letterbox or crop by a pixel.
+    cardSlides: [
+      "/images/projects/jogging-id/screens/03-home.png",
+      "/images/projects/jogging-id/screens/06-result-workout.png",
+      "/images/projects/jogging-id/screens/07-result.png",
+      "/images/projects/jogging-id/screens/09-profile.png",
+    ],
     galleryImages: [
       "/images/projects/jogging-id/cover.jpg",
       "/images/projects/jogging-id/screens/01-splash-screen-3.png",
@@ -328,21 +406,21 @@ export const projectsData: Project[] = [
       "/images/projects/jogging-id/screens/09-profile.png",
     ],
     caseStudy: {
-      prototypeLabel: "Buka Prototype di Figma",
+      prototypeLabel: "Open Prototype in Figma",
       prototypeUrl:
         "https://www.figma.com/proto/G42kCFdLB90IHhbSvz6OO2/Srudi-Indemendent?node-id=118-2108&t=A9QefFLcqlliVKj8-1&scaling=min-zoom&content-scaling=fixed&page-id=117%3A632",
       overview:
-        "Jogging ID adalah konsep aplikasi pelacak lari: mencatat rute, waktu, dan hasil latihan, lalu menyimpan riwayat serta tantangan mingguan.",
+        "Jogging ID is a running-tracker app concept: record route, time, and workout results, then save history and weekly challenges.",
       problem:
-        "Saat berlari, pengguna hanya bisa melirik layar sepersekian detik. Informasi terpenting — jarak, waktu, dan pace — harus terbaca tanpa mengalihkan perhatian dari jalan.",
+        "While running, a user can only glance at the screen for a fraction of a second. The most important information — distance, time, and pace — has to be readable without pulling attention off the road.",
       informationArchitecture:
-        "Splash → Onboarding → Home → Mulai Lari → Sesi Berlari → Ringkasan Hasil → Riwayat → Tantangan → Profil.",
+        "Splash → Onboarding → Home → Start Run → Running Session → Result Summary → History → Challenges → Profile.",
       userFlow:
-        "Pengguna membuka home → menekan mulai lari → memantau jarak, waktu, dan pace selama sesi → menyelesaikan sesi → menerima ringkasan hasil yang tersimpan di riwayat.",
+        "A user opens home → taps start run → monitors distance, time, and pace during the session → ends the session → gets a result summary saved to history.",
       uiDesign:
-        "Layar sesi berlari memakai tipografi besar dan kontras tinggi untuk jarak, waktu, dan pace, dengan tombol jeda yang mudah dijangkau satu tangan. Ringkasan hasil menampilkan rute dan data latihan, sementara halaman tantangan memakai sistem progres mingguan agar pengguna punya alasan kembali.",
+        "The running-session screen uses large, high-contrast typography for distance, time, and pace, with a pause button easy to reach one-handed. The result summary shows route and workout data, while the challenges page uses a weekly progress system so users have a reason to come back.",
       finalResult:
-        "Sembilan layar: splash, onboarding, home, mulai lari, sesi lari luar ruangan, ringkasan latihan, hasil, tantangan, dan profil.",
+        "Nine screens: splash, onboarding, home, start run, outdoor running session, workout summary, results, challenges, and profile.",
     },
   },
 ];

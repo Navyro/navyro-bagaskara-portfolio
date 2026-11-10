@@ -28,7 +28,7 @@ export default function ExperienceItem({ item }: ExperienceItemProps) {
           {item.achievements.map((achieve, idx) => (
             <li key={idx} className="flex items-start gap-2">
               <span className="mt-1.5 h-1 w-1 rounded-full bg-text-muted flex-shrink-0" />
-              <span>{achieve}</span>
+              <span className="min-w-0 break-words">{achieve}</span>
             </li>
           ))}
         </ul>

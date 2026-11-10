@@ -28,7 +28,9 @@ export default function Navbar() {
       <ScrollProgressBar />
 
       <header className="sticky top-0 z-40 h-[var(--header-h)] w-full border-b border-border bg-background/90 backdrop-blur-md transition-all duration-200">
-        <div className="mx-auto flex h-full max-w-editorial items-center justify-between px-6 lg:px-12">
+        {/* Fixed px padding by design: a rem value doubles under 200% text zoom and is wider than
+            a 320px viewport on small phones. px-6/px-12 at the default 16px root equal these. */}
+        <div className="mx-auto flex h-full max-w-editorial items-center justify-between px-[24px] lg:px-[48px]">
           {/* Logo / Brand Name */}
           <Link
             href="/"
@@ -71,10 +73,12 @@ export default function Navbar() {
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="tap flex items-center gap-2 text-meta font-semibold tracking-wider text-text-primary"
+              className="tap flex shrink-0 items-center justify-center gap-2 min-w-[44px] text-meta font-semibold tracking-wider text-text-primary"
               aria-label="Toggle navigation menu"
             >
-              <span>{mobileMenuOpen ? "CLOSE" : "MENU"}</span>
+              {/* Label is decorative here: `aria-label` already names the button, and hiding the text
+                  below `sm` keeps the header from overflowing when a user scales text up. */}
+              <span className="hidden sm:inline">{mobileMenuOpen ? "CLOSE" : "MENU"}</span>
               {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
           </div>

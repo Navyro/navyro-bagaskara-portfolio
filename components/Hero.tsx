@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { profileData } from "@/data/profile";
@@ -12,7 +13,9 @@ export default function Hero() {
   return (
     <section className="w-full bg-background pt-16 pb-20 md:pt-24 md:pb-28 lg:pt-32 lg:pb-36 border-b border-border">
       <div className="mx-auto max-w-editorial px-6 lg:px-12">
-        <div className="max-w-4xl">
+        {/* Two columns from lg up: copy left, portrait right. */}
+        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-16">
+        <div className="lg:col-span-7 max-w-4xl">
           {/* Step 1 — Eyebrow */}
           <div className="rise inline-flex items-center gap-2 text-meta font-bold tracking-widest text-accent uppercase">
             <span className="h-2 w-2 rounded-full bg-accent animate-pulse" />
@@ -75,6 +78,24 @@ export default function Hero() {
               </Link>
             </motion.div>
           </div>
+        </div>
+
+        {/* Portrait — real photo, 4:5 crop, no overlay so it stays honest in light and dark. */}
+        <div className="rise rise-3 lg:col-span-5">
+          <div className="mx-auto w-full max-w-[320px] sm:max-w-[360px] lg:max-w-none">
+            <div className="overflow-hidden rounded-card border border-border bg-surface shadow-sm">
+              <Image
+                src="/images/profile-navyro.jpg"
+                alt={`${profileData.name} — ${profileData.role}`}
+                width={1000}
+                height={1250}
+                priority
+                sizes="(min-width: 1024px) 420px, (min-width: 640px) 360px, 320px"
+                className="h-auto w-full object-cover"
+              />
+            </div>
+          </div>
+        </div>
         </div>
       </div>
     </section>

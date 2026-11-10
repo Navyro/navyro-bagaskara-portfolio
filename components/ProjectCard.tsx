@@ -1,59 +1,32 @@
 "use client";
 
-import React, { useRef } from "react";
+import React from "react";
 import Link from "next/link";
-import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { Project } from "@/data/projects";
 import ProjectCover from "./ProjectCover";
+import ProjectDeviceShot from "./ProjectDeviceShot";
+import ProjectCardSlides from "./ProjectCardSlides";
 import ScrollReveal from "./ScrollReveal";
 
 interface ProjectCardProps {
   project: Project;
 }
 
+/**
+ * Work card. Hover is deliberately quiet.
+ *
+ * The mat used to flip its border to `--text-primary`, which read as a bright white outline in dark
+ * mode. It now only warms its background from `--surface` to `--background` (two tokens the site
+ * already uses for exactly this “raised vs page” contrast), so the card stays legible without
+ * shouting. The normal drop shadow is kept and is NOT strengthened on hover, and nothing about the
+ * card's position or size changes.
+ *
+ * The 3D tilt and the mouse-following glare are gone on purpose; a plain colour transition reads
+ * calmer and keeps attention on the artwork.
+ */
 export default function ProjectCard({ project }: ProjectCardProps) {
-  const cardRef = useRef<HTMLAnchorElement>(null);
-
-  // Mouse position values relative to image container (-0.5 to 0.5)
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  // Smooth springs for tilt rotation
-  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [6, -6]), {
-    stiffness: 300,
-    damping: 30,
-  });
-  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-6, 6]), {
-    stiffness: 300,
-    damping: 30,
-  });
-
-  // Glare overlay position
-  const glareX = useSpring(useTransform(mouseX, [-0.5, 0.5], [0, 100]), {
-    stiffness: 200,
-    damping: 25,
-  });
-  const glareY = useSpring(useTransform(mouseY, [-0.5, 0.5], [0, 100]), {
-    stiffness: 200,
-    damping: 25,
-  });
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const width = rect.width;
-    const height = rect.height;
-    const x = (e.clientX - rect.left) / width - 0.5;
-    const y = (e.clientY - rect.top) / height - 0.5;
-    mouseX.set(x);
-    mouseY.set(y);
-  };
-
-  const handleMouseLeave = () => {
-    mouseX.set(0);
-    mouseY.set(0);
-  };
+  const hasSlides = Boolean(project.cardSlides && project.cardSlides.length > 1);
 
   return (
     <ScrollReveal className="h-full">
@@ -84,8 +57,6 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           <h3 className="font-heading text-h3 font-extrabold tracking-tight text-balance text-text-primary group-hover:text-accent transition-colors md:text-h2 leading-tight">
             <Link
               href={`/work/${project.slug}`}
-              data-cursor="project"
-              data-cursor-text="VIEW ↗"
             >
               {project.title}
             </Link>
@@ -105,44 +76,46 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         </div>
         </div>
 
-        {/* Interactive Mouse-Follow 3D Tilt Project Visual Container */}
-        <motion.div
-          style={{
-            perspective: 1000,
-          }}
-          className="w-full"
-        >
-          <motion.div
-            style={{
-              rotateX,
-              rotateY,
-              transformStyle: "preserve-3d",
-            }}
-            transition={{ duration: 0.15 }}
+        {/* Project visual — plain link. Hover only warms the mat background (see the wrapper below):
+            no tilt, no glare, no border flip, and the box never moves or resizes. */}
+        <div className="w-full">
+          <Link
+            href={`/work/${project.slug}`}
+            className="relative block w-full rounded-card shadow-sm"
           >
-            <Link
-              ref={cardRef}
-              href={`/work/${project.slug}`}
-              data-cursor="project"
-              data-cursor-text="VIEW ↗"
-              onMouseMove={handleMouseMove}
-              onMouseLeave={handleMouseLeave}
-              className="relative block w-full rounded-card shadow-sm transition-shadow duration-300 group-hover:shadow-xl"
-            >
-              <div className="relative overflow-hidden rounded-card">
+            {/* `group-hover:[&>div]:bg-*` reaches the mat's own `bg-surface` without editing
+                ProjectCover/ProjectDeviceShot, which are shared with the case-study pages. */}
+            <div className="relative rounded-card [&>div]:transition-colors [&>div]:duration-200 group-hover:[&>div]:bg-background">
+              {project.cardShot && project.cardShotAspect ? (
+                hasSlides ? (
+                  <ProjectCardSlides
+                    slides={project.cardSlides!}
+                    alt={`${project.title} — interface preview`}
+                  >
+                    {({ layers }) => (
+                      <ProjectDeviceShot
+                        src={project.cardShot!}
+                        alt={`${project.title} — interface preview`}
+                        device={project.screenFrame === "desktop" ? "laptop" : "phone"}
+                        aspect={project.cardShotAspect!}
+                        screenLayers={layers}
+                      />
+                    )}
+                  </ProjectCardSlides>
+                ) : (
+                  <ProjectDeviceShot
+                    src={project.cardShot}
+                    alt={`${project.title} — interface preview`}
+                    device={project.screenFrame === "desktop" ? "laptop" : "phone"}
+                    aspect={project.cardShotAspect}
+                  />
+                )
+              ) : (
                 <ProjectCover src={project.coverImage} alt={project.title} ratio="4/5" />
-
-                {/* Dynamic Mouse Glare Lighting Effect */}
-                <motion.div
-                  className="pointer-events-none absolute inset-0 rounded-card opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  style={{
-                    background: `radial-gradient(circle at ${glareX}% ${glareY}%, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 60%)`,
-                  }}
-                />
-              </div>
-            </Link>
-          </motion.div>
-        </motion.div>
+              )}
+            </div>
+          </Link>
+        </div>
 
         {/* Description & Link */}
         <div className="mt-auto flex flex-col items-start justify-between gap-4 pt-2 md:flex-row md:items-center">
@@ -152,7 +125,6 @@ export default function ProjectCard({ project }: ProjectCardProps) {
 
           <Link
             href={`/work/${project.slug}`}
-            data-cursor="cta"
             className="tap inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap font-heading text-control font-bold text-text-primary transition-colors hover:text-accent group-hover:translate-x-1"
           >
             <span>View Case Study</span>

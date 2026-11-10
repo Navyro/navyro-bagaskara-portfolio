@@ -31,7 +31,7 @@ export default function AboutPage() {
           <div className="lg:col-span-4">
             <ScrollReveal delay={0.1}>
               <h3 className="font-heading text-h3 font-bold tracking-tight text-text-primary">
-                Profil &amp; Pendekatan Kerja
+                Profile &amp; Approach
               </h3>
             </ScrollReveal>
           </div>
@@ -41,7 +41,7 @@ export default function AboutPage() {
             </ScrollReveal>
             <ScrollReveal delay={0.2}>
               <p>
-                Fokus utama saya adalah menciptakan produk yang mudah dipahami oleh pengguna sekaligus efisien untuk dipelihara oleh tim teknis. Dengan keahlian ganda dalam riset pengalaman pengguna dan eksekusi kode Front-End, saya mampu memastikan bahwa visi desain diterjemahkan tanpa distorsi ke dalam produk akhir.
+                My focus is building products that are easy for people to understand and efficient for engineering teams to maintain. With hands-on experience in both user experience research and front-end code, I make sure the design vision reaches the final product without distortion.
               </p>
             </ScrollReveal>
             <ScrollReveal delay={0.25}>
@@ -51,14 +51,14 @@ export default function AboutPage() {
                   data-cursor="cta"
                   className="inline-flex min-h-11 items-center gap-2 rounded-btn bg-text-primary px-6 py-3 text-control font-semibold text-background hover:bg-black transition-colors"
                 >
-                  Lihat &amp; Unduh Resume <Download size={16} />
+                  View &amp; Download CV <Download size={16} />
                 </Link>
                 <Link
                   href="/contact"
                   data-cursor="cta"
                   className="inline-flex items-center gap-2 rounded-btn border border-border bg-surface px-6 py-3 text-control font-semibold text-text-primary hover:border-text-primary transition-colors"
                 >
-                  Hubungi Langsung <ArrowUpRight size={16} />
+                  Get in Touch <ArrowUpRight size={16} />
                 </Link>
                 <a
                   href={`/${profileData.portfolioFilename}`}
@@ -67,7 +67,7 @@ export default function AboutPage() {
                   data-cursor="cta"
                   className="inline-flex min-h-11 items-center gap-2 rounded-btn border border-border bg-surface px-6 py-3 text-control font-semibold text-text-primary hover:border-text-primary transition-colors"
                 >
-                  Portofolio PDF (12 MB) <FileText size={16} />
+                  Portfolio PDF (12 MB) <FileText size={16} />
                 </a>
               </div>
             </ScrollReveal>
@@ -79,8 +79,8 @@ export default function AboutPage() {
           <ScrollReveal>
             <SectionHeading
               number="01"
-              title="Pengalaman Kerja Profesional"
-              subtitle="Jejak kontribusi dalam proyek industri dan perancangan antarmuka."
+              title="Professional Experience"
+              subtitle="A record of contributions to industry projects and interface design."
             />
           </ScrollReveal>
           <div className="mt-8 space-y-6 max-w-4xl">
@@ -95,7 +95,7 @@ export default function AboutPage() {
         {/* Education Section */}
         <div className="mt-16 border-b border-border pb-16">
           <ScrollReveal>
-            <SectionHeading number="02" title="Pendidikan Formal" />
+            <SectionHeading number="02" title="Education" />
           </ScrollReveal>
           <div className="mt-6 space-y-6 max-w-4xl">
             {profileData.education.map((edu, idx) => (
@@ -124,8 +124,8 @@ export default function AboutPage() {
           <ScrollReveal>
             <SectionHeading
               number="03"
-              title="Kompetensi Teknis &amp; Tools"
-              subtitle="Teknologi dan perangkat lunak yang dikuasai untuk mendukung workflow perancangan."
+              title="Skills &amp; Tools"
+              subtitle="The technologies and software I use to support the design workflow."
             />
           </ScrollReveal>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">

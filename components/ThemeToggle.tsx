@@ -24,7 +24,7 @@ export default function ThemeToggle() {
     <button
       type="button"
       onClick={() => setTheme(isDark ? "light" : "dark")}
-      className="relative flex h-9 w-9 items-center justify-center rounded-btn border border-border bg-surface text-text-primary transition-colors hover:border-text-primary hover:text-accent max-md:h-11 max-md:w-11"
+      className="relative flex h-9 w-9 items-center justify-center rounded-btn border border-border bg-surface text-text-primary transition-colors hover:border-text-primary hover:text-accent max-md:h-[44px] max-md:w-[44px]"
       aria-label="Switch visual theme"
       title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
     >

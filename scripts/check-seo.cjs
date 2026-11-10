@@ -174,7 +174,7 @@ async function main() {
     if (!manifest.name || !manifest.short_name) manifestProblems.push("name/short_name missing");
     if (manifest.start_url !== "/") manifestProblems.push(`start_url=${manifest.start_url}`);
     if (manifest.display !== "standalone") manifestProblems.push(`display=${manifest.display}`);
-    if (manifest.lang !== "id") manifestProblems.push(`lang=${manifest.lang}`);
+    if (manifest.lang !== "en") manifestProblems.push(`lang=${manifest.lang}`);
     if (!has("192x192")) manifestProblems.push("no 192x192 icon");
     if (!has("512x512")) manifestProblems.push("no 512x512 icon");
     if (!has("512x512", "maskable")) manifestProblems.push("no maskable 512x512 icon");

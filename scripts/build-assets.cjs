@@ -151,9 +151,36 @@ async function phone(buf, height, radius) {
   return { buf: out, w, h: Math.round(h) };
 }
 
+/**
+ * Soft drop shadow for one screenshot.
+ *
+ * The previous version drew the rounded rect on a canvas exactly `w x h` and blurred it. A blur
+ * cannot spread past its own canvas, so the shadow was clipped at the screenshot's edge: what
+ * showed was a hard-edged grey rectangle offset right/down, with square corners while the
+ * screenshot above it was rounded. It read as a grey block sticking out of the artwork.
+ *
+ * The shadow now lives on a canvas padded by `PAD` transparent pixels on every side, so the blur
+ * falls off naturally and the roundness of the corner survives. `offsetX/offsetY` and `pad` are
+ * returned so the caller can place the canvas (left = x - pad + offsetX) without guessing.
+ */
+const SHADOW_PAD = 56;
+const SHADOW_OFFSET = { x: 0, y: 14 };
+
 async function shadow(w, h, radius) {
-  const svg = `<svg width="${w}" height="${h}"><rect x="0" y="0" width="${w}" height="${h}" rx="${radius}" fill="#0b0d12" fill-opacity="0.28"/></svg>`;
-  return sharp(Buffer.from(svg)).blur(26).png().toBuffer();
+  const cw = w + SHADOW_PAD * 2;
+  const ch = h + SHADOW_PAD * 2;
+  const sigma = Math.max(14, Math.round(w * 0.035));
+  const svg =
+    `<svg width="${cw}" height="${ch}">` +
+    `<rect x="${SHADOW_PAD}" y="${SHADOW_PAD}" width="${w}" height="${h}" rx="${radius}" ry="${radius}" fill="#0b0d12" fill-opacity="0.30"/>` +
+    `</svg>`;
+  const buf = await sharp(Buffer.from(svg)).blur(sigma).png().toBuffer();
+  return { buf, pad: SHADOW_PAD, offsetX: SHADOW_OFFSET.x, offsetY: SHADOW_OFFSET.y };
+}
+
+/** Composite position for a shadow returned by `shadow()`. */
+function shadowAt(sh, left, top) {
+  return { input: sh.buf, left: Math.round(left) - sh.pad + sh.offsetX, top: Math.round(top) - sh.pad + sh.offsetY };
 }
 
 async function frame(buf, width, radius) {
@@ -180,7 +207,7 @@ async function buildCoverMobile(slug, paths) {
   let x = margin;
   for (const it of items) {
     const y = Math.round(top + (rowH - it.h) / 2);
-    layers.push({ input: it.shadow, left: x + 6, top: y + 16 });
+    layers.push(shadowAt(it.shadow, x, y));
     layers.push({ input: it.buf, left: x, top: y });
     x += it.w + gap;
   }
@@ -204,10 +231,10 @@ async function buildCoverDesktop(slug, paths) {
   const rowX = Math.round((W - rowW) / 2);
 
   const layers = [
-    { input: main.shadow, left: mainX + 8, top: mainY + 20 },
+    shadowAt(main.shadow, mainX, mainY),
     { input: main.buf, left: mainX, top: mainY },
-    { input: b.shadow, left: rowX + 6, top: rowY + 16 },
-    { input: c.shadow, left: rowX + b.w + gap + 6, top: rowY + 16 },
+    shadowAt(b.shadow, rowX, rowY),
+    shadowAt(c.shadow, rowX + b.w + gap, rowY),
     { input: b.buf, left: rowX, top: rowY },
     { input: c.buf, left: rowX + b.w + gap, top: rowY },
   ];

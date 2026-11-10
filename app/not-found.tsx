@@ -18,15 +18,15 @@ export default function NotFound() {
     >
       <div className="max-w-2xl">
         <span className="font-heading text-meta font-bold uppercase tracking-widest text-accent">
-          404 — Halaman tidak ditemukan
+          404 — Page not found
         </span>
 
         <h1 className="mt-4 font-heading text-h1 font-bold tracking-tight text-text-primary text-balance">
-          Halaman ini tidak ada.
+          This page does not exist.
         </h1>
 
         <p className="mt-5 max-w-md text-body text-text-secondary">
-          Alamatnya mungkin salah ketik, sudah dipindahkan, atau tidak pernah ada.
+          The address may be mistyped, may have moved, or may never have existed.
         </p>
 
         <div className="mt-8 flex flex-wrap items-center gap-4">
@@ -35,14 +35,14 @@ export default function NotFound() {
             data-cursor="cta"
             className="tap inline-flex items-center gap-2 rounded-btn bg-accent px-6 py-3 text-control font-semibold text-white transition-colors hover:bg-accent-hover"
           >
-            <Home size={16} /> Beranda Utama
+            <Home size={16} /> Back Home
           </Link>
           <Link
             href="/work"
             data-cursor="cta"
             className="tap inline-flex items-center gap-2 rounded-btn border border-border bg-surface px-6 py-3 text-control font-semibold text-text-primary transition-colors hover:border-text-primary"
           >
-            <ArrowLeft size={16} /> Lihat Portofolio
+            <ArrowLeft size={16} /> View Portfolio
           </Link>
         </div>
       </div>

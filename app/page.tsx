@@ -18,25 +18,25 @@ export default function HomePage() {
       number: "01",
       title: "Understand",
       description:
-        "Memahami kebutuhan pengguna dan tujuan bisnis melalui riset kualitatif, wawancara, serta analisis pain point nyata.",
+        "Understand user needs and business goals through qualitative research, interviews, and analysis of real pain points.",
     },
     {
       number: "02",
       title: "Simplify",
       description:
-        "Menyederhanakan arsitektur informasi dan memangkas langkah transaksi yang rumit menjadi alur yang intuitif.",
+        "Simplify information architecture and cut bloated transaction steps into an intuitive flow.",
     },
     {
       number: "03",
       title: "Validate",
       description:
-        "Menguji prototipe secara langsung kepada pengguna untuk memastikan kejelasan visual dan aksesibilitas antarmuka.",
+        "Test prototypes directly with users to confirm visual clarity and interface accessibility.",
     },
     {
       number: "04",
       title: "Build",
       description:
-        "Mengonversi desain Figma menjadi komponen kode React, Next.js, dan Tailwind CSS yang presisi dan berkinerja tinggi.",
+        "Convert Figma designs into precise, high-performance React, Next.js, and Tailwind CSS components.",
     },
   ];
 
@@ -53,13 +53,13 @@ export default function HomePage() {
               <SectionHeading
                 number="01 —"
                 title="SELECTED WORK"
-                subtitle="Kumpulan case study terpilih yang menunjukkan proses berpikir desainer dan eksekusi Front-End."
+                subtitle="Selected case studies showing how a designer thinks and how the front-end was built."
               />
               <Link
                 href="/work"
                 className="tap mb-12 inline-flex items-center gap-1.5 font-heading text-control font-bold text-accent hover:underline md:mb-16"
               >
-                Lihat Semua Proyek ({projectsData.length}) <ArrowRight size={16} />
+                View All Projects ({projectsData.length}) <ArrowRight size={16} />
               </Link>
             </div>
           </ScrollReveal>
@@ -82,7 +82,7 @@ export default function HomePage() {
             <SectionHeading
               number="02 —"
               title="APPROACH"
-              subtitle="Metodologi kerja dalam mentransformasikan masalah kompleks menjadi solusi digital terstruktur."
+              subtitle="The working method behind turning complex problems into structured digital solutions."
             />
           </ScrollReveal>
 
@@ -115,7 +115,7 @@ export default function HomePage() {
             <SectionHeading
               number="03 —"
               title="EXPERTISE"
-              subtitle="Keahlian yang saya gunakan untuk membangun produk digital dari tahap riset hingga ke kode siap produksi."
+              subtitle="The skills I use to build digital products, from user research through to production-ready code."
             />
           </ScrollReveal>
 
@@ -150,13 +150,13 @@ export default function HomePage() {
               <SectionHeading
                 number="04 —"
                 title="EXPERIENCE"
-                subtitle="Perjalanan karir profesional dalam perancangan produk dan pengembangan antarmuka."
+                subtitle="Professional career path in product design and interface development."
               />
               <Link
                 href="/about"
                 className="tap mb-12 inline-flex items-center gap-1.5 font-heading text-control font-bold text-text-primary hover:text-accent md:mb-16"
               >
-                Lihat Detail Karir <ArrowRight size={16} />
+                View Career Details <ArrowRight size={16} />
               </Link>
             </div>
           </ScrollReveal>
@@ -188,7 +188,7 @@ export default function HomePage() {
             <div className="lg:col-span-7 space-y-6">
               <ScrollReveal delay={0.1}>
                 <p className="text-h3 font-heading font-semibold text-text-primary leading-relaxed">
-                  Saya Navyro, UI/UX Designer dengan fokus pada pengembangan Front-End. Saya menikmati mengubah masalah kompleks menjadi pengalaman digital yang jelas, dapat digunakan, dan terstruktur.
+                  I'm Navyro, a UI/UX Designer with a focus on front-end development. I enjoy turning complex problems into digital experiences that are clear, usable, and well structured.
                 </p>
               </ScrollReveal>
 
@@ -204,13 +204,13 @@ export default function HomePage() {
                     href="/about"
                     className="tap-block inline-flex items-center gap-2 font-heading text-control font-bold text-text-primary hover:text-accent"
                   >
-                    Selengkapnya Tentang Saya <ArrowUpRight size={18} />
+                    More About Me <ArrowUpRight size={18} />
                   </Link>
                   <Link
                     href="/resume"
                     className="tap-block inline-flex items-center gap-2 font-heading text-control font-bold text-text-secondary hover:text-text-primary"
                   >
-                    Download Resume ↗
+                    Download CV ↗
                   </Link>
                 </div>
               </ScrollReveal>
@@ -227,10 +227,10 @@ export default function HomePage() {
               06 — LET'S TALK
             </span>
             <h2 className="mt-4 font-heading text-h2 font-extrabold tracking-tight text-text-primary sm:text-h1 lg:text-h1">
-              Punya proyek atau peluang menarik?
+              Got a project or an opportunity in mind?
             </h2>
             <p className="mx-auto mt-6 max-w-xl text-h3 text-text-secondary">
-              Saya terbuka untuk berdiskusi mengenai pekerjaan, kolaborasi, maupun project yang relevan.
+              I'm open to conversations about work, collaboration, and relevant projects.
             </p>
             <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
               <Link

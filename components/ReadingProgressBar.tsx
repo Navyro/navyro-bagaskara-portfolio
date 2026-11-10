@@ -29,7 +29,7 @@ export default function ReadingProgressBar({
 
   return (
     <div className="sticky top-[var(--header-h)] z-30 w-full border-b border-border bg-background/95 backdrop-blur-md transition-all py-2.5">
-      <div className="mx-auto flex max-w-editorial items-center justify-between px-6 lg:px-12 text-meta font-semibold">
+      <div className="mx-auto flex max-w-editorial flex-wrap items-center justify-between gap-y-1 px-6 lg:px-12 text-meta font-semibold">
         <div className="flex min-w-0 items-center gap-2 text-text-secondary">
           <BookOpen size={14} className="flex-shrink-0 text-accent" />
           <span className="hidden flex-shrink-0 font-heading uppercase text-text-muted sm:inline">
@@ -40,9 +40,11 @@ export default function ReadingProgressBar({
           </span>
         </div>
 
-        <div className="ml-4 flex flex-shrink-0 items-center gap-4 text-text-muted">
+        <div className="ml-4 flex min-w-0 shrink flex-wrap items-center gap-x-3 gap-y-1 text-text-muted sm:gap-x-4">
           <span>{readingPercent}% COMPLETED</span>
-          <div className="h-1.5 w-24 overflow-hidden rounded-full bg-border">
+          {/* Fixed px width on purpose: a rem width doubles when the user scales text up and
+              pushes this row past the viewport. */}
+          <div className="h-1.5 w-[72px] shrink-0 overflow-hidden rounded-full bg-border sm:w-[96px]">
             <motion.div
               style={{ scaleX: progressScaleX }}
               className="h-full w-full origin-left bg-accent"

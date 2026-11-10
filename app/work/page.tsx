@@ -30,8 +30,9 @@ export default function WorkPage() {
         <ScrollReveal>
           <SectionHeading
             number="WORK"
-            title="Seluruh Proyek & Case Studies"
-            subtitle="Eksplorasi dokumentasi proses perancangan produk dari tahap riset pengguna, wireframing, hingga pengembangan antarmuka terstruktur."
+            title="All Projects & Case Studies"
+            subtitle="A documented look at how each product was designed, from user research and wireframing through to a structured interface build."
+            as="h1"
           />
         </ScrollReveal>
 
@@ -42,7 +43,7 @@ export default function WorkPage() {
             data-work-count-value={projectsData.length}
             className="mb-10 border-b border-border pb-6 text-meta font-semibold uppercase tracking-wider text-text-muted"
           >
-            {projectsData.length} proyek · {breakdown}
+            {projectsData.length} projects · {breakdown}
           </p>
         </ScrollReveal>
 

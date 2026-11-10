@@ -15,31 +15,39 @@ export default function ResumePage() {
               <span className="font-heading text-meta font-bold tracking-widest text-accent uppercase">
                 CURRICULUM VITAE
               </span>
-              <h1 className="mt-2 font-heading text-h2 font-extrabold tracking-tight text-text-primary sm:text-h1">
-                Resume Profesional
+              <h1 className="mt-2 break-words font-heading text-h2 font-extrabold tracking-tight text-text-primary sm:text-h1">
+                Professional Resume
               </h1>
               <p className="mt-3 text-body text-text-secondary">
-                Ringkasan kualifikasi, pengalaman karir, dan kemampuan teknis Navyro Bagaskara.
+                Qualifications summary, career experience, and technical skills.
               </p>
             </div>
 
-            <div className="flex flex-wrap gap-3">
+            <div className="flex min-w-0 flex-wrap gap-3">
               <a
                 href={`/${profileData.portfolioFilename}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 data-cursor="cta"
-                className="inline-flex min-h-11 items-center gap-2 rounded-btn border border-border bg-surface px-6 py-3 text-control font-semibold text-text-primary transition-all hover:border-text-primary"
+                className="inline-flex min-h-11 max-w-full items-center gap-2 rounded-btn border border-border bg-surface px-4 py-3 text-left text-control font-semibold text-text-primary transition-all hover:border-text-primary sm:px-6"
               >
-                Portofolio PDF (12 MB) <FileText size={16} />
+                <span className="min-w-0 break-words">Portfolio PDF (12 MB)</span> <FileText size={16} className="shrink-0" />
               </a>
               <a
                 href={`/${profileData.resumeFilename}`}
                 download={profileData.resumeFilename}
                 data-cursor="cta"
-                className="inline-flex min-h-11 items-center gap-2 rounded-btn bg-accent px-7 py-3.5 text-control font-semibold text-white transition-all hover:bg-accent-hover shadow-sm"
+                className="inline-flex min-h-11 max-w-full items-center gap-2 rounded-btn bg-accent px-4 py-3.5 text-left text-control font-semibold text-white transition-all hover:bg-accent-hover shadow-sm sm:px-7"
               >
-                Unduh Resume PDF <Download size={16} />
+                <span className="min-w-0 break-words">CV — English (PDF)</span> <Download size={16} className="shrink-0" />
+              </a>
+              <a
+                href={`/${profileData.resumeFilenameId}`}
+                download={profileData.resumeFilenameId}
+                data-cursor="cta"
+                className="inline-flex min-h-11 max-w-full items-center gap-2 rounded-btn border border-border bg-surface px-4 py-3 text-left text-control font-semibold text-text-primary transition-all hover:border-text-primary sm:px-6"
+              >
+                <span className="min-w-0 break-words">CV — Bahasa Indonesia (PDF)</span> <Download size={16} className="shrink-0" />
               </a>
             </div>
           </div>
@@ -47,28 +55,28 @@ export default function ResumePage() {
 
         {/* On-Screen Resume View Document Container */}
         <ScrollReveal delay={0.15}>
-          <div className="mt-12 rounded-card border border-border bg-surface p-8 shadow-sm md:p-12">
+          <div className="mt-12 rounded-card border border-border bg-surface p-5 shadow-sm sm:p-8 md:p-12">
             {/* Header section */}
             <div className="border-b border-border pb-8">
-              <h2 className="font-heading text-h2 font-bold text-text-primary">
+              <h2 className="break-words font-heading text-h2 font-bold text-text-primary">
                 {profileData.name}
               </h2>
               <p className="mt-1 text-body font-semibold text-accent">
                 {profileData.role}
               </p>
-              <div className="mt-4 flex flex-wrap gap-4 text-meta font-medium text-text-secondary">
-                <span>Email: {profileData.email}</span>
+              <div className="mt-4 flex min-w-0 flex-wrap gap-4 text-meta font-medium text-text-secondary">
+                <span className="min-w-0 break-all">Email: {profileData.email}</span>
                 <span>•</span>
-                <span>Lokasi: {profileData.location}</span>
+                <span>Location: {profileData.location}</span>
                 <span>•</span>
-                <span>LinkedIn: linkedin.com/in/navyrobagaskara</span>
+                <span className="min-w-0 break-all">LinkedIn: linkedin.com/in/navyrobagaskara</span>
               </div>
             </div>
 
             {/* Bio Summary */}
             <div className="py-8 border-b border-border">
               <h3 className="font-heading text-meta font-bold uppercase tracking-wider text-text-muted">
-                Ringkasan Kualifikasi
+                Qualifications Summary
               </h3>
               <p className="mt-3 text-body text-text-primary leading-relaxed">
                 {profileData.fullBio}
@@ -78,13 +86,13 @@ export default function ResumePage() {
             {/* Work History */}
             <div className="py-8 border-b border-border space-y-8">
               <h3 className="font-heading text-meta font-bold uppercase tracking-wider text-text-muted">
-                Pengalaman Kerja
+                Work Experience
               </h3>
 
               {profileData.experience.map((exp, idx) => (
                 <div key={idx} className="space-y-2">
                   <div className="flex flex-wrap items-baseline justify-between">
-                    <h4 className="font-heading text-h3 font-bold text-text-primary">
+                    <h4 className="min-w-0 break-words font-heading text-h3 font-bold text-text-primary">
                       {exp.role} — <span className="text-text-secondary">{exp.company}</span>
                     </h4>
                     <span className="text-meta font-semibold text-text-muted">
@@ -107,7 +115,7 @@ export default function ResumePage() {
             {/* Education */}
             <div className="py-8 border-b border-border">
               <h3 className="font-heading text-meta font-bold uppercase tracking-wider text-text-muted">
-                Pendidikan
+                Education
               </h3>
               {profileData.education.map((edu, idx) => (
                 <div key={idx} className="mt-4 flex flex-wrap items-baseline justify-between">
@@ -130,10 +138,10 @@ export default function ResumePage() {
             <div className="py-8 border-b border-border">
               <div className="flex flex-wrap items-baseline justify-between gap-2">
                 <h3 className="font-heading text-meta font-bold uppercase tracking-wider text-text-muted">
-                  Sertifikasi &amp; Pelatihan
+                  Certifications &amp; Training
                 </h3>
                 <span className="text-meta font-semibold text-text-muted">
-                  {profileData.certifications.length} kredensial
+                  {profileData.certifications.length} credentials
                 </span>
               </div>
 
@@ -166,8 +174,8 @@ export default function ResumePage() {
               </ul>
 
               <p className="mt-3 text-meta leading-relaxed text-text-muted">
-                Anthropic tidak mencetak tanggal pada sertifikatnya; bulan Okt dikonfirmasi
-                langsung oleh pemilik, tahun tidak dicantumkan.
+                Anthropic does not print a date on this certificate; the October month was confirmed
+                directly by the owner and the year is not stated.
               </p>
 
               <details className="group mt-1">
@@ -177,7 +185,7 @@ export default function ResumePage() {
                     aria-hidden="true"
                     className="transition-transform duration-200 group-open:rotate-180"
                   />
-                  Semua {profileData.certifications.length} sertifikat menurut kelompok
+                  All {profileData.certifications.length} certificates by group
                 </summary>
                 <ul className="mt-1 space-y-2.5 border-t border-border pt-4">
                   {profileData.certificationGroups.map((group) => (
@@ -189,7 +197,7 @@ export default function ResumePage() {
                         {group.label}
                       </span>
                       <span className="text-meta font-semibold text-accent">
-                        {group.count} sertifikat
+                        {group.count} certificates
                       </span>
                       <span className="text-meta text-text-secondary sm:flex-1">
                         {group.detail}
@@ -203,7 +211,7 @@ export default function ResumePage() {
             {/* Skills */}
             <div className="pt-8 space-y-4">
               <h3 className="font-heading text-meta font-bold uppercase tracking-wider text-text-muted">
-                Keahlian &amp; Tools
+                Skills &amp; Tools
               </h3>
               <div className="flex flex-wrap gap-2">
                 {[
