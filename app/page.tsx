@@ -47,13 +47,13 @@ export default function HomePage() {
 
       {/* 01 — SELECTED WORK */}
       <section className="w-full py-20 lg:py-28">
-        <div className="mx-auto max-w-editorial px-6 lg:px-12">
+        <div className="mx-auto max-w-editorial px-[24px] lg:px-[48px]">
           <ScrollReveal>
             <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
               <SectionHeading
                 number="01 —"
                 title="SELECTED WORK"
-                subtitle="Selected case studies showing how a designer thinks and how the front-end was built."
+                subtitle="Selected case studies showing how a designer thinks and how the solution works."
               />
               <Link
                 href="/work"
@@ -69,6 +69,7 @@ export default function HomePage() {
               <ProjectCard
                 key={project.slug}
                 project={project}
+                headerHeight="lg:min-h-[26rem] xl:min-h-[19.5rem]"
               />
             ))}
           </div>
@@ -77,7 +78,7 @@ export default function HomePage() {
 
       {/* 02 — APPROACH */}
       <section className="w-full border-t border-border bg-surface py-20 lg:py-28">
-        <div className="mx-auto max-w-editorial px-6 lg:px-12">
+        <div className="mx-auto max-w-editorial px-[24px] lg:px-[48px]">
           <ScrollReveal>
             <SectionHeading
               number="02 —"
@@ -110,12 +111,12 @@ export default function HomePage() {
 
       {/* 03 — EXPERTISE */}
       <section className="w-full border-t border-border py-20 lg:py-28">
-        <div className="mx-auto max-w-editorial px-6 lg:px-12">
+        <div className="mx-auto max-w-editorial px-[24px] lg:px-[48px]">
           <ScrollReveal>
             <SectionHeading
               number="03 —"
               title="EXPERTISE"
-              subtitle="The skills I use to build digital products, from user research through to production-ready code."
+              subtitle="The skills I use to build digital products, from user research through to a working implementation."
             />
           </ScrollReveal>
 
@@ -128,7 +129,7 @@ export default function HomePage() {
             </ScrollReveal>
             <ScrollReveal delay={0.2} className="h-full">
               <SkillGroup
-                title="Front-End Stack"
+                title="Front-End Fundamentals"
                 skills={profileData.skills.frontend}
               />
             </ScrollReveal>
@@ -144,7 +145,7 @@ export default function HomePage() {
 
       {/* 04 — EXPERIENCE */}
       <section className="w-full border-t border-border bg-surface py-20 lg:py-28">
-        <div className="mx-auto max-w-editorial px-6 lg:px-12">
+        <div className="mx-auto max-w-editorial px-[24px] lg:px-[48px]">
           <ScrollReveal>
             <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end mb-8">
               <SectionHeading
@@ -173,7 +174,7 @@ export default function HomePage() {
 
       {/* 05 — ABOUT */}
       <section className="w-full border-t border-border py-20 lg:py-28">
-        <div className="mx-auto max-w-editorial px-6 lg:px-12">
+        <div className="mx-auto max-w-editorial px-[24px] lg:px-[48px]">
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
             <div className="lg:col-span-5">
               <ScrollReveal>
@@ -221,7 +222,7 @@ export default function HomePage() {
 
       {/* 06 — CONTACT / LET'S TALK */}
       <section className="w-full border-t border-border py-24 lg:py-32 bg-surface">
-        <div className="mx-auto max-w-editorial px-6 text-center lg:px-12">
+        <div className="mx-auto max-w-editorial px-[24px] text-center lg:px-[48px]">
           <ScrollReveal>
             <span className="font-heading text-meta font-bold tracking-widest text-accent uppercase">
               06 — LET'S TALK

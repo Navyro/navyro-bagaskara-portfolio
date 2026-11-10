@@ -7,7 +7,7 @@ import { profileData } from "@/data/profile";
 export default function ResumePage() {
   return (
     <div className="w-full py-16 lg:py-24">
-      <div className="mx-auto max-w-editorial px-6 lg:px-12">
+      <div className="mx-auto max-w-editorial px-[24px] lg:px-[48px]">
         {/* Page Header */}
         <ScrollReveal>
           <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end border-b border-border pb-12">
@@ -165,7 +165,7 @@ export default function ResumePage() {
                       </span>
                       <span className="text-meta text-text-secondary">{cert.issuer}</span>
                       {cert.date && (
-                        <span className="whitespace-nowrap text-meta font-semibold text-text-muted sm:text-right">
+                        <span className="text-meta font-semibold text-text-muted sm:whitespace-nowrap sm:text-right">
                           {cert.date}
                         </span>
                       )}

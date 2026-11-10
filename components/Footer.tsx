@@ -6,7 +6,7 @@ import { profileData } from "@/data/profile";
 export default function Footer() {
   return (
     <footer className="w-full bg-inverse-bg text-inverse-text border-t border-border transition-colors duration-200">
-      <div className="mx-auto max-w-editorial px-6 py-16 lg:px-12 lg:py-20">
+      <div className="mx-auto max-w-editorial px-[24px] py-16 lg:px-[48px] lg:py-20">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
           {/* Brand & Positioning */}
           <div className="lg:col-span-6">

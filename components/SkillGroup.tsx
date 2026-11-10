@@ -20,7 +20,7 @@ export default function SkillGroup({ title, skills }: SkillGroupProps) {
         {skills.map((skill) => (
           <span
             key={skill}
-            className="rounded-btn border border-border bg-background px-3.5 py-1.5 text-meta font-semibold text-text-primary transition-colors hover:border-text-primary"
+            className="min-w-0 break-words rounded-btn border border-border bg-background px-3.5 py-1.5 text-meta font-semibold text-text-primary transition-colors hover:border-text-primary"
           >
             {skill}
           </span>

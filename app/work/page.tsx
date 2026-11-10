@@ -25,7 +25,7 @@ export default function WorkPage() {
 
   return (
     <div className="w-full py-16 lg:py-24">
-      <div className="mx-auto max-w-editorial px-6 lg:px-12">
+      <div className="mx-auto max-w-editorial px-[24px] lg:px-[48px]">
         {/* Page Header */}
         <ScrollReveal>
           <SectionHeading

@@ -14,7 +14,7 @@ export default function NotFound() {
   return (
     <div
       data-not-found
-      className="mx-auto flex w-full max-w-editorial flex-1 flex-col justify-center px-6 py-10 lg:px-12 lg:py-12"
+      className="mx-auto flex w-full max-w-editorial flex-1 flex-col justify-center px-[24px] py-10 lg:px-[48px] lg:py-12"
     >
       <div className="max-w-2xl">
         <span className="font-heading text-meta font-bold uppercase tracking-widest text-accent">

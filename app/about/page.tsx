@@ -10,14 +10,14 @@ import { profileData } from "@/data/profile";
 export default function AboutPage() {
   return (
     <div className="w-full py-16 lg:py-24">
-      <div className="mx-auto max-w-editorial px-6 lg:px-12">
+      <div className="mx-auto max-w-editorial px-[24px] lg:px-[48px]">
         {/* Page Header */}
         <ScrollReveal>
           <div className="max-w-4xl">
             <span className="font-heading text-meta font-bold tracking-widest text-accent uppercase">
               ABOUT
             </span>
-            <h1 className="mt-4 font-heading text-h2 font-extrabold tracking-tight text-text-primary sm:text-h1 lg:text-h1">
+            <h1 className="mt-4 font-heading text-h2 font-extrabold tracking-tight text-text-primary break-words sm:text-h1 lg:text-h1">
               {profileData.name}
             </h1>
             <p className="mt-4 font-heading text-h3 font-semibold text-text-secondary">
@@ -42,6 +42,11 @@ export default function AboutPage() {
             <ScrollReveal delay={0.2}>
               <p>
                 My focus is building products that are easy for people to understand and efficient for engineering teams to maintain. With hands-on experience in both user experience research and front-end code, I make sure the design vision reaches the final product without distortion.
+              </p>
+            </ScrollReveal>
+            <ScrollReveal delay={0.25}>
+              <p>
+                On the build side, I designed and built this site myself with Next.js and Tailwind CSS, working with AI assistants as a pair-programmer. I can read and adjust the code and judge what is realistic to ship; deep JavaScript is where I am still growing.
               </p>
             </ScrollReveal>
             <ScrollReveal delay={0.25}>
@@ -137,7 +142,7 @@ export default function AboutPage() {
             </ScrollReveal>
             <ScrollReveal delay={0.2} className="h-full">
               <SkillGroup
-                title="Front-End Stack"
+                title="Front-End Fundamentals"
                 skills={profileData.skills.frontend}
               />
             </ScrollReveal>

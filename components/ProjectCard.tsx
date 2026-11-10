@@ -11,6 +11,15 @@ import ScrollReveal from "./ScrollReveal";
 
 interface ProjectCardProps {
   project: Project;
+  /**
+   * Classes for the height reserved above the cover.
+   *
+   * The homepage runs three columns, where titles wrap to different line counts (the
+   * SIPENELITIAN title needs up to six lines at 1024px), so its covers need a taller
+   * reservation to stay on one line. /work runs two columns with much shorter titles and
+   * keeps the original value untouched.
+   */
+  headerHeight?: string;
 }
 
 /**
@@ -25,15 +34,19 @@ interface ProjectCardProps {
  * The 3D tilt and the mouse-following glare are gone on purpose; a plain colour transition reads
  * calmer and keeps attention on the artwork.
  */
-export default function ProjectCard({ project }: ProjectCardProps) {
+export default function ProjectCard({
+  project,
+  headerHeight = "lg:min-h-[17rem]",
+}: ProjectCardProps) {
   const hasSlides = Boolean(project.cardSlides && project.cardSlides.length > 1);
 
   return (
     <ScrollReveal className="h-full">
       <article className="group flex h-full flex-col gap-6 border-b border-border pb-14 pt-10 scroll-mt-24 transition-colors md:border-b-0 md:pb-0 md:pt-0">
         {/* On multi-column rows the header block is tall enough that every cover starts on the
-            same line, so a row reads as one band instead of three staggered images. */}
-        <div className="flex flex-col gap-6 lg:min-h-[17rem]">
+            same line, so a row reads as one band instead of three staggered images. The height
+            comes from the caller because it depends on the column count. */}
+        <div className={`flex flex-col gap-6 ${headerHeight}`}>
           {/* Editorial Index Number & Tags Header */}
           <div className="flex flex-wrap items-center justify-between gap-4">
           <span className="font-heading text-h3 font-extrabold tracking-widest text-accent">

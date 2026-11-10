@@ -7,7 +7,7 @@ import { profileData } from "@/data/profile";
 export default function ContactPage() {
   return (
     <div className="w-full py-16 lg:py-24">
-      <div className="mx-auto max-w-editorial px-6 lg:px-12">
+      <div className="mx-auto max-w-editorial px-[24px] lg:px-[48px]">
         {/* Header */}
         <ScrollReveal>
           <div className="max-w-3xl">

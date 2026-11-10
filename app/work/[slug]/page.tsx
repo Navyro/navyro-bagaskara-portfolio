@@ -88,7 +88,7 @@ export default function CaseStudyDetailPage({ params }: CaseStudyPageProps) {
       {/* Feature ③: Sticky Case Study Reading Progress Bar */}
       <ReadingProgressBar number={project.number} title={project.title} />
 
-      <div className="mx-auto max-w-editorial px-6 lg:px-12 pt-8">
+      <div className="mx-auto max-w-editorial px-[24px] lg:px-[48px] pt-8">
         {/* Back Link */}
         <Link
           href="/work"

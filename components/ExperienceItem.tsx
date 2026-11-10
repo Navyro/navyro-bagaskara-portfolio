@@ -12,7 +12,7 @@ export default function ExperienceItem({ item }: ExperienceItemProps) {
       <span className="text-meta font-bold tracking-widest text-text-muted uppercase">
         {item.year}
       </span>
-      <h3 className="mt-1 font-heading text-h3 font-bold tracking-tight text-text-primary">
+      <h3 className="mt-1 font-heading text-h3 font-bold tracking-tight text-text-primary break-words">
         {item.role}
       </h3>
       <p className="text-control font-semibold text-text-secondary">

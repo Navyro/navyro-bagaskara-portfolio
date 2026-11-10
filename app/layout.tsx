@@ -75,7 +75,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: SITE_TITLE,
     description:
-      "Portfolio & case studies: from user research through to prototypes and production-ready code.",
+      "Portfolio & case studies: from user research through to prototypes and a coded implementation.",
     images: [OG_IMAGE],
   },
 };
