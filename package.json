@@ -14,7 +14,7 @@
     "check": "node scripts/check-links.cjs && node scripts/check-og.cjs && node scripts/check-seo.cjs",
     "check:seo": "node scripts/check-seo.cjs",
     "build:icons": "node scripts/build-icons.cjs",
-    "ship": "git push origin main && vercel --prod --yes"
+    "ship": "git push origin main && npx --yes vercel@latest --prod --yes"
   },
   "dependencies": {
     "clsx": "^2.1.1",
