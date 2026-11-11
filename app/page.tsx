@@ -189,7 +189,7 @@ export default function HomePage() {
             <div className="lg:col-span-7 space-y-6">
               <ScrollReveal delay={0.1}>
                 <p className="text-h3 font-heading font-semibold text-text-primary leading-relaxed">
-                  I'm Navyro, a UI/UX Designer with a solid grasp of front-end fundamentals. I enjoy turning complex problems into digital experiences that are clear, usable, and well structured.
+                  I&apos;m Navyro, a UI/UX Designer with a solid grasp of front-end fundamentals. I enjoy turning complex problems into digital experiences that are clear, usable, and well structured.
                 </p>
               </ScrollReveal>
 
@@ -225,13 +225,13 @@ export default function HomePage() {
         <div className="mx-auto max-w-editorial px-[24px] text-center lg:px-[48px]">
           <ScrollReveal>
             <span className="font-heading text-meta font-bold tracking-widest text-accent uppercase">
-              06 — LET'S TALK
+              06 — LET&apos;S TALK
             </span>
             <h2 className="mt-4 font-heading text-h2 font-extrabold tracking-tight text-text-primary sm:text-h1 lg:text-h1">
               Got a project or an opportunity in mind?
             </h2>
             <p className="mx-auto mt-6 max-w-xl text-h3 text-text-secondary">
-              I'm open to conversations about work, collaboration, and relevant projects.
+              I&apos;m open to conversations about work, collaboration, and relevant projects.
             </p>
             <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
               <Link

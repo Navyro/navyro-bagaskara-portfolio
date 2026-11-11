@@ -69,7 +69,12 @@ It also covers:
 
 Production lives at <https://navyro-bagaskara-portfolio.vercel.app>. Every push to `main` deploys
 through GitHub Actions (`.github/workflows/deploy.yml`), which runs the Vercel CLI with a token kept
-in the repository's Actions secrets.
+in the repository's Actions secrets. Before it deploys, the same workflow runs the gates the repository
+owns — types, lint, links, social card, build, and the SEO/manifest checks against a real server — so a
+run that fails a check never reaches production.
+
+Moving to a custom domain is one environment variable (`NEXT_PUBLIC_SITE_URL`) plus a redeploy; see
+[docs/domain-cutover.md](docs/domain-cutover.md).
 
 Vercel's own Git integration is not used: it links repositories through a GitHub App installed on the
 account that owns them, and the Vercel account here is tied to a different GitHub identity. The

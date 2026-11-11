@@ -15,7 +15,7 @@ export default function ContactPage() {
               CONTACT
             </span>
             <h1 className="mt-4 font-heading text-h2 font-extrabold tracking-tight text-text-primary sm:text-h1 lg:text-display">
-              LET'S TALK.
+              LET&apos;S TALK.
             </h1>
             <p className="mt-6 text-h3 text-text-secondary leading-relaxed">
               Open to UI/UX Designer roles, product design collaborations, and conversations

@@ -1,12 +1,17 @@
-name: Deploy to production
+name: Verify and deploy
 
 # The Vercel project is not linked to this repository, so Vercel does not build on push. This
 # workflow closes that gap: the Vercel CLI uploads the committed source and Vercel builds it, which
 # is the same build the local `npm run ship` triggers.
+#
+# Two jobs, deliberately in this order: `verify` runs every gate the repository owns, and `deploy`
+# only runs if it passes. Before this split a push went straight to production, so a dead prototype
+# link, a stale social card or a broken sitemap could ship unflagged.
 
 on:
   push:
     branches: [main]
+  pull_request:
   workflow_dispatch:
 
 # One production deployment at a time; a queued run waits rather than cancelling a live deploy.
@@ -18,7 +23,50 @@ permissions:
   contents: read
 
 jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the committed source
+        uses: actions/checkout@v4
+
+      - name: Use the Node version the project is built with
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install exactly what package-lock.json pins
+        run: npm ci
+
+      - name: Types
+        run: npx tsc --noEmit
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Data and social card
+        run: |
+          node scripts/check-links.cjs
+          node scripts/check-og.cjs
+
+      - name: Production build
+        run: npm run build
+
+      # check-seo inspects what Next.js actually serves, so it needs a server, not the source files.
+      - name: SEO, manifest and icons against a real server
+        run: |
+          npx next start -p 3123 > /tmp/server.log 2>&1 &
+          for i in $(seq 1 30); do
+            if curl -sf -o /dev/null http://localhost:3123/; then break; fi
+            sleep 1
+          done
+          curl -sf -o /dev/null http://localhost:3123/ || { echo "::error::server never became ready"; cat /tmp/server.log; exit 1; }
+          BASE_URL=http://localhost:3123 node scripts/check-seo.cjs
+
   deploy:
+    needs: verify
+    # Checks run on pull requests; only main deploys.
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     env:
       VERCEL_ORG_ID: team_L2RPYA9Lgylk6tqLAvafIE9j

@@ -16,12 +16,15 @@
  *   2. copy the HTML next to it
  *   3. serve .ux-logs/og on 127.0.0.1:4321 and screenshot it at exactly 1200x630
  *   4. verify the capture, optimise into public/og-image.png, print the byte size
+ *   5. write public/og-image.stamp — the hash of the template, so check:og can tell a stale card
+ *      without trusting file timestamps
  *
  * Run: npm run build:og
  */
 const fs = require("fs");
 const http = require("http");
 const path = require("path");
+const crypto = require("crypto");
 const { spawn } = require("child_process");
 
 const ROOT = path.resolve(__dirname, "..");
@@ -141,6 +144,13 @@ async function main() {
 
   console.log(`captured  : 1200x630 (${(before / 1024).toFixed(0)} KB raw)`);
   console.log(`written   : public/og-image.png (${(fs.statSync(OUT).size / 1024).toFixed(0)} KB)`);
+
+  // Record which version of the template this card came from. check:og compares this hash instead of
+  // file times, because a fresh git checkout gives every file the same mtime and would make the
+  // staleness check pass or fail at random.
+  const stamp = crypto.createHash("sha256").update(fs.readFileSync(SRC_HTML)).digest("hex");
+  fs.writeFileSync(path.join(ROOT, "public", "og-image.stamp"), stamp + "\n", "utf8");
+  console.log(`stamped   : public/og-image.stamp (${stamp.slice(0, 12)}…)`);
 
   // agent-browser leaves a detached daemon handle open; exit explicitly so the task does not hang.
   process.exit(0);

@@ -5,8 +5,9 @@
  * What can be checked offline, and therefore what this script checks:
  *   1. public/og-image.png exists and is exactly 1200x630 (the size every platform accepts).
  *   2. It is under 1 MB — WhatsApp and LinkedIn are the slowest at larger files.
- *   3. It is not older than its sources (scripts/og-image.html), so it cannot silently go
- *      stale when the copy or the portrait changes.
+ *   3. It was built from the current scripts/og-image.html — proved by a content hash, not a
+ *      modification time, so it cannot silently go stale when the copy or the portrait changes.
+ *      (mtime cannot be used: a fresh `git checkout` in CI gives every file the same timestamp.)
  *   4. app/layout.tsx declares metadataBase, an openGraph image with explicit width/height,
  *      and twitter:card = summary_large_image. Without metadataBase, Next.js cannot resolve
  *      the image to an absolute URL and the card silently disappears.
@@ -19,13 +20,17 @@
  */
 const fs = require("fs");
 const path = require("path");
+const crypto = require("crypto");
 
 const ROOT = path.resolve(__dirname, "..");
 const IMAGE = path.join(ROOT, "public", "og-image.png");
 const SOURCE = path.join(ROOT, "scripts", "og-image.html");
+const STAMP = path.join(ROOT, "public", "og-image.stamp");
 const LAYOUT = path.join(ROOT, "app", "layout.tsx");
 const SITE_LIB = path.join(ROOT, "lib", "site.ts");
 const MAX_KB = 1024;
+
+const sha256 = (file) => crypto.createHash("sha256").update(fs.readFileSync(file)).digest("hex");
 
 const problems = [];
 const checks = [];
@@ -48,13 +53,17 @@ async function main() {
   check("image.size", meta.width === 1200 && meta.height === 630, `${meta.width}x${meta.height}`, `${meta.width}x${meta.height}, expected 1200x630`);
 
   if (fs.existsSync(SOURCE)) {
-    const imageTime = fs.statSync(IMAGE).mtimeMs;
-    const sourceTime = fs.statSync(SOURCE).mtimeMs;
+    // The stamp is written by scripts/build-og-image.cjs and holds the hash of the HTML the card was
+    // captured from. Hashing the two files is the only staleness test that survives a fresh checkout.
+    const stamped = fs.existsSync(STAMP) ? fs.readFileSync(STAMP, "utf8").trim() : "";
+    const current = sha256(SOURCE);
     check(
       "image.fresh",
-      imageTime >= sourceTime,
-      "newer than scripts/og-image.html",
-      "older than scripts/og-image.html — rerun npm run build:og"
+      stamped === current,
+      "built from the current scripts/og-image.html",
+      stamped
+        ? "scripts/og-image.html changed since the card was built — rerun npm run build:og"
+        : "no public/og-image.stamp — rerun npm run build:og so the card records its source"
     );
   }
 
