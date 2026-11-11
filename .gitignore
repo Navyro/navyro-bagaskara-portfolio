@@ -12,3 +12,11 @@ tsconfig.tsbuildinfo
 # Kept on disk, never in the repository — 200 MB of personal documents have no business
 # being downloadable from a public repo, and it would slow every clone and deploy.
 TENTANG SAYA/
+
+# Working notes, not documentation: the PRD, the design spec, the implementation plan and the
+# motion prompt are written for me, in Indonesian, and address an implementer rather than a
+# reader. Kept on disk; README.md and docs/ux-visual/decisions/ are what a visitor should see.
+/PRD_*.md
+/DESIGN_*.md
+/IMPLEMENTATION_*.md
+/MOTION_*.md
