@@ -12,6 +12,10 @@ read during the build, it is applied by a **redeploy**, not by saving the variab
 
 ## Steps, in order
 
+Using a free `is-a.dev` subdomain instead of a paid domain? The records and the pull request live in
+[domain-submission/README.md](domain-submission/README.md); everything from step 3 onwards here is the
+same, minus the apex/`www` choice.
+
 1. **Add the domain in Vercel.** Project → Settings → Domains → add the domain. Choose which hostname is
    primary (`navyro-portfolio.com` or `www.`); the other becomes a redirect automatically.
 2. **Point DNS** as the Vercel Domains page instructs:
