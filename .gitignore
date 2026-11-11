@@ -7,3 +7,8 @@ out/
 .vercel/
 .ux-logs/
 tsconfig.tsbuildinfo
+
+# Private source material: CVs, certificate scans, passport photo and raw design files.
+# Kept on disk, never in the repository — 200 MB of personal documents have no business
+# being downloadable from a public repo, and it would slow every clone and deploy.
+TENTANG SAYA/
