@@ -49,7 +49,6 @@ export default function Hero() {
             >
               <Link
                 href="/work"
-                data-cursor="cta"
                 className="group inline-flex items-center gap-2.5 rounded-btn bg-text-primary px-7 py-3.5 text-control font-semibold text-background transition-colors hover:bg-accent hover:text-white shadow-sm"
               >
                 <span>View Selected Work</span>
@@ -67,7 +66,6 @@ export default function Hero() {
             >
               <Link
                 href="/contact"
-                data-cursor="cta"
                 className="group inline-flex items-center gap-2.5 rounded-btn border border-border bg-surface px-7 py-3.5 text-control font-semibold text-text-primary transition-colors hover:border-text-primary hover:bg-background"
               >
                 <span>Contact Me</span>

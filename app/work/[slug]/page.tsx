@@ -151,7 +151,6 @@ export default function CaseStudyDetailPage({ params }: CaseStudyPageProps) {
                 href={project.caseStudy.prototypeUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                data-cursor="cta"
                 className="inline-flex min-h-11 items-center gap-2 rounded-btn bg-accent px-6 py-3 text-control font-semibold text-white dark:text-inverse-text transition-all hover:bg-accent-hover shadow-sm"
               >
                 {project.caseStudy.prototypeLabel ?? "Open Prototype in Figma"}{" "}
@@ -163,7 +162,6 @@ export default function CaseStudyDetailPage({ params }: CaseStudyPageProps) {
                 href={project.caseStudy.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                data-cursor="cta"
                 className="inline-flex items-center gap-2 rounded-btn border border-border bg-surface px-6 py-3 text-control font-semibold text-text-primary transition-all hover:border-text-primary"
               >
                 Visit Live Website <ArrowUpRight size={16} />
@@ -197,8 +195,6 @@ export default function CaseStudyDetailPage({ params }: CaseStudyPageProps) {
 
             <Link
               href={`/work/${nextProject.slug}`}
-              data-cursor="project"
-              data-cursor-text="NEXT ↗"
               className="group mt-6 block rounded-card border border-border bg-surface p-8 lg:p-12 transition-all duration-300 hover:border-accent hover:shadow-xl"
             >
               <div className="grid grid-cols-1 gap-[32px] lg:grid-cols-12 lg:items-center">

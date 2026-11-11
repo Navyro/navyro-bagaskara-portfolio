@@ -31,7 +31,6 @@ export default function ResumePage() {
                 href={`/${profileData.portfolioFilename}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                data-cursor="cta"
                 className="inline-flex min-h-11 max-w-full items-center gap-2 rounded-btn border border-border bg-surface px-4 py-3 text-left text-control font-semibold text-text-primary transition-all hover:border-text-primary sm:px-6"
               >
                 <span className="min-w-0 break-words">Portfolio PDF{portfolioSize ? ` (${portfolioSize})` : ""}</span>{" "}
@@ -40,7 +39,6 @@ export default function ResumePage() {
               <a
                 href={`/${profileData.resumeFilename}`}
                 download={profileData.resumeFilename}
-                data-cursor="cta"
                 className="inline-flex min-h-11 max-w-full items-center gap-2 rounded-btn bg-accent px-4 py-3.5 text-left text-control font-semibold text-white dark:text-inverse-text transition-all hover:bg-accent-hover shadow-sm sm:px-7"
               >
                 <span className="min-w-0 break-words">CV — English (PDF)</span> <Download size={16} className="shrink-0" />
@@ -48,7 +46,6 @@ export default function ResumePage() {
               <a
                 href={`/${profileData.resumeFilenameId}`}
                 download={profileData.resumeFilenameId}
-                data-cursor="cta"
                 className="inline-flex min-h-11 max-w-full items-center gap-2 rounded-btn border border-border bg-surface px-4 py-3 text-left text-control font-semibold text-text-primary transition-all hover:border-text-primary sm:px-6"
               >
                 <span className="min-w-0 break-words">CV — Bahasa Indonesia (PDF)</span> <Download size={16} className="shrink-0" />

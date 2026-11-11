@@ -374,6 +374,8 @@ export const profileData: ProfileData = {
       issuer: "Dicoding",
       date: "Jun 2024",
       group: "Web development",
+      // Surfaced as a row so its verification link is visible: the Issuer prints one for it.
+      featured: true,
       url: "https://www.dicoding.com/certificates/1OP8WRV11XQK",
     },
     {
@@ -381,6 +383,7 @@ export const profileData: ProfileData = {
       issuer: "Dicoding",
       date: "Jun 2024",
       group: "Web development",
+      featured: true,
       url: "https://www.dicoding.com/certificates/72ZDV59RQZYW",
     },
     {

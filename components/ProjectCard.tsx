@@ -80,6 +80,11 @@ export default function ProjectCard({
           <TitleTag className="break-words font-heading text-h3 font-extrabold tracking-tight text-balance text-text-primary group-hover:text-accent transition-colors md:text-h2 leading-tight">
             <Link
               href={`/work/${project.slug}`}
+              /* On phones this title link sat at 27px tall, under the 44px touch guideline. Vertical
+                 padding on an inline element enlarges the hit area without moving the line box, so
+                 the card geometry is unchanged above and below this line. From 768px up the
+                 neighbouring targets are pointer-driven and already clear the 24px WCAG AA floor. */
+              className="max-md:py-[10px]"
             >
               {project.title}
             </Link>

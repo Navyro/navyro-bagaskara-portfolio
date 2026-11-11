@@ -35,7 +35,6 @@ export default function ContactPage() {
                 </span>
                 <a
                   href={`mailto:${profileData.email}`}
-                  data-cursor="cta"
                   className="tap-block mt-3 block font-heading text-h3 font-bold text-text-primary hover:text-accent transition-colors break-all"
                 >
                   {profileData.email}
@@ -59,7 +58,6 @@ export default function ContactPage() {
                       href={profileData.instagram}
                       target="_blank"
                       rel="noopener noreferrer"
-                      data-cursor="cta"
                       className="tap-block group flex items-center justify-between font-heading text-body font-bold text-text-primary transition-colors hover:text-accent"
                     >
                       <span className="flex items-center gap-3">
@@ -78,7 +76,6 @@ export default function ContactPage() {
                         href={profileData.linkedin}
                         target="_blank"
                         rel="noopener noreferrer"
-                        data-cursor="cta"
                         className="tap-block group flex items-center justify-between font-heading text-body font-bold text-text-primary transition-colors hover:text-accent"
                       >
                         <span className="flex items-center gap-3">

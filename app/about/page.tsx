@@ -56,14 +56,12 @@ export default function AboutPage() {
               <div className="pt-4 flex flex-wrap gap-4 print:hidden">
                 <Link
                   href="/resume"
-                  data-cursor="cta"
                   className="inline-flex min-h-11 items-center gap-2 rounded-btn bg-text-primary px-6 py-3 text-control font-semibold text-background hover:bg-black transition-colors"
                 >
                   View &amp; Download CV <Download size={16} />
                 </Link>
                 <Link
                   href="/contact"
-                  data-cursor="cta"
                   className="inline-flex items-center gap-2 rounded-btn border border-border bg-surface px-6 py-3 text-control font-semibold text-text-primary hover:border-text-primary transition-colors"
                 >
                   Get in Touch <ArrowUpRight size={16} />
@@ -72,7 +70,6 @@ export default function AboutPage() {
                   href={`/${profileData.portfolioFilename}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  data-cursor="cta"
                   className="inline-flex min-h-11 items-center gap-2 rounded-btn border border-border bg-surface px-6 py-3 text-control font-semibold text-text-primary hover:border-text-primary transition-colors"
                 >
                   Portfolio PDF{portfolioSize ? ` (${portfolioSize})` : ""} <FileText size={16} />

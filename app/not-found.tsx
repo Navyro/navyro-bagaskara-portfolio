@@ -32,14 +32,12 @@ export default function NotFound() {
         <div className="mt-8 flex flex-wrap items-center gap-4">
           <Link
             href="/"
-            data-cursor="cta"
             className="tap inline-flex items-center gap-2 rounded-btn bg-accent px-6 py-3 text-control font-semibold text-white dark:text-inverse-text transition-colors hover:bg-accent-hover"
           >
             <Home size={16} /> Back Home
           </Link>
           <Link
             href="/work"
-            data-cursor="cta"
             className="tap inline-flex items-center gap-2 rounded-btn border border-border bg-surface px-6 py-3 text-control font-semibold text-text-primary transition-colors hover:border-text-primary"
           >
             <ArrowLeft size={16} /> View Portfolio

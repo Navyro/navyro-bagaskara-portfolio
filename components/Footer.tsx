@@ -31,7 +31,6 @@ export default function Footer() {
               <li>
                 <Link
                   href="/work"
-                  data-cursor="cta"
                   className="tap-block transition-colors hover:text-accent"
                 >
                   Work &amp; Case Studies
@@ -40,7 +39,6 @@ export default function Footer() {
               <li>
                 <Link
                   href="/about"
-                  data-cursor="cta"
                   className="tap-block transition-colors hover:text-accent"
                 >
                   About &amp; Experience
@@ -49,7 +47,6 @@ export default function Footer() {
               <li>
                 <Link
                   href="/contact"
-                  data-cursor="cta"
                   className="tap-block transition-colors hover:text-accent"
                 >
                   Contact
@@ -58,7 +55,6 @@ export default function Footer() {
               <li>
                 <Link
                   href="/resume"
-                  data-cursor="cta"
                   className="tap-block transition-colors hover:text-accent"
                 >
                   Resume / CV ↗
@@ -76,7 +72,6 @@ export default function Footer() {
               <li>
                 <a
                   href={`mailto:${profileData.email}`}
-                  data-cursor="cta"
                   className="tap-block inline-flex items-center gap-1 transition-colors hover:text-accent"
                 >
                   Email <ArrowUpRight size={14} />
@@ -87,7 +82,6 @@ export default function Footer() {
                   href={profileData.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  data-cursor="cta"
                   className="tap-block inline-flex items-center gap-1 transition-colors hover:text-accent"
                 >
                   LinkedIn <ArrowUpRight size={14} />
@@ -101,7 +95,6 @@ export default function Footer() {
                     href={profileData.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    data-cursor="cta"
                     className="tap-block inline-flex items-center gap-1 transition-colors hover:text-accent"
                   >
                     GitHub <ArrowUpRight size={14} />
