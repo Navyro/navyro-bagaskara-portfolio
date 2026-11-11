@@ -30,7 +30,14 @@ const LAYOUT = path.join(ROOT, "app", "layout.tsx");
 const SITE_LIB = path.join(ROOT, "lib", "site.ts");
 const MAX_KB = 1024;
 
-const sha256 = (file) => crypto.createHash("sha256").update(fs.readFileSync(file)).digest("hex");
+// Hash the text with line endings normalised. core.autocrlf checks the template out as CRLF on
+// Windows and LF everywhere else, so hashing raw bytes would make the card look stale on the machine
+// that did not build it — CI, for one — while git reports the file as unchanged.
+const sha256 = (file) =>
+  crypto
+    .createHash("sha256")
+    .update(fs.readFileSync(file, "utf8").replace(/\r\n/g, "\n"))
+    .digest("hex");
 
 const problems = [];
 const checks = [];

@@ -147,8 +147,12 @@ async function main() {
 
   // Record which version of the template this card came from. check:og compares this hash instead of
   // file times, because a fresh git checkout gives every file the same mtime and would make the
-  // staleness check pass or fail at random.
-  const stamp = crypto.createHash("sha256").update(fs.readFileSync(SRC_HTML)).digest("hex");
+  // staleness check pass or fail at random. Line endings are normalised for the same reason the check
+  // normalises them: the working tree is CRLF on Windows and LF elsewhere.
+  const stamp = crypto
+    .createHash("sha256")
+    .update(fs.readFileSync(SRC_HTML, "utf8").replace(/\r\n/g, "\n"))
+    .digest("hex");
   fs.writeFileSync(path.join(ROOT, "public", "og-image.stamp"), stamp + "\n", "utf8");
   console.log(`stamped   : public/og-image.stamp (${stamp.slice(0, 12)}…)`);
 
