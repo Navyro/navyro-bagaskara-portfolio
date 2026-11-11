@@ -65,10 +65,25 @@ async function main() {
   const missing = expected.filter((route) => !locs.some((u) => new URL(u).pathname === route));
   check("sitemap.complete", missing.length === 0, missing.length ? `missing ${missing.join(", ")}` : `all ${expected.length} routes listed`);
 
+  // A sitemap that advertises a different origin than the one being served makes the check below
+  // fail with a bare ECONNREFUSED that looks like a site outage. Say what is actually wrong.
+  const servedOrigin = new URL(BASE).origin;
+  const sitemapOrigin = locs.length ? new URL(locs[0]).origin : "";
+  if (sitemapOrigin && sitemapOrigin !== servedOrigin) {
+    lines.push(
+      `INFO  sitemap.origin         served at ${servedOrigin} but advertises ${sitemapOrigin} — build with NEXT_PUBLIC_SITE_URL=${servedOrigin}`
+    );
+  }
+
   const dead = [];
   for (const url of locs) {
-    const res = await fetch(url, { method: "GET" });
-    if (res.status !== 200) dead.push(`${new URL(url).pathname} -> ${res.status}`);
+    try {
+      const res = await fetch(url, { method: "GET" });
+      if (res.status !== 200) dead.push(`${new URL(url).pathname} -> ${res.status}`);
+    } catch (e) {
+      const reason = e.cause?.code || e.message;
+      dead.push(`${new URL(url).pathname} -> ${reason} (${new URL(url).origin})`);
+    }
   }
   check("sitemap-urls", dead.length === 0, dead.length ? dead.join(", ") : `${locs.length} urls answer 200`);
 

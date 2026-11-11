@@ -49,19 +49,26 @@ jobs:
           node scripts/check-links.cjs
           node scripts/check-og.cjs
 
+      # The sitemap and robots.txt embed the absolute origin, and `check-seo` fetches the URLs the
+      # sitemap advertises — so the origin baked into this build has to be the origin the server is
+      # reachable on. Without this the build falls back to http://localhost:3000, the server runs on
+      # another port, and the sitemap-URLs check fails with ECONNREFUSED even though the site is fine.
+      # This is a throwaway build (Vercel rebuilds for production), so the value never ships.
       - name: Production build
+        env:
+          NEXT_PUBLIC_SITE_URL: http://127.0.0.1:3123
         run: npm run build
 
       # check-seo inspects what Next.js actually serves, so it needs a server, not the source files.
       - name: SEO, manifest and icons against a real server
         run: |
-          npx next start -p 3123 > /tmp/server.log 2>&1 &
+          npx next start -p 3123 -H 127.0.0.1 > /tmp/server.log 2>&1 &
           for i in $(seq 1 30); do
-            if curl -sf -o /dev/null http://localhost:3123/; then break; fi
+            if curl -sf -o /dev/null http://127.0.0.1:3123/; then break; fi
             sleep 1
           done
-          curl -sf -o /dev/null http://localhost:3123/ || { echo "::error::server never became ready"; cat /tmp/server.log; exit 1; }
-          BASE_URL=http://localhost:3123 node scripts/check-seo.cjs
+          curl -sf -o /dev/null http://127.0.0.1:3123/ || { echo "::error::server never became ready"; cat /tmp/server.log; exit 1; }
+          BASE_URL=http://127.0.0.1:3123 node scripts/check-seo.cjs
 
   deploy:
     needs: verify
