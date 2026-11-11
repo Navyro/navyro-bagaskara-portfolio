@@ -20,3 +20,5 @@ TENTANG SAYA/
 /DESIGN_*.md
 /IMPLEMENTATION_*.md
 /MOTION_*.md
+.vercel
+.env*
