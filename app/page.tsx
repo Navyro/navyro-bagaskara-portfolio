@@ -189,7 +189,7 @@ export default function HomePage() {
             <div className="lg:col-span-7 space-y-6">
               <ScrollReveal delay={0.1}>
                 <p className="text-h3 font-heading font-semibold text-text-primary leading-relaxed">
-                  I'm Navyro, a UI/UX Designer with a focus on front-end development. I enjoy turning complex problems into digital experiences that are clear, usable, and well structured.
+                  I'm Navyro, a UI/UX Designer with a solid grasp of front-end fundamentals. I enjoy turning complex problems into digital experiences that are clear, usable, and well structured.
                 </p>
               </ScrollReveal>
 

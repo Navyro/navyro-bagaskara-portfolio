@@ -14,7 +14,7 @@ export default function Footer() {
               NAVYRO BAGASKARA
             </h2>
             <p className="mt-2 text-control font-medium tracking-wide opacity-80">
-              UI/UX DESIGNER + FRONT-END
+              UI/UX DESIGNER + FRONT-END FUNDAMENTALS
             </p>
             <p className="mt-6 max-w-md text-control opacity-70 leading-relaxed">
               {profileData.shortStatement}

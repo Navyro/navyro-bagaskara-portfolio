@@ -11,15 +11,15 @@ export const siteUrl =
     ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
     : "http://localhost:3000");
 
-export const SITE_TITLE = "Navyro Bagaskara — UI/UX Designer + Front-End";
+export const SITE_TITLE = "Navyro Bagaskara — UI/UX Designer + Front-End Fundamentals";
 
 export const SITE_DESCRIPTION =
-  "Personal Portfolio & Case Studies of Navyro Bagaskara. Specializing in UI/UX Design, Product Strategy, and Front-End Web Development with Next.js & Tailwind CSS.";
+  "Personal Portfolio & Case Studies of Navyro Bagaskara. Specializing in UI/UX Design and Product Strategy, with a solid grasp of front-end fundamentals.";
 
 export const OG_IMAGE = {
   url: "/og-image.png",
   width: 1200,
   height: 630,
-  alt: "Navyro Bagaskara — UI/UX Designer & Front-End",
+  alt: "Navyro Bagaskara — UI/UX Designer & Front-End Fundamentals",
   type: "image/png",
 };

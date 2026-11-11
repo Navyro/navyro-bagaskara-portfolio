@@ -64,7 +64,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: SITE_TITLE,
     description:
-      "Personal Portfolio & Case Studies showcasing UI/UX thinking and Front-End execution.",
+      "Personal Portfolio & Case Studies showcasing UI/UX thinking and front-end fundamentals.",
     type: "website",
     locale: "en_US",
     siteName: "Navyro Bagaskara",
