@@ -201,7 +201,7 @@ export default function CaseStudyDetailPage({ params }: CaseStudyPageProps) {
               data-cursor-text="NEXT ↗"
               className="group mt-6 block rounded-card border border-border bg-surface p-8 lg:p-12 transition-all duration-300 hover:border-accent hover:shadow-xl"
             >
-              <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:items-center">
+              <div className="grid grid-cols-1 gap-[32px] lg:grid-cols-12 lg:items-center">
                 <div className="lg:col-span-7 space-y-4">
                   <span className="font-heading text-control font-extrabold tracking-widest text-text-muted">
                     {nextProject.number} — {nextProject.category}

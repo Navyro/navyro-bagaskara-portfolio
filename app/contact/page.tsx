@@ -25,7 +25,7 @@ export default function ContactPage() {
         </ScrollReveal>
 
         {/* Contact Grid: Direct Info + Contact Form */}
-        <div className="mt-16 grid grid-cols-1 gap-12 lg:grid-cols-12">
+        <div className="mt-16 grid grid-cols-1 gap-[48px] lg:grid-cols-12">
           {/* Left Column: Direct Links */}
           <div className="lg:col-span-5 space-y-8">
             <ScrollReveal delay={0.1}>

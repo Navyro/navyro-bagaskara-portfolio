@@ -7,7 +7,7 @@ export default function Footer() {
   return (
     <footer className="w-full bg-inverse-bg text-inverse-text border-t border-border transition-colors duration-200">
       <div className="mx-auto max-w-editorial px-[24px] py-16 lg:px-[48px] lg:py-20">
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
+        <div className="grid grid-cols-1 gap-[48px] lg:grid-cols-12">
           {/* Brand & Positioning */}
           <div className="lg:col-span-6">
             <h2 className="font-heading text-h3 font-bold tracking-tight text-inverse-text lg:text-h2">

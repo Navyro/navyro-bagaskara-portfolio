@@ -1,10 +1,13 @@
 import React from "react";
 import Link from "next/link";
-import { Download, CheckCircle2, ChevronDown, FileText } from "lucide-react";
+import { Download, CheckCircle2, ChevronDown, FileText, ArrowUpRight } from "lucide-react";
 import ScrollReveal from "@/components/ScrollReveal";
 import { profileData } from "@/data/profile";
+import { publicFileSize } from "@/lib/fileSize";
 
 export default function ResumePage() {
+  // Read from the file so the label can never drift away from the actual PDF again.
+  const portfolioSize = publicFileSize(profileData.portfolioFilename);
   return (
     <div className="w-full py-16 lg:py-24">
       <div className="mx-auto max-w-editorial px-[24px] lg:px-[48px]">
@@ -23,7 +26,7 @@ export default function ResumePage() {
               </p>
             </div>
 
-            <div className="flex min-w-0 flex-wrap gap-3">
+            <div className="flex min-w-0 flex-wrap gap-3 print:hidden">
               <a
                 href={`/${profileData.portfolioFilename}`}
                 target="_blank"
@@ -31,7 +34,8 @@ export default function ResumePage() {
                 data-cursor="cta"
                 className="inline-flex min-h-11 max-w-full items-center gap-2 rounded-btn border border-border bg-surface px-4 py-3 text-left text-control font-semibold text-text-primary transition-all hover:border-text-primary sm:px-6"
               >
-                <span className="min-w-0 break-words">Portfolio PDF (12 MB)</span> <FileText size={16} className="shrink-0" />
+                <span className="min-w-0 break-words">Portfolio PDF{portfolioSize ? ` (${portfolioSize})` : ""}</span>{" "}
+                <FileText size={16} className="shrink-0" />
               </a>
               <a
                 href={`/${profileData.resumeFilename}`}
@@ -161,6 +165,19 @@ export default function ResumePage() {
                           <span className="rounded-full border border-border bg-background px-2 py-0.5 text-meta font-semibold text-accent">
                             {cert.note}
                           </span>
+                        )}
+                        {/* The issuer's own verification page, when one exists in the data. */}
+                        {cert.url && (
+                          <a
+                            href={cert.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label={`Verify ${cert.title}`}
+                            className="tap inline-flex items-center gap-0.5 text-meta font-semibold text-accent underline-offset-2 hover:underline"
+                          >
+                            Verify
+                            <ArrowUpRight size={12} aria-hidden="true" />
+                          </a>
                         )}
                       </span>
                       <span className="text-meta text-text-secondary">{cert.issuer}</span>

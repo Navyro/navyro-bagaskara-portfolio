@@ -11,7 +11,7 @@ export default function SkillGroup({ title, skills }: SkillGroupProps) {
       data-skill-card
       className="flex h-full flex-col rounded-card border border-border bg-surface p-6 md:p-8"
     >
-      <h3 className="font-heading text-h3 font-bold tracking-tight text-text-primary uppercase">
+      <h3 className="break-words font-heading text-h3 font-bold tracking-tight text-text-primary uppercase">
         {title}
       </h3>
       {/* flex-1 so the chips occupy the shared height; the footer then sits on a

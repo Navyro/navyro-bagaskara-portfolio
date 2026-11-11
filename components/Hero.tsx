@@ -14,7 +14,7 @@ export default function Hero() {
     <section className="w-full bg-background pt-16 pb-20 md:pt-24 md:pb-28 lg:pt-32 lg:pb-36 border-b border-border">
       <div className="mx-auto max-w-editorial px-[24px] lg:px-[48px]">
         {/* Two columns from lg up: copy left, portrait right. */}
-        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-16">
+        <div className="grid grid-cols-1 items-center gap-[48px] lg:grid-cols-12 lg:gap-[64px]">
         <div className="lg:col-span-7 max-w-4xl">
           {/* Step 1 — Eyebrow */}
           <div className="rise inline-flex items-center gap-2 text-meta font-bold tracking-widest text-accent uppercase">

@@ -19,7 +19,7 @@ export default function ExperienceItem({ item }: ExperienceItemProps) {
         {item.company}
       </p>
 
-      <p className="mt-3 text-body text-text-secondary leading-relaxed">
+      <p className="mt-3 break-words text-body text-text-secondary leading-relaxed">
         {item.description}
       </p>
 

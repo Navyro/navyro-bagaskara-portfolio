@@ -24,7 +24,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
   ];
 
   return (
-    <div className="fixed inset-x-0 top-[var(--header-h)] z-30 flex flex-col border-b border-border bg-background px-6 py-8 shadow-lg md:hidden animate-in slide-in-from-top-2">
+    <div className="fixed inset-x-0 top-[var(--header-h)] z-30 flex flex-col border-b border-border bg-background px-6 py-8 shadow-lg md:hidden animate-in slide-in-from-top-2 print:hidden">
       <nav className="flex flex-col gap-6">
         {links.map((link) => {
           const active =

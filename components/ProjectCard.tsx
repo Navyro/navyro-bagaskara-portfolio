@@ -67,7 +67,7 @@ export default function ProjectCard({
 
         {/* Project Title & Metadata Sub-header */}
         <div className="space-y-2">
-          <h3 className="font-heading text-h3 font-extrabold tracking-tight text-balance text-text-primary group-hover:text-accent transition-colors md:text-h2 leading-tight">
+          <h3 className="break-words font-heading text-h3 font-extrabold tracking-tight text-balance text-text-primary group-hover:text-accent transition-colors md:text-h2 leading-tight">
             <Link
               href={`/work/${project.slug}`}
             >
@@ -131,7 +131,7 @@ export default function ProjectCard({
         </div>
 
         {/* Description & Link */}
-        <div className="mt-auto flex flex-col items-start justify-between gap-4 pt-2 md:flex-row md:items-center">
+        <div className="mt-auto flex flex-col flex-wrap items-start justify-between gap-4 pt-2 md:flex-row md:items-center">
           <p className="max-w-2xl text-body text-text-secondary leading-relaxed">
             {project.shortDescription}
           </p>

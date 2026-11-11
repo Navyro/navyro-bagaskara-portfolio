@@ -175,7 +175,7 @@ export default function HomePage() {
       {/* 05 — ABOUT */}
       <section className="w-full border-t border-border py-20 lg:py-28">
         <div className="mx-auto max-w-editorial px-[24px] lg:px-[48px]">
-          <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
+          <div className="grid grid-cols-1 gap-[48px] lg:grid-cols-12">
             <div className="lg:col-span-5">
               <ScrollReveal>
                 <span className="font-heading text-meta font-bold tracking-widest text-text-muted">

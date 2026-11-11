@@ -54,7 +54,7 @@ export const metadata: Metadata = {
   keywords: [
     "Navyro Bagaskara",
     "UI/UX Designer",
-    "Front-End Developer",
+    "Front-End Fundamentals",
     "Product Design",
     "Next.js Portfolio",
     "Design Systems",

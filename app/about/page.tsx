@@ -6,8 +6,11 @@ import SkillGroup from "@/components/SkillGroup";
 import ExperienceItem from "@/components/ExperienceItem";
 import ScrollReveal from "@/components/ScrollReveal";
 import { profileData } from "@/data/profile";
+import { publicFileSize } from "@/lib/fileSize";
 
 export default function AboutPage() {
+  // Read from the file so the label can never drift away from the actual PDF again.
+  const portfolioSize = publicFileSize(profileData.portfolioFilename);
   return (
     <div className="w-full py-16 lg:py-24">
       <div className="mx-auto max-w-editorial px-[24px] lg:px-[48px]">
@@ -27,7 +30,7 @@ export default function AboutPage() {
         </ScrollReveal>
 
         {/* Professional Profile Narrative */}
-        <div className="mt-12 grid grid-cols-1 gap-12 lg:grid-cols-12 border-b border-border pb-16">
+        <div className="mt-12 grid grid-cols-1 gap-[48px] lg:grid-cols-12 border-b border-border pb-16">
           <div className="lg:col-span-4">
             <ScrollReveal delay={0.1}>
               <h3 className="font-heading text-h3 font-bold tracking-tight text-text-primary">
@@ -50,7 +53,7 @@ export default function AboutPage() {
               </p>
             </ScrollReveal>
             <ScrollReveal delay={0.25}>
-              <div className="pt-4 flex flex-wrap gap-4">
+              <div className="pt-4 flex flex-wrap gap-4 print:hidden">
                 <Link
                   href="/resume"
                   data-cursor="cta"
@@ -72,7 +75,7 @@ export default function AboutPage() {
                   data-cursor="cta"
                   className="inline-flex min-h-11 items-center gap-2 rounded-btn border border-border bg-surface px-6 py-3 text-control font-semibold text-text-primary hover:border-text-primary transition-colors"
                 >
-                  Portfolio PDF (12 MB) <FileText size={16} />
+                  Portfolio PDF{portfolioSize ? ` (${portfolioSize})` : ""} <FileText size={16} />
                 </a>
               </div>
             </ScrollReveal>
@@ -109,7 +112,7 @@ export default function AboutPage() {
                   <span className="text-meta font-bold tracking-widest text-text-muted uppercase">
                     {edu.year}
                   </span>
-                  <h3 className="mt-1 font-heading text-h3 font-bold text-text-primary">
+                  <h3 className="mt-1 break-words font-heading text-h3 font-bold text-text-primary">
                     {edu.degree}
                   </h3>
                   <p className="text-control font-semibold text-accent">

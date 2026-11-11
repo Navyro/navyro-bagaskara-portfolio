@@ -40,8 +40,8 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Navigation + Theme Toggle */}
-          <div className="hidden items-center gap-8 md:flex">
-            <nav className="flex items-center gap-8">
+          <div className="hidden min-w-0 items-center gap-[32px] overflow-x-auto md:flex">
+            <nav className="flex items-center gap-[32px]">
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
@@ -68,7 +68,7 @@ export default function Navbar() {
           </div>
 
           {/* Mobile Actions (Theme Toggle + Hamburger) */}
-          <div className="flex items-center gap-3 md:hidden">
+          <div className="flex items-center gap-[12px] md:hidden">
             <ThemeToggle />
             <button
               type="button"

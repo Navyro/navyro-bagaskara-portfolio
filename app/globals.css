@@ -215,3 +215,81 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* Print: a sheet of paper is a document, not a screen.
+   The site chrome is dropped, both palettes collapse to black on white, and rows are kept
+   whole instead of being split across pages. Without this block a printed /resume carried
+   the navbar, the footer and every call-to-action button. */
+@media print {
+  :root,
+  .dark {
+    --background: #ffffff;
+    --surface: #ffffff;
+    --border: #c9c9c9;
+    --text-primary: #111111;
+    --text-secondary: #333333;
+    --text-muted: #4b4b4b;
+    --inverse-bg: #ffffff;
+    --inverse-text: #111111;
+  }
+
+  html,
+  body {
+    background: #ffffff !important;
+    color: #111111 !important;
+  }
+
+  header,
+  footer,
+  .skip-link {
+    display: none !important;
+  }
+
+  @page {
+    margin: 14mm;
+  }
+
+  /* Screen-only vertical rhythm: the page shell stops paying for it on paper. */
+  main > div,
+  main > div > div {
+    padding-block: 0 !important;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    break-after: avoid;
+  }
+
+  li,
+  img,
+  .rounded-card {
+    break-inside: avoid;
+  }
+
+  a[href] {
+    text-decoration: none;
+  }
+
+  /* Paper type scale. The type tokens are rem-based (h1 3rem, body 1rem, meta 0.75rem), so
+     scaling the root shrinks every size proportionally — no per-class overrides, and no
+     specificity fight when an element carries two size classes (`text-h2 sm:text-h1`). */
+  html {
+    font-size: 13px;
+  }
+
+  /* Section separators keep their border but stop paying screen-sized padding. */
+  main .py-16,
+  main .py-12,
+  main .py-8,
+  main .pt-8,
+  main .pt-16,
+  main .pb-12 {
+    padding-block: 0 !important;
+  }
+
+  main .py-3 {
+    padding-block: 3pt !important;
+  }
+}
