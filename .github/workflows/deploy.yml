@@ -1,0 +1,38 @@
+name: Deploy to production
+
+# The Vercel project is not linked to this repository, so Vercel does not build on push. This
+# workflow closes that gap: the Vercel CLI uploads the committed source and Vercel builds it, which
+# is the same build the local `npm run ship` triggers.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# One production deployment at a time; a queued run waits rather than cancelling a live deploy.
+concurrency:
+  group: production-deploy
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      VERCEL_ORG_ID: team_L2RPYA9Lgylk6tqLAvafIE9j
+      VERCEL_PROJECT_ID: prj_8frWn1If0X3WeVyI17gawriYVnKI
+    steps:
+      - name: Check out the committed source
+        uses: actions/checkout@v4
+
+      - name: Deploy to Vercel
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          if [ -z "$VERCEL_TOKEN" ]; then
+            echo "::error::VERCEL_TOKEN is not set on this repository; add it under Settings > Secrets and variables > Actions."
+            exit 1
+          fi
+          npx --yes vercel@latest deploy --prod --yes

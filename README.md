@@ -67,17 +67,19 @@ It also covers:
 
 ## Deploying
 
-Production lives at <https://navyro-bagaskara-portfolio.vercel.app> and is deployed with the Vercel
-CLI:
+Production lives at <https://navyro-bagaskara-portfolio.vercel.app>. Every push to `main` deploys
+through GitHub Actions (`.github/workflows/deploy.yml`), which runs the Vercel CLI with a token kept
+in the repository's Actions secrets.
+
+Vercel's own Git integration is not used: it links repositories through a GitHub App installed on the
+account that owns them, and the Vercel account here is tied to a different GitHub identity. The
+workflow is the substitute, and it builds the same way.
+
+The same deploy can be run by hand:
 
 ```bash
 npm run ship       # git push origin main, then vercel --prod
 ```
-
-Pushing alone does not deploy yet. The Vercel project is not linked to this repository because the
-Vercel account is tied to a different GitHub identity, and Vercel only connects repositories through
-its GitHub App on the account that owns them. Once the Vercel GitHub App is installed for the
-repository's owner, `vercel git connect` replaces this manual step.
 
 ## How it was made
 
