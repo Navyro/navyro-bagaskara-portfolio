@@ -33,9 +33,9 @@ export default function AboutPage() {
         <div className="mt-12 grid grid-cols-1 gap-[48px] lg:grid-cols-12 border-b border-border pb-16">
           <div className="lg:col-span-4">
             <ScrollReveal delay={0.1}>
-              <h3 className="font-heading text-h3 font-bold tracking-tight text-text-primary">
+              <h2 className="font-heading text-h3 font-bold tracking-tight text-text-primary">
                 Profile &amp; Approach
-              </h3>
+              </h2>
             </ScrollReveal>
           </div>
           <div className="lg:col-span-8 space-y-6 text-body text-text-secondary md:text-h3 leading-relaxed">

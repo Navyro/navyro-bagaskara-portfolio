@@ -50,7 +50,7 @@ export default function WorkPage() {
         {/* Project List */}
         <div className="grid grid-cols-1 gap-x-10 gap-y-14 md:grid-cols-2">
           {projectsData.map((project) => (
-            <ProjectCard key={project.slug} project={project} />
+            <ProjectCard key={project.slug} project={project} titleAs="h2" />
           ))}
         </div>
       </div>

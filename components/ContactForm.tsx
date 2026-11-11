@@ -66,9 +66,9 @@ export default function ContactForm() {
 
   return (
     <div className="rounded-card border border-border bg-surface p-6 md:p-10 shadow-sm">
-      <h3 className="font-heading text-h3 font-bold tracking-tight text-text-primary">
+      <h2 className="font-heading text-h3 font-bold tracking-tight text-text-primary">
         Send a Message
-      </h3>
+      </h2>
       <p className="mt-2 text-control text-text-secondary">
         Fill in the form below to start a project conversation or discuss a role.
       </p>

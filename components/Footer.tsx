@@ -23,7 +23,8 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div className="lg:col-span-3">
-            <p className="text-meta font-semibold tracking-wider opacity-50 uppercase">
+            {/* opacity-50 measured 3.53:1 against the footer surface; 60 clears WCAG AA for 12px text. */}
+            <p className="text-meta font-semibold tracking-wider opacity-60 uppercase">
               Navigation
             </p>
             <ul className="mt-4 flex flex-col max-md:gap-0 md:gap-3 text-control">
@@ -68,7 +69,7 @@ export default function Footer() {
 
           {/* Direct Social Links */}
           <div className="lg:col-span-3">
-            <p className="text-meta font-semibold tracking-wider opacity-50 uppercase">
+            <p className="text-meta font-semibold tracking-wider opacity-60 uppercase">
               Connect
             </p>
             <ul className="mt-4 flex flex-col max-md:gap-0 md:gap-3 text-control">

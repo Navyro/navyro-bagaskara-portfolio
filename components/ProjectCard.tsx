@@ -20,6 +20,15 @@ interface ProjectCardProps {
    * keeps the original value untouched.
    */
   headerHeight?: string;
+  /**
+   * Heading tag for the project title.
+   *
+   * /work has only an `h1` above the grid, so its cards act as the page's second level and
+   * must be `h2`; skipping to `h3` there fails a heading-order check. The homepage already
+   * has an `h2` section title, so its cards stay `h3`. The rendered size is set by the class,
+   * not the tag, so this cannot change the layout.
+   */
+  titleAs?: "h2" | "h3";
 }
 
 /**
@@ -37,6 +46,7 @@ interface ProjectCardProps {
 export default function ProjectCard({
   project,
   headerHeight = "lg:min-h-[17rem]",
+  titleAs: TitleTag = "h3",
 }: ProjectCardProps) {
   const hasSlides = Boolean(project.cardSlides && project.cardSlides.length > 1);
 
@@ -67,13 +77,13 @@ export default function ProjectCard({
 
         {/* Project Title & Metadata Sub-header */}
         <div className="space-y-2">
-          <h3 className="break-words font-heading text-h3 font-extrabold tracking-tight text-balance text-text-primary group-hover:text-accent transition-colors md:text-h2 leading-tight">
+          <TitleTag className="break-words font-heading text-h3 font-extrabold tracking-tight text-balance text-text-primary group-hover:text-accent transition-colors md:text-h2 leading-tight">
             <Link
               href={`/work/${project.slug}`}
             >
               {project.title}
             </Link>
-          </h3>
+          </TitleTag>
 
           <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-meta font-semibold tracking-wider text-text-muted uppercase pt-1">
             <span>{project.category}</span>

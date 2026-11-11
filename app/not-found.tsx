@@ -33,7 +33,7 @@ export default function NotFound() {
           <Link
             href="/"
             data-cursor="cta"
-            className="tap inline-flex items-center gap-2 rounded-btn bg-accent px-6 py-3 text-control font-semibold text-white transition-colors hover:bg-accent-hover"
+            className="tap inline-flex items-center gap-2 rounded-btn bg-accent px-6 py-3 text-control font-semibold text-white dark:text-inverse-text transition-colors hover:bg-accent-hover"
           >
             <Home size={16} /> Back Home
           </Link>

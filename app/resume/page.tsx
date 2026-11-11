@@ -41,7 +41,7 @@ export default function ResumePage() {
                 href={`/${profileData.resumeFilename}`}
                 download={profileData.resumeFilename}
                 data-cursor="cta"
-                className="inline-flex min-h-11 max-w-full items-center gap-2 rounded-btn bg-accent px-4 py-3.5 text-left text-control font-semibold text-white transition-all hover:bg-accent-hover shadow-sm sm:px-7"
+                className="inline-flex min-h-11 max-w-full items-center gap-2 rounded-btn bg-accent px-4 py-3.5 text-left text-control font-semibold text-white dark:text-inverse-text transition-all hover:bg-accent-hover shadow-sm sm:px-7"
               >
                 <span className="min-w-0 break-words">CV — English (PDF)</span> <Download size={16} className="shrink-0" />
               </a>
