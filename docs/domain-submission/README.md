@@ -1,68 +1,57 @@
-# Free subdomain: navyro.is-a.dev
+# Free subdomain: navyro-portfolio.is-a.dev
 
-is-a.dev hands out free `*.is-a.dev` subdomains through pull requests to
-[is-a-dev/register](https://github.com/is-a-dev/register). There is no registrar, no payment and no
-expiry, and the records live in that repository's `domains/` folder as JSON.
+**Status: submitted, waiting on review.** The pull request already exists —
+[is-a-dev/register#60844](https://github.com/is-a-dev/register/pull/60844), opened 2026-11-11, state `open`,
+`mergeable_state: clean`. Nothing else has to be written; the rest of this file is the record of what was
+submitted and what happens after the merge.
 
-**Chosen name:** `navyro.is-a.dev` — verified unclaimed on 2026-11-11 (a `404` on
-`domains/navyro.json` means the name is free).
+is-a.dev issues free `*.is-a.dev` subdomains by pull request, with no registrar, no payment and no expiry.
+Records live as JSON files in that repository's `domains/` folder.
 
-## State when this was written
+## What the pull request contains
 
-The domain is **already attached to the Vercel project** `navyro-bagaskara-portfolio` with
-`verified: false`, waiting on the DNS records below. Adding it through the API returned:
+| File in the PR | Records |
+| --- | --- |
+| `domains/navyro-portfolio.json` | `CNAME cname.vercel-dns.com` |
+| `domains/_vercel.navyro-portfolio.json` | `TXT vc-domain-verify=navyro-portfolio.is-a.dev,d13104ceab801d75bbd5` |
 
-```
-verification: TXT _vercel.navyro.is-a.dev = vc-domain-verify=navyro.is-a.dev,d076e5b3497d1ecfde8a
-recommendedIPv4: 76.76.21.21
-```
+Verified against the live Vercel project: the TXT value in the PR is exactly the challenge Vercel is
+currently waiting for on the domain (`verified: false`), so the merge is the only remaining step.
 
-## The two files to submit
-
-Both already exist in this folder, ready to be copied into the fork:
-
-| Local file | Goes to | Records |
-| --- | --- | --- |
-| `navyro.json` | `domains/navyro.json` | `A 76.76.21.21` |
-| `_vercel.navyro.json` | `domains/_vercel.navyro.json` | `TXT vc-domain-verify=…` |
-
-Underscore in the filename is allowed by is-a.dev as long as it is not the root label — `_vercel` is a
-prefix label, so this naming is the documented form for Vercel verification.
-
-## Pull request steps
-
-1. Fork <https://github.com/is-a-dev/register>.
-2. In the fork, open the `domains/` folder and create the two files above with exactly those contents.
-3. Commit to a branch and open a pull request into `is-a-dev/register:main`.
-4. Fill the PR template: record type `A` + `TXT`, and state the site it points to
-   (`https://navyro-bagaskara-portfolio.vercel.app`).
-5. Wait for review and merge. A bot checks JSON validity and record shape on the PR, so a red check is
-   usually a typo rather than a rejection.
+A `CNAME` at a subdomain label is correct here — there is no apex record to worry about, which is why the
+`A 76.76.21.21` route (used at an apex) is not needed.
 
 ## After the merge
 
-DNS needs a few minutes to propagate, then:
+DNS propagates within minutes, then Vercel confirms the TXT on its own. To check:
 
 ```bash
-npx vercel domains verify navyro.is-a.dev
+npx vercel domains verify navyro-portfolio.is-a.dev
 ```
 
-Vercel flips `verified` to true once it can read the TXT record. Then finish the cutover as described in
-[../domain-cutover.md](../domain-cutover.md), with one difference: this is a subdomain, so there is no
-apex and no redirect choice to make.
+When it reports verified, finish the cutover — one environment variable and a redeploy:
 
 ```bash
-npx vercel env add NEXT_PUBLIC_SITE_URL production   # https://navyro.is-a.dev
+npx vercel env add NEXT_PUBLIC_SITE_URL production   # https://navyro-portfolio.is-a.dev
 npm run ship
-BASE_URL=https://navyro.is-a.dev npm run check:seo   # expect 10/10
+BASE_URL=https://navyro-portfolio.is-a.dev npm run check:seo   # expect 10/10
 ```
 
-## Worth knowing before committing to a free subdomain
+Then submit `https://navyro-portfolio.is-a.dev/sitemap.xml` in Google Search Console and re-check the
+social card in the LinkedIn Post Inspector.
 
-- It is a real HTTPS domain and Google indexes it, so Search Console, the sitemap and the social card
-  all work normally.
-- It cannot be sold or transferred, the maintainers can revoke it for abuse, and it reads as a
-  developer domain to a recruiter. Moving to a paid `.com` later means repeating the env-var and
-  redeploy step, plus updating the link on the CV.
-- `www.navyro.is-a.dev` would need its own JSON file; skip it, since a subdomain without `www` is the
-  normal shape for is-a.dev.
+## If the pull request goes quiet
+
+The repository gets a lot of submissions, so a wait of days is normal and not a signal of rejection — a red
+check on the PR is usually a JSON typo. If the challenge needs regenerating (for example the domain is
+removed and re-added in Vercel), the TXT value changes and the PR must be updated with the new one.
+
+## Trade-offs, stated plainly
+
+- Real HTTPS domain, indexed normally; Search Console, sitemap and social cards all behave as with a paid
+  domain.
+- It cannot be sold or transferred, the maintainers can revoke it, and it reads as a developer domain to a
+  recruiter. Moving to a paid `.com` later means repeating the env-var and redeploy step and updating the
+  link on the CV.
+- `www.navyro-portfolio.is-a.dev` would need its own JSON file; skip it, since is-a.dev subdomains
+  normally ship without `www`.
