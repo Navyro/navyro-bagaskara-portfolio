@@ -23,6 +23,15 @@ A `CNAME` at a subdomain label is correct here — there is no apex record to wo
 
 ## After the merge
 
+Check the whole chain — pull request, CNAME, TXT and what the hostname serves — in one go:
+
+```bash
+npm run check:domain
+```
+
+It prints `WAIT` for everything that is still pending and says when the name is live. Underneath it uses
+public DNS and GitHub's public API only, so it needs no tokens.
+
 DNS propagates within minutes, then Vercel confirms the TXT on its own. To check:
 
 ```bash

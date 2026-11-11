@@ -12,6 +12,7 @@
     "build:og": "node scripts/build-og-image.cjs",
     "check:og": "node scripts/check-og.cjs",
     "check": "node scripts/check-links.cjs && node scripts/check-og.cjs && node scripts/check-seo.cjs",
+    "check:domain": "node scripts/check-domain.cjs",
     "check:seo": "node scripts/check-seo.cjs",
     "build:icons": "node scripts/build-icons.cjs",
     "ship": "git push origin main && npx --yes vercel@latest --prod --yes"
