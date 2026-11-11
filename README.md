@@ -65,6 +65,20 @@ It also covers:
 - light and dark themes that both pass contrast, and motion that respects
   `prefers-reduced-motion`.
 
+## Deploying
+
+Production lives at <https://navyro-bagaskara-portfolio.vercel.app> and is deployed with the Vercel
+CLI:
+
+```bash
+npm run ship       # git push origin main, then vercel --prod
+```
+
+Pushing alone does not deploy yet. The Vercel project is not linked to this repository because the
+Vercel account is tied to a different GitHub identity, and Vercel only connects repositories through
+its GitHub App on the account that owns them. Once the Vercel GitHub App is installed for the
+repository's owner, `vercel git connect` replaces this manual step.
+
 ## How it was made
 
 I designed it and built it myself, working with AI assistants as a pair-programmer. That means I can
