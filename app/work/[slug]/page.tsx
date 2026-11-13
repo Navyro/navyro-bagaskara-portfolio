@@ -10,6 +10,7 @@ import CaseStudySection, { sectionHasContent } from "@/components/CaseStudySecti
 import ScrollReveal from "@/components/ScrollReveal";
 import ReadingProgressBar from "@/components/ReadingProgressBar";
 import { projectsData } from "@/data/projects";
+import type { Metadata } from "next";
 
 interface CaseStudyPageProps {
   params: {
@@ -21,6 +22,12 @@ export function generateStaticParams() {
   return projectsData.map((project) => ({
     slug: project.slug,
   }));
+}
+
+// Each case study is its own canonical page: the site answers on two hostnames, so a shared canonical
+// would hand every case study's ranking to one of them.
+export function generateMetadata({ params }: CaseStudyPageProps): Metadata {
+  return { alternates: { canonical: `/work/${params.slug}` } };
 }
 
 export default function CaseStudyDetailPage({ params }: CaseStudyPageProps) {

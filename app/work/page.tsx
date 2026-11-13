@@ -3,6 +3,9 @@ import SectionHeading from "@/components/SectionHeading";
 import ProjectCard from "@/components/ProjectCard";
 import ScrollReveal from "@/components/ScrollReveal";
 import { projectsData } from "@/data/projects";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = { alternates: { canonical: "/work" } };
 
 /**
  * Project index — server rendered.

@@ -4,6 +4,9 @@ import { Download, CheckCircle2, ChevronDown, FileText, ArrowUpRight } from "luc
 import ScrollReveal from "@/components/ScrollReveal";
 import { profileData } from "@/data/profile";
 import { publicFileSize } from "@/lib/fileSize";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = { alternates: { canonical: "/resume" } };
 
 export default function ResumePage() {
   // Read from the file so the label can never drift away from the actual PDF again.

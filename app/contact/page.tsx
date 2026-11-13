@@ -3,6 +3,9 @@ import { ArrowUpRight, Instagram, Linkedin } from "lucide-react";
 import ContactForm from "@/components/ContactForm";
 import ScrollReveal from "@/components/ScrollReveal";
 import { profileData } from "@/data/profile";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = { alternates: { canonical: "/contact" } };
 
 export default function ContactPage() {
   return (

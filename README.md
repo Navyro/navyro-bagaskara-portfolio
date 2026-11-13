@@ -5,7 +5,11 @@ It holds six case studies of real work — from field research for a village was
 personal-finance concept — and the site itself is the second half of the argument: a designer who
 can also read and adjust the code.
 
-**Live:** https://navyro-bagaskara-portfolio.vercel.app
+**Live:** https://navyro-portfolio.is-a.dev
+
+The site also answers on its `navyro-bagaskara-portfolio.vercel.app` alias, which is kept so links shared
+before the domain existed still work. Every page declares a canonical pointing at the is-a.dev domain, so
+the two hostnames do not compete.
 
 <img src="docs/readme/home.jpg" alt="Homepage: hero with portrait, name and navigation" width="49%" /> <img src="docs/readme/work.jpg" alt="Work page: six case studies with device mockups" width="49%" />
 
@@ -67,13 +71,15 @@ It also covers:
 
 ## Deploying
 
-Production lives at <https://navyro-bagaskara-portfolio.vercel.app>. Every push to `main` deploys
+Production lives at <https://navyro-portfolio.is-a.dev>, a free `is-a.dev` subdomain issued by pull
+request — that submission is recorded in [docs/domain-submission/](docs/domain-submission/).
+`navyro-bagaskara-portfolio.vercel.app` stays attached as an alias. Every push to `main` deploys
 through GitHub Actions (`.github/workflows/deploy.yml`), which runs the Vercel CLI with a token kept
 in the repository's Actions secrets. Before it deploys, the same workflow runs the gates the repository
-owns — types, lint, links, social card, build, and the SEO/manifest checks against a real server — so a
-run that fails a check never reaches production.
+owns — types, lint, links, social card, build, and the SEO/manifest/canonical checks against a real
+server — so a run that fails a check never reaches production.
 
-Moving to a custom domain is one environment variable (`NEXT_PUBLIC_SITE_URL`) plus a redeploy; see
+Moving domain is one environment variable (`NEXT_PUBLIC_SITE_URL`) plus a redeploy; see
 [docs/domain-cutover.md](docs/domain-cutover.md).
 
 Vercel's own Git integration is not used: it links repositories through a GitHub App installed on the

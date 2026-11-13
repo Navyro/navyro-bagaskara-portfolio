@@ -7,6 +7,9 @@ import ExperienceItem from "@/components/ExperienceItem";
 import ScrollReveal from "@/components/ScrollReveal";
 import { profileData } from "@/data/profile";
 import { publicFileSize } from "@/lib/fileSize";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = { alternates: { canonical: "/about" } };
 
 export default function AboutPage() {
   // Read from the file so the label can never drift away from the actual PDF again.

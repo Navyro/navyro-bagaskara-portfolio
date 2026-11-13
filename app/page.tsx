@@ -9,6 +9,11 @@ import ExperienceItem from "@/components/ExperienceItem";
 import ScrollReveal from "@/components/ScrollReveal";
 import { projectsData } from "@/data/projects";
 import { profileData } from "@/data/profile";
+import type { Metadata } from "next";
+
+// The site is reachable on two hostnames (the is-a.dev domain and the vercel.app alias), so every
+// page names its own canonical. Without it the alias competes with the domain for the same content.
+export const metadata: Metadata = { alternates: { canonical: "/" } };
 
 export default function HomePage() {
   const featuredProjects = projectsData.filter((p) => p.featured);

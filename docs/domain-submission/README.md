@@ -1,9 +1,8 @@
 # Free subdomain: navyro-portfolio.is-a.dev
 
-**Status: submitted, waiting on review.** The pull request already exists —
-[is-a-dev/register#60844](https://github.com/is-a-dev/register/pull/60844), opened 2026-11-11, state `open`,
-`mergeable_state: clean`. Nothing else has to be written; the rest of this file is the record of what was
-submitted and what happens after the merge.
+**Status: merged and live** — <https://navyro-portfolio.is-a.dev> serves the site and
+[is-a-dev/register#60844](https://github.com/is-a-dev/register/pull/60844) is closed as merged. The rest of
+this file records what was submitted, so the next domain (a paid one, later) can follow the same route.
 
 is-a.dev issues free `*.is-a.dev` subdomains by pull request, with no registrar, no payment and no expiry.
 Records live as JSON files in that repository's `domains/` folder.
@@ -21,7 +20,18 @@ currently waiting for on the domain (`verified: false`), so the merge is the onl
 A `CNAME` at a subdomain label is correct here — there is no apex record to worry about, which is why the
 `A 76.76.21.21` route (used at an apex) is not needed.
 
-## After the merge
+## What happened after the merge
+
+Done on 2026-11-12, in this order: `vercel domains verify` reported `verified: true`, `NEXT_PUBLIC_SITE_URL`
+was set to `https://navyro-portfolio.is-a.dev` for production, the site was redeployed, and
+`BASE_URL=https://navyro-portfolio.is-a.dev npm run check:seo` passed 11 of 11 checks — including
+`sitemap-urls`, which proves every advertised URL answers 200 on the new origin.
+
+Every page also gained a canonical link at that point: two hostnames serving identical pages otherwise split
+their own ranking, and the alias stays attached on purpose (see below), so the canonical is what keeps the
+is-a.dev domain the one Google credits.
+
+## If it ever needs to be redone
 
 Check the whole chain — pull request, CNAME, TXT and what the hostname serves — in one go:
 
@@ -49,7 +59,7 @@ BASE_URL=https://navyro-portfolio.is-a.dev npm run check:seo   # expect 10/10
 Then submit `https://navyro-portfolio.is-a.dev/sitemap.xml` in Google Search Console and re-check the
 social card in the LinkedIn Post Inspector.
 
-## If the pull request goes quiet
+## If the pull request ever stalls
 
 The repository gets a lot of submissions, so a wait of days is normal and not a signal of rejection — a red
 check on the PR is usually a JSON typo. If the challenge needs regenerating (for example the domain is

@@ -11,6 +11,7 @@
  *   jsonld       the homepage ships one valid application/ld+json Person block whose name,
  *                jobTitle and url are present and whose sameAs entries are absolute https.
  *   skip-link    every page has one a[href="#main"] and a matching #main target.
+ *   canonical    every route names itself as canonical, so the second hostname cannot outrank the domain.
  *   icons        the tab / homescreen icons exist, are served with the right type and size,
  *                and the document links them (Next App Router: app/icon.png,
  *                app/apple-icon.png). Before CL-12 there was no favicon at all.
@@ -129,6 +130,27 @@ async function main() {
     if (inlineHidden > 0) jsProblems.push(`${route} x${inlineHidden}`);
   }
   check("a11y.skip-link", skipProblems.length === 0, skipProblems.length ? skipProblems.join(", ") : `${ROUTES.length} routes`);
+
+  // The site answers on two hostnames (the is-a.dev domain and the vercel.app alias), so each page must
+  // name its own canonical. A page without one, or one pointing at "/", hands its ranking to the other
+  // hostname or to the homepage. Checked on every route, not a sample.
+  const canonProblems = [];
+  for (const route of expected) {
+    const page = await get(`${BASE}${route}`);
+    if (page.status !== 200) {
+      canonProblems.push(`${route} -> ${page.status}`);
+      continue;
+    }
+    const href = (page.body.match(/<link rel="canonical" href="([^"]+)"/) || [])[1];
+    const want = `${servedOrigin}${route}`;
+    if (!href) canonProblems.push(`${route} -> none`);
+    else if (href.replace(/\/$/, "") !== want.replace(/\/$/, "")) canonProblems.push(`${route} -> ${href}`);
+  }
+  check(
+    "canonical.self",
+    canonProblems.length === 0,
+    canonProblems.length ? canonProblems.join(", ") : `${expected.length} routes point at themselves`
+  );
 
   // Icons are read from the filesystem AND from the served document: a PNG in app/ that Next
   // does not link (or a link to a file that 404s) are different failures.
