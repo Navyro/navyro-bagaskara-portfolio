@@ -63,8 +63,10 @@ export const metadata: Metadata = {
   authors: [{ name: "Navyro Bagaskara" }],
   openGraph: {
     title: SITE_TITLE,
-    description:
-      "Personal Portfolio & Case Studies showcasing UI/UX thinking and front-end fundamentals.",
+    // One description for the whole site. A second, shorter one used to live here, and at 87 characters it
+    // tripped LinkedIn's "description should be at least 100 characters" warning while the real one was
+    // correct all along.
+    description: SITE_DESCRIPTION,
     type: "website",
     locale: "en_US",
     siteName: "Navyro Bagaskara",
@@ -74,8 +76,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: SITE_TITLE,
-    description:
-      "Portfolio & case studies: from user research through to prototypes and a coded implementation.",
+    description: SITE_DESCRIPTION,
     images: [OG_IMAGE],
   },
 };

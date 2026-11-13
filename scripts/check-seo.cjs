@@ -12,6 +12,7 @@
  *                jobTitle and url are present and whose sameAs entries are absolute https.
  *   skip-link    every page has one a[href="#main"] and a matching #main target.
  *   canonical    every route names itself as canonical, so the second hostname cannot outrank the domain.
+ *   social       og/twitter descriptions exist and are at least 100 characters (LinkedIn's floor).
  *   icons        the tab / homescreen icons exist, are served with the right type and size,
  *                and the document links them (Next App Router: app/icon.png,
  *                app/apple-icon.png). Before CL-12 there was no favicon at all.
@@ -150,6 +151,24 @@ async function main() {
     "canonical.self",
     canonProblems.length === 0,
     canonProblems.length ? canonProblems.join(", ") : `${expected.length} routes point at themselves`
+  );
+
+  // LinkedIn's Post Inspector warns below 100 characters and X truncates long ones, so the shared
+  // description has to sit in that window. Read from the served HTML, not the source: the bug this catches
+  // was a second, shorter description in openGraph that disagreed with the page's own meta description.
+  const descProblems = [];
+  for (const [label, re] of [
+    ["og", /<meta property="og:description" content="([^"]*)"/],
+    ["twitter", /<meta name="twitter:description" content="([^"]*)"/],
+  ]) {
+    const value = (home.body.match(re) || [])[1];
+    if (!value) descProblems.push(`${label} -> missing`);
+    else if (value.length < 100) descProblems.push(`${label} -> ${value.length} chars`);
+  }
+  check(
+    "social.description",
+    descProblems.length === 0,
+    descProblems.length ? descProblems.join(", ") : `og + twitter are 100+ characters`
   );
 
   // Icons are read from the filesystem AND from the served document: a PNG in app/ that Next
