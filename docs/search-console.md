@@ -45,8 +45,12 @@ posts the sitemap's URLs to `api.indexnow.org`:
 
 ```bash
 npm run indexnow              # every URL in the sitemap
-npm run indexnow -- /work     # one path, right after editing it
+npm run indexnow -- //work    # one path, right after editing it
 ```
+
+On Git Bash the leading slash of `-- /work` gets rewritten into a Windows path before the script ever
+sees it (`C:/Program Files/Git/work`), so use `//work` there; the script rejects anything that is not a
+plain site path and says so rather than submitting `https://…/C:/Program Files/…`.
 
 The script refuses to submit if the key file is not live yet, because a submission with a missing key is
 rejected with 403 and looks like a protocol problem instead of an unfinished deploy. `200` or `202` means

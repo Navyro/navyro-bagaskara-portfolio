@@ -9,7 +9,7 @@
  * The key is read from public/, so there is one copy and it cannot drift from what is deployed.
  *
  * Usage: npm run indexnow            (all sitemap URLs)
- *        npm run indexnow -- /work   (only that path, for a single edit)
+ *        npm run indexnow -- /work   (only that path, for a single edit; from Git Bash use //work)
  *        SITE=https://... npm run indexnow
  *
  * A 200 or 202 means accepted. 403 means the key file does not match, 422 means a URL is not on the host.
@@ -61,7 +61,21 @@ async function main() {
   }
 
   const only = process.argv[2];
-  const urls = only ? [`${SITE}${only.startsWith("/") ? only : "/" + only}`] : await sitemapUrls();
+  if (only !== undefined && !/^\/[A-Za-z0-9\-._~/]*$/.test(only)) {
+    // Git Bash rewrites a leading `/` into a Windows path, so `npm run indexnow -- /work` arrives here as
+    // `C:/Program Files/Git/work`. That was silently submitted once and only caught by reading the printed
+    // URL, so the argument is now validated instead of "fixed up".
+    console.error(`not a site path: ${only}`);
+    console.error("expected something like /work or /work/fanfunds");
+    if (/^[A-Za-z]:|\\\\/.test(only)) {
+      console.error("Git Bash converted the leading / into a Windows path — use //work, or MSYS_NO_PATHCONV=1.");
+    }
+    process.exitCode = 1;
+    return;
+  }
+  // Git Bash turns //work into /work, but a triple slash would still slip through the regex.
+  const clean = only ? only.replace(/\/{2,}/g, "/") : undefined;
+  const urls = clean ? [`${SITE}${clean}`] : await sitemapUrls();
 
   const payload = { host: new URL(SITE).host, key, keyLocation: keyUrl, urlList: urls };
   const res = await fetch(ENDPOINT, {
