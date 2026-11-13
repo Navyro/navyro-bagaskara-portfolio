@@ -37,6 +37,23 @@ accumulate stale files.
 A DNS TXT record would need a pull request to `is-a.dev/register`, because the records for this subdomain are
 managed in that repository. The HTML file is one command, needs no reviewer, and proves the same thing.
 
+## IndexNow (Bing, Yandex, Seznam)
+
+Google has no API for "request indexing", but the other engines share IndexNow. Ownership is proved by a
+32-hex-character key file at the site root (`public/<key>.txt`, containing exactly the key), and each run
+posts the sitemap's URLs to `api.indexnow.org`:
+
+```bash
+npm run indexnow              # every URL in the sitemap
+npm run indexnow -- /work     # one path, right after editing it
+```
+
+The script refuses to submit if the key file is not live yet, because a submission with a missing key is
+rejected with 403 and looks like a protocol problem instead of an unfinished deploy. `200` or `202` means
+accepted — the engines still crawl at their own pace.
+
+This does not affect Google. For Google the lever is links from other sites, not pings.
+
 ## What to expect afterwards
 
 - Indexing is not instant: days, sometimes a couple of weeks for all pages.
