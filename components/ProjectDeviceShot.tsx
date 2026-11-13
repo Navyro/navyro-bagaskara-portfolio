@@ -41,7 +41,16 @@ interface ProjectDeviceShotProps {
  *
  * Sizing rule for balance across six different aspect ratios: a device takes 88% of the mat along
  * its dominant axis — phones are limited by height, the laptop by width. Equal *sizes* are never
- * forced, only equal breathing room.
+ * forced, only equal breathing room. On phones (below `md`) the height goes to 100% of the mat's
+ * inner box instead: at 320–390px wide the screen is only ~124–160px across, which renders the
+ * screenshot's own baked status bar (clock, signal, Wi-Fi, battery) at 4–6px — unreadable. The mat
+ * keeps its 16px padding, so the frame still has breathing room.
+ *
+ * Corner radius scales with the viewport (`clamp`) and tops out at the old `1.7rem`/`2.1rem`, so
+ * every desktop layout is pixel-identical. It used to be a fixed 27.2px, which on a 124px-wide
+ * screen is 22% of its width against 10% on desktop — the corner arc then eats into the status bar
+ * band and the frame reads as crowded. The clamp holds the radius near the source artwork's own
+ * ~11% of screen width at every size.
  */
 export default function ProjectDeviceShot({
   src,
@@ -53,7 +62,7 @@ export default function ProjectDeviceShot({
   className = "",
 }: ProjectDeviceShotProps) {
   const screen = (
-    <div className="relative h-full w-full overflow-hidden rounded-[1.7rem] bg-white">
+    <div className="relative h-full w-full overflow-hidden rounded-[clamp(14px,4.4vw,1.7rem)] md:rounded-[clamp(16px,2.2vw,1.7rem)] lg:rounded-[1.7rem] bg-white">
       {screenLayers ?? (
         <Image src={src} alt={alt} fill sizes={sizes} quality={88} className="object-contain" />
       )}
@@ -66,9 +75,10 @@ export default function ProjectDeviceShot({
     >
       <div className="flex h-full w-full items-center justify-center">
         {device === "phone" ? (
-          <div className="relative" style={{ height: "88%", aspectRatio: aspect }}>
-            {/* bezel sits outside the screen box so the screen keeps the asset's exact ratio */}
-            <div className="absolute -inset-[6px] rounded-[2.1rem] bg-[#151517] shadow-[0_12px_32px_-14px_rgba(0,0,0,0.55)] ring-1 ring-black/25 dark:bg-[#2b2b31] dark:ring-white/20" />
+          <div className="relative h-full md:h-[88%]" style={{ aspectRatio: aspect }}>
+            {/* bezel sits outside the screen box so the screen keeps the asset's exact ratio; its
+                radius stays concentric with the screen's (screen radius + ~6px) at every width */}
+            <div className="absolute -inset-[6px] rounded-[clamp(20px,calc(4.4vw_+_6px),2.1rem)] md:rounded-[clamp(22px,calc(2.2vw_+_6px),2.1rem)] lg:rounded-[2.1rem] bg-[#151517] shadow-[0_12px_32px_-14px_rgba(0,0,0,0.55)] ring-1 ring-black/25 dark:bg-[#2b2b31] dark:ring-white/20" />
             <div className="relative h-full w-full">{screen}</div>
             {/* side buttons, desktop only: at phone width they read as noise */}
             <div className="absolute -right-[7px] top-[26%] hidden h-[10%] w-[2px] rounded-r-sm bg-[#151517] dark:bg-[#3a3a41] sm:block" />
