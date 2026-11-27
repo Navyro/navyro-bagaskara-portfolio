@@ -77,6 +77,9 @@ export const profileData: ProfileData = {
   email: "navbagaskara@gmail.com",
   linkedin: "https://www.linkedin.com/in/navyro-bagaskara/",
   instagram: "https://www.instagram.com/navyroo/",
+  // Confirmed against the GitHub API: the repository below is owned by the "Navyro" account, and
+  // the footer has always rendered this link conditionally — it was simply never filled in.
+  github: "https://github.com/Navyro",
   location: "Bekasi, West Java, Indonesia",
   resumeFilename: "Navyro_Bagaskara_CV.pdf",
   resumeFilenameId: "Navyro_Bagaskara_CV_ID.pdf",

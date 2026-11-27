@@ -9,6 +9,7 @@ import SkillGroup from "@/components/SkillGroup";
 import ExperienceItem from "@/components/ExperienceItem";
 import ScrollReveal from "@/components/ScrollReveal";
 import { designsData } from "@/data/designs";
+import { publicFileSize } from "@/lib/fileSize";
 import { projectsData } from "@/data/projects";
 import { profileData } from "@/data/profile";
 import type { Metadata } from "next";
@@ -50,7 +51,7 @@ export default function HomePage() {
   return (
     <div className="w-full overflow-hidden">
       {/* Hero Section */}
-      <Hero />
+      <Hero cvSize={publicFileSize(profileData.resumeFilename)} />
 
       {/* 01 — SELECTED WORK */}
       <section className="w-full py-20 lg:py-28">

@@ -1,5 +1,5 @@
 import React from "react";
-import { ArrowUpRight, Instagram, Linkedin } from "lucide-react";
+import { ArrowUpRight, Github, Instagram, Linkedin } from "lucide-react";
 import ContactForm from "@/components/ContactForm";
 import ScrollReveal from "@/components/ScrollReveal";
 import { profileData } from "@/data/profile";
@@ -84,6 +84,27 @@ export default function ContactPage() {
                         <span className="flex items-center gap-3">
                           <Linkedin size={20} className="text-accent" />
                           <span>LinkedIn — navyro-bagaskara</span>
+                        </span>
+                        <ArrowUpRight
+                          size={18}
+                          className="text-text-muted transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-accent"
+                        />
+                      </a>
+                    </li>
+                  )}
+                  {/* The footer already links GitHub; the contact page listing every other profile but
+                      not this one was an inconsistency, not a decision. */}
+                  {profileData.github && (
+                    <li>
+                      <a
+                        href={profileData.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="tap-block group flex items-center justify-between font-heading text-body font-bold text-text-primary transition-colors hover:text-accent"
+                      >
+                        <span className="flex items-center gap-3">
+                          <Github size={20} className="text-accent" />
+                          <span>GitHub — Navyro</span>
                         </span>
                         <ArrowUpRight
                           size={18}

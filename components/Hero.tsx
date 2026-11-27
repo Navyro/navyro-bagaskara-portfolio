@@ -4,10 +4,10 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Download } from "lucide-react";
 import { profileData } from "@/data/profile";
 
-export default function Hero() {
+export default function Hero({ cvSize }: { cvSize?: string | null }) {
   const shouldReduceMotion = useReducedMotion();
 
   return (
@@ -76,6 +76,22 @@ export default function Hero() {
               </Link>
             </motion.div>
           </div>
+
+          {/* The CV used to be two clicks away (/resume, then download). A quiet third line keeps the
+              two buttons dominant while putting the file one click from the fold. The size comes from
+              the file on disk, passed in by the server page, so the label cannot go stale. */}
+          {cvSize !== undefined && (
+            <p className="rise rise-3 mt-4 text-meta text-text-secondary">
+              <a
+                href={`/${profileData.resumeFilename}`}
+                download
+                className="tap inline-flex items-center gap-1.5 font-semibold underline-offset-4 transition-colors hover:text-text-primary hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              >
+                <Download size={14} aria-hidden="true" />
+                Download CV (PDF{cvSize ? ` · ${cvSize}` : ""})
+              </a>
+            </p>
+          )}
         </div>
 
         {/* Portrait — real photo, 4:5 crop, no overlay so it stays honest in light and dark. */}

@@ -113,8 +113,9 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-border/20 pt-8 text-meta opacity-60 md:flex-row">
+        {/* Bottom Bar. The extra bottom padding on small screens is clearance for the fixed
+            back-to-top button: without it the button lands on the last line of the footer. */}
+        <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-border/20 pt-8 pb-16 text-meta opacity-60 md:flex-row md:pb-0">
           <p>© {new Date().getFullYear()} Navyro Bagaskara. All rights reserved.</p>
           <p className="font-mono">Design System v4.0 · Next.js 14 · Tailwind CSS</p>
         </div>

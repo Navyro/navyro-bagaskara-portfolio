@@ -46,6 +46,11 @@
     --rise-from: 16px;
   }
 
+  .rise-3 {
+    animation-delay: 0.65s;
+    --rise-from: 8px;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .rise {
       animation: none;
