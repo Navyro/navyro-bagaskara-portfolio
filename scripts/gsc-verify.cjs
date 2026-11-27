@@ -12,8 +12,10 @@
  *         open the printed URL and confirm it returns that exact line
  *         click Verify in Search Console
  *
- * Safe to run twice: the same token overwrites the same file, and a different token removes the previous
- * one, so the site never accumulates stale verification files.
+ * Safe to run twice: the same token overwrites the same file. A different token used to delete the
+ * previous one, which is wrong now that more than one Google account can own a property on the same
+ * site — removing the old file silently drops the other account's verification. Files are kept, and
+ * any that are still there are listed so a stray one is visible rather than hidden.
  */
 const fs = require("fs");
 const path = require("path");
@@ -37,13 +39,10 @@ if (!/^google[a-z0-9]+\.html$/i.test(name)) {
   process.exit(1);
 }
 
-// One verification file at a time; a leftover from an earlier property is noise the repo does not need.
+// Every google*.html in public/ is a live verification for some Google account. Keep them all.
 const existing = fs.readdirSync(PUBLIC).filter((f) => /^google[a-z0-9]+\.html$/i.test(f));
 for (const f of existing) {
-  if (f !== name) {
-    fs.rmSync(path.join(PUBLIC, f));
-    console.log(`removed    : public/${f} (different token)`);
-  }
+  if (f !== name) console.log(`kept       : public/${f} (another account's property)`);
 }
 
 const body = `google-site-verification: ${name}\n`;
