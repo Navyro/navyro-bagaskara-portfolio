@@ -173,14 +173,25 @@ async function main() {
 
   // Icons are read from the filesystem AND from the served document: a PNG in app/ that Next
   // does not link (or a link to a file that 404s) are different failures.
+  // Icons: the 2026 kit — an ICO with real 16/32/48 frames at the site root, a dark-mode-aware SVG
+  // for modern tabs, an opaque 180px Apple touch icon and the manifest PNGs. Files on disk and links
+  // in the document are checked separately: a file Next never links, and a link that 404s, are
+  // different failures. The ICO is parsed (magic + frame count) because "200 OK" proves nothing.
   const iconFiles = [
-    { file: "app/icon.png", bytes: 512 },
-    { file: "app/apple-icon.png", bytes: 180 },
+    { file: "public/favicon.ico", bytes: null },
+    { file: "public/icon.svg", bytes: null },
+    { file: "public/apple-touch-icon.png", bytes: 180 },
+    { file: "public/icons/icon-192.png", bytes: 192 },
+    { file: "public/icons/icon-512.png", bytes: 512 },
+    { file: "public/icons/icon-maskable-512.png", bytes: 512 },
   ];
   const missingIcons = iconFiles.filter((i) => !fs.existsSync(path.join(ROOT, i.file))).map((i) => i.file);
+
   const iconUrls = [
-    { url: "/icon.png", size: "512x512" },
-    { url: "/apple-icon.png", size: "180x180" },
+    { url: "/apple-touch-icon.png", size: "180x180" },
+    { url: "/icons/icon-192.png", size: "192x192" },
+    { url: "/icons/icon-512.png", size: "512x512" },
+    { url: "/icons/icon-maskable-512.png", size: "512x512" },
   ];
   const badIcons = [];
   for (const icon of iconUrls) {
@@ -195,16 +206,41 @@ async function main() {
       badIcons.push(`${icon.url} ${res.status} ${type} ${w}x${h}`);
     }
   }
-  const homeLinksIcon = /<link[^>]+rel="icon"[^>]+href="\/icon\.png/.test(home.body);
-  const homeLinksApple = /<link[^>]+rel="apple-touch-icon"[^>]+href="\/apple-icon\.png/.test(home.body);
+
+  // /favicon.ico must be a real multi-resolution ICO: 0x0000 reserved, type 1, and 3 frames.
+  const icoRes = await fetch(`${BASE}/favicon.ico`);
+  const ico = Buffer.from(await icoRes.arrayBuffer());
+  const icoType = icoRes.headers.get("content-type") || "";
+  const icoFrames = ico.length > 6 ? ico.readUInt16LE(4) : 0;
+  const icoValid =
+    icoRes.status === 200 &&
+    ico.length > 100 &&
+    ico.readUInt16LE(0) === 0 &&
+    ico.readUInt16LE(2) === 1 &&
+    icoFrames === 3;
+  if (!icoValid) badIcons.push(`/favicon.ico ${icoRes.status} ${icoType} frames=${icoFrames}`);
+
+  // The SVG must be served with an XML type — a text/html fallback makes browsers ignore it.
+  const svgRes = await fetch(`${BASE}/icon.svg`);
+  const svgBody = await svgRes.text();
+  const svgValid =
+    svgRes.status === 200 &&
+    (svgRes.headers.get("content-type") || "").includes("svg") &&
+    svgBody.includes("<svg") &&
+    svgBody.includes('fill="#FFFFFF"');
+  if (!svgValid) badIcons.push(`/icon.svg ${svgRes.status} ${svgRes.headers.get("content-type") || "no type"}`);
+
+  const homeLinksIcon = /<link[^>]+rel="icon"[^>]+href="\/favicon\.ico"/.test(home.body);
+  const homeLinksSvg = /<link[^>]+rel="icon"[^>]+href="\/icon\.svg"/.test(home.body);
+  const homeLinksApple = /<link[^>]+rel="apple-touch-icon"[^>]+href="\/apple-touch-icon\.png"/.test(home.body);
   check(
     "icons.present",
-    missingIcons.length === 0 && badIcons.length === 0 && homeLinksIcon && homeLinksApple,
+    missingIcons.length === 0 && badIcons.length === 0 && homeLinksIcon && homeLinksSvg && homeLinksApple,
     missingIcons.length
       ? `missing file(s): ${missingIcons.join(", ")} (run npm run build:icons)`
       : badIcons.length
         ? badIcons.join(", ")
-        : `2 files · linked=${homeLinksIcon && homeLinksApple}`
+        : `ico 3 frames · svg · apple 180 · linked=${homeLinksIcon && homeLinksSvg && homeLinksApple}`
   );
 
   // ---- manifest -------------------------------------------------------------------------

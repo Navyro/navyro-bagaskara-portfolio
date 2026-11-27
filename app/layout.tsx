@@ -62,6 +62,19 @@ export const metadata: Metadata = {
     "Tailwind CSS",
   ],
   authors: [{ name: "Navyro Bagaskara" }],
+  // Declared explicitly rather than left to the app/icon.* file convention, because the order and
+  // types matter: the ICO first with sizes="32x32" keeps old clients on the raster frame, and the
+  // SVG next gives Chrome/Firefox one crisp vector for every density. The app/icon.png convention
+  // emitted a single 512px PNG that browsers then smeared into a 16px tab.
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "32x32", type: "image/x-icon" },
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/icons/icon-192.png", sizes: "192x192", type: "image/png" },
+    ],
+    shortcut: ["/favicon.ico"],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+  },
   openGraph: {
     title: SITE_TITLE,
     // One description for the whole site. A second, shorter one used to live here, and at 87 characters it

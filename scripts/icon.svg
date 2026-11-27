@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="Navyro Bagaskara">
+  <!--
+    Icon source of truth. No text, no webfont: every glyph below is a filled path, so it renders
+    identically everywhere (Sharp, Chromium, iOS, Android) instead of depending on Manrope being
+    loaded. scripts/build-icons.cjs rasterises this file into the PNG/ICO set.
+
+    Why a single "N" and not "NB": measured, not guessed. The previous text-based "NB" mark was
+    downscaled to 16x16 and both letters fused into one blob — the B counters filled with
+    antialiasing and the gap between letters closed. One letter at this weight survives 16px with
+    clean edges, and it is still the brand initial (Navyro).
+
+    Full-bleed square on purpose: browsers and launchers round the corners themselves. A pre-rounded
+    tile shows a halo on dark tab bars and doubles up with the OS mask on Android.
+  -->
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2C58FF"/>
+      <stop offset="1" stop-color="#1840E6"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="512" height="512" fill="url(#bg)"/>
+
+  <!--
+    Dark-mode favicon: inside an SVG favicon a media query is evaluated by the browser, so on a dark
+    tab bar the tile lifts to a brighter blue and keeps a visible edge against the chrome. Light mode
+    keeps the real brand gradient. Raster builds (ICO, PNG) render the light variant, which is what
+    iOS and Android expect.
+  -->
+  <style>
+    .dark-lift { display: none; }
+    @media (prefers-color-scheme: dark) { .dark-lift { display: inline; } }
+  </style>
+  <rect class="dark-lift" width="512" height="512" fill="#3B66FF"/>
+
+  <!-- The N: two stems plus the connecting diagonal, drawn as one path so there is no seam.
+       Cap height 352 (y 80-432), stroke 84, so at 16px each stem is still about 2.6px wide and the
+       mark fills the tile the way a favicon should instead of floating in the middle.
+
+       The diagonal is solid white, not a lighter tint. A tinted diagonal was tried and rejected: it
+       reads as an unfinished glyph at 180px+ and at 16px it fades until the mark looks like two
+       disconnected bars ("II") instead of an N. The letterform has to stay whole at every size. -->
+  <path fill="#FFFFFF"
+        d="M104 432 V80 H188 L324 344 V80 H408 V432 H324 L188 168 V432 Z"/>
+</svg>

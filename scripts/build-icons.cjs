@@ -1,163 +1,163 @@
 #!/usr/bin/env node
 /**
- * Builds the site's icon set from scripts/icon.html.
+ * Builds the site's icon set from scripts/icon.svg.
  *
- *   app/icon.png                   512x512  -> <link rel="icon"> (Next picks it up by filename)
- *   app/apple-icon.png             180x180  -> <link rel="apple-touch-icon">
- *   public/icons/icon-192.png      192x192  -> PWA manifest
- *   public/icons/icon-512.png      512x512  -> PWA manifest
- *   public/icons/icon-maskable-512.png 512  -> manifest, purpose "maskable" (smaller mark, safe zone)
+ *   public/favicon.ico               16 + 32 + 48  -> <link rel="icon" sizes="32x32">
+ *   public/icon.svg                  vector        -> <link rel="icon" type="image/svg+xml">
+ *   public/apple-touch-icon.png      180x180       -> <link rel="apple-touch-icon">
+ *   public/icons/icon-192.png        192x192       -> web app manifest
+ *   public/icons/icon-512.png        512x512       -> web app manifest / install dialog
+ *   public/icons/icon-maskable-512.png            -> manifest, purpose "maskable" (padded mark)
  *
- * Before this script the site had no favicon at all, so every tab, bookmark and
- * saved-to-homescreen entry showed a blank page glyph.
+ * The source is pure vector: every glyph is a path, no text and no webfont. That is why this script
+ * no longer needs Chromium — Sharp renders the file at the exact target size, so a 16px frame is
+ * drawn at 16px instead of being downscaled from 512 and smeared.
  *
- * Why a browser: sharp renders SVG/HTML text through fontconfig and silently falls back to a
- * serif for webfonts. Chromium renders the real Manrope 800. The script refuses to write if the
- * font did not load, the frame is not exactly the requested size, anything overflows, or the mark
- * would be illegible at small sizes.
- *
- * Run: npm run build:icons
+ * Run: npm run build:icons   (then npm run check:seo to prove the served files match)
  */
 const fs = require("fs");
-const http = require("http");
+const os = require("os");
 const path = require("path");
-const { spawn } = require("child_process");
+const sharp = require("sharp");
 
 const ROOT = path.resolve(__dirname, "..");
-const SRC_HTML = path.join(ROOT, "scripts", "icon.html");
-const WORK = path.join(ROOT, ".ux-logs", "icons");
-const OUT_ICON = path.join(ROOT, "app", "icon.png");
-const OUT_APPLE = path.join(ROOT, "app", "apple-icon.png");
-const OUT_ICONS_DIR = path.join(ROOT, "public", "icons");
-const PORT = 4322;
-const SESSION = "ux-icons";
+const SRC = path.join(ROOT, "scripts", "icon.svg");
+const PUBLIC = path.join(ROOT, "public");
+const ICONS_DIR = path.join(PUBLIC, "icons");
 
-// Same constraint as build-og-image.cjs: the page is served by this process, so agent-browser
-// must run asynchronously (execSync would block the event loop and the server would never answer).
-function ab(cmd, input) {
-  return new Promise((resolve, reject) => {
-    const child = spawn(`npx --no-install agent-browser ${cmd} --session ${SESSION}`, {
-      cwd: ROOT,
-      shell: true,
-    });
-    let out = "";
-    let err = "";
-    child.stdout.on("data", (d) => (out += d));
-    child.stderr.on("data", (d) => (err += d));
-    child.on("close", (code) => {
-      if (code === 0) return resolve(out);
-      const first = (err || out).trim().split("\n")[0];
-      reject(new Error(`${cmd}: ${first}`));
-    });
-    child.stdin.end(input ?? "");
-  });
+const SIZES = {
+  ico: [16, 32, 48],
+  apple: 180,
+  manifest: [192, 512],
+  maskable: 512,
+};
+
+/** Renders the source at exactly `size` pixels (librsvg draws at that size, no resample blur). */
+async function render(svg, size, { scale = 1 } = {}) {
+  let markup = svg
+    .replace(/width="512"\s+height="512"/, `width="${size}" height="${size}"`)
+    .replace(/viewBox="0 0 512 512"/, `viewBox="0 0 512 512"`);
+
+  if (scale !== 1) {
+    // Shrink the mark around the centre for the maskable variant: Android crops to a circle of 80%
+    // diameter, so the mark's half-diagonal has to stay inside a 204.8px radius on a 512px tile.
+    markup = markup.replace(
+      /(<rect width="512" height="512"[^/]*\/>)/,
+      `$1<g transform="translate(256 256) scale(${scale}) translate(-256 -256)">`
+    );
+    markup = markup.replace(/(<path fill="#FFFFFF"[\s\S]*?\/>)/, `$1</g>`);
+  }
+
+  return sharp(Buffer.from(markup)).png({ compressionLevel: 9 }).toBuffer();
 }
 
-function serve(dir, port) {
-  const types = { ".html": "text/html; charset=utf-8", ".png": "image/png" };
-  const server = http.createServer((req, res) => {
-    const rel = decodeURIComponent(req.url.split("?")[0]).replace(/^\/+/, "") || "icon.html";
-    const file = path.join(dir, rel);
-    if (!file.startsWith(dir) || !fs.existsSync(file)) {
-      res.writeHead(404);
-      return res.end("not found");
-    }
-    res.writeHead(200, { "content-type": types[path.extname(file)] || "application/octet-stream" });
-    fs.createReadStream(file).pipe(res);
-  });
-  return new Promise((resolve) => server.listen(port, () => resolve(server)));
+/** Minimal ICO container: header + one directory entry per PNG frame. */
+function buildIco(frames) {
+  const header = Buffer.alloc(6);
+  header.writeUInt16LE(0, 0); // reserved
+  header.writeUInt16LE(1, 2); // 1 = icon
+  header.writeUInt16LE(frames.length, 4);
+
+  const entries = [];
+  let offset = 6 + frames.length * 16;
+  for (const { size, data } of frames) {
+    const e = Buffer.alloc(16);
+    e.writeUInt8(size >= 256 ? 0 : size, 0); // width (0 means 256)
+    e.writeUInt8(size >= 256 ? 0 : size, 1); // height
+    e.writeUInt8(0, 2); // palette colours
+    e.writeUInt8(0, 3); // reserved
+    e.writeUInt16LE(1, 4); // colour planes
+    e.writeUInt16LE(32, 6); // bits per pixel
+    e.writeUInt32LE(data.length, 8);
+    e.writeUInt32LE(offset, 12);
+    entries.push(e);
+    offset += data.length;
+  }
+
+  return Buffer.concat([header, ...entries, ...frames.map((f) => f.data)]);
 }
 
-// Reports the mark's box and its half-diagonal, which is what the maskable safe zone is about.
-const PROBE = `(() => {
-  const mark = document.querySelector(".mark");
-  const r = mark.getBoundingClientRect();
-  return JSON.stringify({
-    w: innerWidth,
-    h: innerHeight,
-    fonts: document.fonts.status,
-    manrope: document.fonts.check("800 236px Manrope"),
-    maskable: document.documentElement.classList.contains("maskable"),
-    mark: { x: Math.round(r.x), y: Math.round(r.y), w: Math.round(r.width), h: Math.round(r.height) },
-    halfDiagonal: Math.round(Math.sqrt((r.width / 2) ** 2 + (r.height / 2) ** 2)),
-    overflowX: document.documentElement.scrollWidth > innerWidth,
-    overflowY: document.documentElement.scrollHeight > innerHeight,
-  });
-})()`;
-
-/** Screenshots scripts/icon.html at 512x512, optionally in maskable mode. */
-async function capture(port, raw, maskable) {
-  const query = maskable ? "?maskable=1" : "";
-  await ab("set viewport 512 512");
-  await ab(`open http://127.0.0.1:${port}/${query}`);
-  await ab("wait 1800"); // webfont
-
-  const probe = JSON.parse(JSON.parse((await ab("eval --stdin", PROBE)).trim()));
-  const label = maskable ? "maskable" : "standard";
-  if (probe.w !== 512 || probe.h !== 512) {
-    throw new Error(`${label}: viewport is ${probe.w}x${probe.h}, expected 512x512`);
+/** Reads the ICO back, so a broken container fails here instead of in someone's browser. */
+function verifyIco(buf, sizes) {
+  if (buf.readUInt16LE(2) !== 1) throw new Error("ico: not an icon container");
+  const count = buf.readUInt16LE(4);
+  if (count !== sizes.length) throw new Error(`ico: ${count} frames, expected ${sizes.length}`);
+  const found = [];
+  for (let i = 0; i < count; i++) {
+    const at = 6 + i * 16;
+    const w = buf.readUInt8(at) || 256;
+    const len = buf.readUInt32LE(at + 8);
+    const off = buf.readUInt32LE(at + 12);
+    const png = buf.subarray(off, off + len);
+    if (png.subarray(1, 4).toString() !== "PNG") throw new Error(`ico: frame ${i} is not PNG`);
+    const ihdrW = png.readUInt32BE(16);
+    const ihdrH = png.readUInt32BE(20);
+    if (ihdrW !== w || ihdrH !== w) throw new Error(`ico: frame ${i} header ${ihdrW}x${ihdrH}, dir says ${w}`);
+    found.push(w);
   }
-  if (probe.fonts !== "loaded" || !probe.manrope) {
-    throw new Error(`${label}: Manrope did not load — refusing to bake a fallback typeface`);
+  const expected = [...sizes].sort((a, b) => a - b).join(",");
+  if (found.sort((a, b) => a - b).join(",") !== expected) {
+    throw new Error(`ico: frames ${found.join(",")}, expected ${expected}`);
   }
-  if (probe.maskable !== maskable) throw new Error(`${label}: maskable flag not applied`);
-  if (probe.overflowX || probe.overflowY) throw new Error(`${label}: icon overflows the 512x512 frame`);
-  if (probe.mark.w < (maskable ? 120 : 200)) {
-    throw new Error(`${label}: mark is only ${probe.mark.w}px wide — it would be illegible at 16px`);
-  }
-  // Maskable safe zone: launchers may crop to a circle of 80% diameter (radius 204.8px).
-  if (maskable && probe.halfDiagonal > 204) {
-    throw new Error(`${label}: mark half-diagonal ${probe.halfDiagonal}px crosses the safe-zone radius 204px`);
-  }
-
-  await ab(`screenshot "${raw}"`);
-  console.log(
-    `capture   : ${label} ${probe.mark.w}x${probe.mark.h} at ${probe.mark.x},${probe.mark.y} · half-diagonal=${probe.halfDiagonal}px · no overflow`
-  );
-  return probe;
 }
 
 async function main() {
-  const sharp = require("sharp");
-  fs.mkdirSync(WORK, { recursive: true });
-  fs.mkdirSync(OUT_ICONS_DIR, { recursive: true });
-  fs.copyFileSync(SRC_HTML, path.join(WORK, "icon.html"));
+  const svg = fs.readFileSync(SRC, "utf8");
+  fs.mkdirSync(ICONS_DIR, { recursive: true });
 
-  const rawStandard = path.join(WORK, "icon-512.png");
-  const rawMaskable = path.join(WORK, "icon-maskable-512.png");
+  const written = [];
+  const write = (file, buf) => {
+    fs.writeFileSync(file, buf);
+    written.push([file, buf.length]);
+  };
 
-  const server = await serve(WORK, PORT);
-  try {
-    await capture(PORT, rawStandard, false);
-    await capture(PORT, rawMaskable, true);
-  } finally {
-    server.close();
-  }
+  // 1. ICO: three frames, each drawn at its own size.
+  const frames = [];
+  for (const size of SIZES.ico) frames.push({ size, data: await render(svg, size) });
+  const ico = buildIco(frames);
+  verifyIco(ico, SIZES.ico);
+  write(path.join(PUBLIC, "favicon.ico"), ico);
 
-  for (const raw of [rawStandard, rawMaskable]) {
-    const meta = await sharp(raw).metadata();
-    if (meta.width !== 512 || meta.height !== 512) {
-      throw new Error(`captured ${meta.width}x${meta.height}, expected 512x512`);
+  // 2. Vector favicon, served as-is.
+  write(path.join(PUBLIC, "icon.svg"), Buffer.from(
+    `<?xml version="1.0" encoding="UTF-8"?>\n${svg.replace(/\n\s*\n/g, "\n")}`
+  ));
+
+  // 3. Apple touch icon — iOS letterboxes transparency onto black, so it must be opaque.
+  const apple = await render(svg, SIZES.apple);
+  const appleMeta = await sharp(apple).metadata();
+  if (appleMeta.hasAlpha) {
+    const stats = await sharp(apple).stats();
+    if (stats.channels[3] && stats.channels[3].min < 255) {
+      throw new Error("apple icon has transparent pixels — iOS would draw them black");
     }
   }
+  write(path.join(PUBLIC, "apple-touch-icon.png"), apple);
 
-  const png = { compressionLevel: 9 };
-  await sharp(rawStandard).png(png).toFile(OUT_ICON);
-  await sharp(rawStandard).resize(180, 180, { kernel: "lanczos3" }).png(png).toFile(OUT_APPLE);
-  await sharp(rawStandard).resize(192, 192, { kernel: "lanczos3" }).png(png).toFile(path.join(OUT_ICONS_DIR, "icon-192.png"));
-  await sharp(rawStandard).png(png).toFile(path.join(OUT_ICONS_DIR, "icon-512.png"));
-  await sharp(rawMaskable).png(png).toFile(path.join(OUT_ICONS_DIR, "icon-maskable-512.png"));
-
-  for (const file of [OUT_ICON, OUT_APPLE, path.join(OUT_ICONS_DIR, "icon-192.png"), path.join(OUT_ICONS_DIR, "icon-512.png"), path.join(OUT_ICONS_DIR, "icon-maskable-512.png")]) {
-    const meta = await sharp(file).metadata();
-    console.log(`written   : ${path.relative(ROOT, file).replace(/\\/g, "/")} (${meta.width}x${meta.height}, ${(fs.statSync(file).size / 1024).toFixed(1)} KB)`);
+  // 4. Manifest PNGs.
+  for (const size of SIZES.manifest) {
+    write(path.join(ICONS_DIR, `icon-${size}.png`), await render(svg, size));
   }
 
-  // agent-browser leaves a detached daemon handle open; exit explicitly so the task does not hang.
-  process.exit(0);
+  // 5. Maskable: mark scaled into the 80% safe circle. 232px is the mark's half-diagonal at scale
+  //    1, so 0.78 keeps it at ~181px, comfortably inside the 204.8px radius.
+  const maskScale = 0.78;
+  const maskable = await render(svg, SIZES.maskable, { scale: maskScale });
+  const halfDiagonal = Math.round(Math.sqrt((304 / 2) ** 2 + (352 / 2) ** 2) * maskScale);
+  if (halfDiagonal > 204) throw new Error(`maskable half-diagonal ${halfDiagonal}px crosses the safe radius`);
+  write(path.join(ICONS_DIR, "icon-maskable-512.png"), maskable);
+
+  // Report, and fail loudly if any byte count looks like a mistake.
+  for (const [file, bytes] of written) {
+    const meta = await sharp(file, { pages: 1 }).metadata().catch(() => null);
+    const dims = meta ? `${meta.width}x${meta.height}` : `ico ${SIZES.ico.join("/")}`;
+    console.log(`written : ${path.relative(ROOT, file).replace(/\\/g, "/")} (${dims}, ${(bytes / 1024).toFixed(1)} KB)`);
+  }
+  console.log(`maskable: mark half-diagonal ${halfDiagonal}px < 204px safe radius`);
+  console.log(`platform: ${os.platform()}`);
 }
 
 main().catch((err) => {
-  console.error("build-icons failed:", err.message);
+  console.error(`build-icons failed: ${err.message}`);
   process.exit(1);
 });
