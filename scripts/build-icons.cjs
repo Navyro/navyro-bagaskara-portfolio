@@ -30,6 +30,9 @@ const SIZES = {
   apple: 180,
   manifest: [192, 512],
   maskable: 512,
+  // Google Search supports BMP/GIF/ICO/PNG/JPEG/PPM/TIFF (no SVG) and prefers a square icon larger
+  // than 48x48 for the result snippet, so these two exist to give its crawler an unambiguous PNG.
+  search: [48, 96],
 };
 
 /** Renders the source at exactly `size` pixels (librsvg draws at that size, no resample blur). */
@@ -136,6 +139,11 @@ async function main() {
 
   // 4. Manifest PNGs.
   for (const size of SIZES.manifest) {
+    write(path.join(ICONS_DIR, `icon-${size}.png`), await render(svg, size));
+  }
+
+  // 6. Search-engine PNGs (Google ignores SVG favicons entirely).
+  for (const size of SIZES.search) {
     write(path.join(ICONS_DIR, `icon-${size}.png`), await render(svg, size));
   }
 

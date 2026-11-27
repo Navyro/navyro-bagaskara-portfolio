@@ -63,12 +63,13 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Navyro Bagaskara" }],
   // Declared explicitly rather than left to the app/icon.* file convention, because the order and
-  // types matter: the ICO first with sizes="32x32" keeps old clients on the raster frame, and the
-  // SVG next gives Chrome/Firefox one crisp vector for every density. The app/icon.png convention
-  // emitted a single 512px PNG that browsers then smeared into a 16px tab.
+  // types matter. Google Search reads these links and supports only BMP/GIF/ICO/PNG/JPEG/PPM/TIFF
+  // (an SVG favicon is ignored), and it prefers an icon larger than 48x48 for the search snippet —
+  // so the 96x96 PNG is declared here and the SVG follows for browsers, which do render it.
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "32x32", type: "image/x-icon" },
+      { url: "/icons/icon-96.png", sizes: "96x96", type: "image/png" },
       { url: "/icon.svg", type: "image/svg+xml" },
       { url: "/icons/icon-192.png", sizes: "192x192", type: "image/png" },
     ],

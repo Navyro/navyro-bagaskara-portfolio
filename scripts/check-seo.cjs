@@ -184,6 +184,8 @@ async function main() {
     { file: "public/icons/icon-192.png", bytes: 192 },
     { file: "public/icons/icon-512.png", bytes: 512 },
     { file: "public/icons/icon-maskable-512.png", bytes: 512 },
+    { file: "public/icons/icon-48.png", bytes: 48 },
+    { file: "public/icons/icon-96.png", bytes: 96 },
   ];
   const missingIcons = iconFiles.filter((i) => !fs.existsSync(path.join(ROOT, i.file))).map((i) => i.file);
 
@@ -192,6 +194,7 @@ async function main() {
     { url: "/icons/icon-192.png", size: "192x192" },
     { url: "/icons/icon-512.png", size: "512x512" },
     { url: "/icons/icon-maskable-512.png", size: "512x512" },
+    { url: "/icons/icon-96.png", size: "96x96" },
   ];
   const badIcons = [];
   for (const icon of iconUrls) {
@@ -232,15 +235,22 @@ async function main() {
 
   const homeLinksIcon = /<link[^>]+rel="icon"[^>]+href="\/favicon\.ico"/.test(home.body);
   const homeLinksSvg = /<link[^>]+rel="icon"[^>]+href="\/icon\.svg"/.test(home.body);
+  // Google Search ignores SVG favicons and wants something larger than 48px, so this link must exist.
+  const homeLinks96 = /<link[^>]+href="\/icons\/icon-96\.png"[^>]*sizes="96x96"/.test(home.body);
   const homeLinksApple = /<link[^>]+rel="apple-touch-icon"[^>]+href="\/apple-touch-icon\.png"/.test(home.body);
   check(
     "icons.present",
-    missingIcons.length === 0 && badIcons.length === 0 && homeLinksIcon && homeLinksSvg && homeLinksApple,
+    missingIcons.length === 0 &&
+      badIcons.length === 0 &&
+      homeLinksIcon &&
+      homeLinksSvg &&
+      homeLinks96 &&
+      homeLinksApple,
     missingIcons.length
       ? `missing file(s): ${missingIcons.join(", ")} (run npm run build:icons)`
       : badIcons.length
         ? badIcons.join(", ")
-        : `ico 3 frames · svg · apple 180 · linked=${homeLinksIcon && homeLinksSvg && homeLinksApple}`
+        : `ico 3 frames · svg · png 96 · apple 180 · linked=${homeLinksIcon && homeLinksSvg && homeLinks96 && homeLinksApple}`
   );
 
   // ---- manifest -------------------------------------------------------------------------
