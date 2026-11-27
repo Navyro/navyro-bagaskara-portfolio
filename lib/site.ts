@@ -11,7 +11,13 @@ export const siteUrl =
     ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
     : "http://localhost:3000");
 
-export const SITE_TITLE = "Navyro Bagaskara — UI/UX Designer + Front-End Fundamentals";
+/**
+ * The title is the strongest on-page signal the site has, so it names the thing people search for:
+ * "UI/UX designer portfolio". The front-end skill moved to the description rather than being dropped —
+ * a fourth clause here would dilute the phrase Google matches and push the name out of the first
+ * 40 characters, which is what a search result actually shows.
+ */
+export const SITE_TITLE = "Navyro Bagaskara — UI/UX Designer Portfolio";
 
 export const SITE_DESCRIPTION =
   "Personal Portfolio & Case Studies of Navyro Bagaskara. Specializing in UI/UX Design and Product Strategy, with a solid grasp of front-end fundamentals.";
