@@ -5,7 +5,12 @@ It holds six case studies of real work — from field research for a village was
 personal-finance concept — and the site itself is the second half of the argument: a designer who
 can also read and adjust the code.
 
-**Live:** https://navyro-portfolio.is-a.dev
+**Live:** [Portofolio Navyro Bagaskara](https://navyro-portfolio.is-a.dev) — also written
+[portfolio](https://navyro-portfolio.is-a.dev) in English.
+
+The anchor text carries both spellings on purpose: people search "navyro portofolio" (Indonesian) and
+"navyro portfolio", and this README is a page Google already crawls for that name, so the words it uses
+to link the site matter more than any keyword added inside the site itself.
 
 The site also answers on its `navyro-bagaskara-portfolio.vercel.app` alias, which is kept so links shared
 before the domain existed still work. Every page declares a canonical pointing at the is-a.dev domain, so
