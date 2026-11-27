@@ -30,7 +30,7 @@ const path = require("path");
 const ROOT = path.resolve(__dirname, "..");
 const BASE = (process.env.BASE_URL || "http://localhost:3000").replace(/\/$/, "");
 
-const ROUTES = ["/", "/work", "/design", "/about", "/resume", "/contact"];
+const ROUTES = ["/", "/work", "/design", "/design/himsi-content-system", "/about", "/resume", "/contact"];
 const problems = [];
 const lines = [];
 

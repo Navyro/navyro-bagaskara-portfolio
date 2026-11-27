@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
-import SectionHeading from "@/components/SectionHeading";
+import { ArrowUpRight } from "lucide-react";import SectionHeading from "@/components/SectionHeading";
 import DesignArchive from "@/components/DesignArchive";
 import ScrollReveal from "@/components/ScrollReveal";
 import { designsData } from "@/data/designs";
@@ -63,6 +62,27 @@ export default function DesignPage() {
               </div>
             ))}
           </dl>
+        </ScrollReveal>
+
+        <ScrollReveal>
+          <Link
+            href="/design/himsi-content-system"
+            className="group mb-16 flex flex-col gap-3 rounded-card border border-border bg-surface p-6 transition-colors hover:border-text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-accent md:mb-20 md:flex-row md:items-center md:justify-between md:p-8"
+          >
+            <div className="min-w-0">
+              <p className="text-meta font-semibold uppercase tracking-wider text-accent">Case study</p>
+              <p className="mt-2 font-heading text-h3 font-bold text-text-primary">
+                How these eleven pieces became a feed with one voice
+              </p>
+              <p className="mt-2 max-w-2xl text-body leading-relaxed text-text-secondary">
+                The frame that held across an entire year of posting — and the three details that
+                slipped through it.
+              </p>
+            </div>
+            <span className="tap inline-flex min-h-11 shrink-0 items-center gap-2 text-control font-semibold text-text-primary underline-offset-4 group-hover:underline">
+              Read the case study <ArrowUpRight size={16} />
+            </span>
+          </Link>
         </ScrollReveal>
 
         <DesignArchive />

@@ -132,10 +132,11 @@ export const profileData: ProfileData = {
       role: "Communication and Information Team",
       company: "KKN-T Group 30, Universitas Alma Ata (Mangiran)",
       description:
-        "Handled documentation and publicity for the KKN program across one full period.",
+        "Handled documentation and publicity for the KKN-T programme as part of a two-person media team, running the programme's Instagram and TikTok accounts.",
       achievements: [
-        "Managed documentation and publicity for the entire KKN-T program.",
-        "Edited the educational video used as program publicity material.",
+        "Ran the programme's Instagram and TikTok channels with one partner: content ideas, feed design, captioning and publishing.",
+        "Edited the educational video used as the programme's main publicity material.",
+        "Managed documentation and publicity for the entire KKN-T programme.",
         "Listed as a co-creator of two works registered for copyright with the Ministry of Law of the Republic of Indonesia.",
       ],
     },

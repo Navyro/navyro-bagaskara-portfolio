@@ -25,6 +25,7 @@ the two hostnames do not compete.
 | `/` | Hero, selected work, about summary, contact call to action |
 | `/work` | Six case studies, each with its own cover, slides and detail page |
 | `/design` | Visual design archive: 11 posters, feed sets and print pieces, with a keyboard-navigable lightbox |
+| `/design/himsi-content-system` | Case study: the frame behind those eleven pieces, and where it drifted |
 | `/work/[slug]` | Full case study: problem, process, decisions and outcome |
 | `/about` | Profile, experience, education, skills and tools |
 | `/resume` | Experience, certifications with verification links, and the CV downloads |

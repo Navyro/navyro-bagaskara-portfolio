@@ -21,6 +21,7 @@ ROUTES=(
   "/:home"
   "/work:work"
   "/design:design"
+  "/design/himsi-content-system:himsi-study"
   "/work/fanfunds:case-study"
   # mediassist has no usability-testing copy, so it is the page that used to jump 02 -> 04 (CL-9).
   "/work/mediassist:case-study-gap"
