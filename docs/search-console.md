@@ -58,6 +58,37 @@ accepted — the engines still crawl at their own pace.
 
 This does not affect Google. For Google the lever is links from other sites, not pings.
 
+## Re-checking in a few days
+
+The first reading (25 Nov 2026, five days after verification) is the baseline to compare against:
+
+| Signal | First reading |
+| --- | --- |
+| Sitemap | Sukses · 11 URLs found · last read 25 Nov |
+| Indexed pages | 5 of 11 (the five static routes) |
+| Not indexed | 6 · "Discovered — currently not indexed" · 0 crawled-not-indexed |
+| Impressions | 1–12 per day, 0 clicks |
+
+So the site is in the index and already appears for some queries; the six case studies are queued. Nothing
+was broken, and no action beyond waiting and a couple of inbound links was needed.
+
+What can be checked from the command line, without the Search Console login:
+
+```bash
+BASE_URL=https://navyro-portfolio.is-a.dev npm run check:seo     # 12 checks: sitemap, canonical, robots, JSON-LD
+curl -s -o /dev/null -w "%{http_code}\n" -A "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)" https://navyro-portfolio.is-a.dev/
+```
+
+What only the owner can read, in Search Console:
+
+1. **Pages** — the indexed count should climb from 5 towards 11. A page that stays "Discovered" for weeks
+   means it has too few internal links, not that the server is wrong.
+2. **Performance** — impressions turning into clicks, and which queries trigger them.
+3. **Sitemaps** — must stay "Sukses"; re-submitting a successful sitemap changes nothing.
+
+Do not click "Validate" on "Discovered — currently not indexed". That reason is not an error Google can fix,
+and validating it only marks the report as in progress.
+
 ## What to expect afterwards
 
 - Indexing is not instant: days, sometimes a couple of weeks for all pages.
