@@ -28,7 +28,7 @@ export default function Navbar() {
     <>
       <ScrollProgressBar />
 
-      <header className="sticky top-0 z-40 h-[var(--header-h)] w-full border-b border-border bg-background/90 backdrop-blur-md transition-all duration-200">
+      <header className="sticky top-0 z-40 h-[var(--header-h)] w-full border-b border-border bg-background-90 backdrop-blur-md transition-all duration-200">
         {/* Fixed px padding by design: a rem value doubles under 200% text zoom and is wider than
             a 320px viewport on small phones. px-6/px-12 at the default 16px root equal these. */}
         <div className="mx-auto flex h-full max-w-editorial items-center justify-between px-[24px] lg:px-[48px]">

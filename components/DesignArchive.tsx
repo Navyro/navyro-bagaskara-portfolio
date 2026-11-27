@@ -142,7 +142,7 @@ export default function DesignArchive() {
                         />
                         <span
                           aria-hidden="true"
-                          className="pointer-events-none absolute right-3 top-3 grid h-8 w-8 place-items-center rounded-full bg-background/85 text-text-primary opacity-0 shadow-sm backdrop-blur transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100"
+                          className="pointer-events-none absolute right-3 top-3 grid h-8 w-8 place-items-center rounded-full bg-surface text-text-primary opacity-0 shadow-sm backdrop-blur transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100"
                         >
                           <Maximize2 size={14} />
                         </span>
@@ -165,7 +165,7 @@ export default function DesignArchive() {
           role="dialog"
           aria-modal="true"
           aria-label={`${active.title} — enlarged view`}
-          className="fixed inset-0 z-[120] flex flex-col bg-background/95 backdrop-blur-sm"
+          className="fixed inset-0 z-[120] flex flex-col bg-background-95 backdrop-blur-sm"
           onClick={(event) => {
             // Clicks on the backdrop close; clicks inside the figure do not.
             if (event.target === event.currentTarget) close();
@@ -208,12 +208,33 @@ export default function DesignArchive() {
                 width={active.width}
                 height={active.height}
                 sizes="(min-width: 1024px) 70vw, 92vw"
-                className="h-auto max-h-[62vh] w-auto max-w-full rounded-md object-contain shadow-lg"
+                className="h-auto max-h-[58vh] w-auto max-w-full rounded-md object-contain shadow-lg"
                 priority
               />
-              <figcaption className="mt-4 max-w-2xl text-center">
+              {/* One panel, and the only place the caption exists: a copy above it as well was
+                  duplicated text, and text sitting straight on the blurred page was the original
+                  unreadable-caption bug. */}
+              <figcaption className="mt-4 w-full max-w-3xl rounded-card border border-border bg-surface px-4 py-4 text-center shadow-xl ring-1 ring-black/5 sm:px-6 dark:ring-white/10">
                 <p className="text-control font-semibold text-text-primary">{active.title}</p>
                 <p className="mt-1 text-meta leading-relaxed text-text-secondary">{meta(active)}</p>
+                <p className="mt-3 text-control leading-relaxed text-text-secondary">{active.caption}</p>
+                <p className="mt-2 text-meta uppercase tracking-wider text-text-secondary">Tools: {active.tools}</p>
+                <div className="mt-3 flex items-center justify-center gap-3 sm:hidden">
+                  <button
+                    type="button"
+                    onClick={() => step(-1)}
+                    className="tap rounded-btn border border-border px-4 py-2 text-meta text-text-primary"
+                  >
+                    Previous
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => step(1)}
+                    className="tap rounded-btn border border-border px-4 py-2 text-meta text-text-primary"
+                  >
+                    Next
+                  </button>
+                </div>
               </figcaption>
             </figure>
 
@@ -227,18 +248,6 @@ export default function DesignArchive() {
             </button>
           </div>
 
-          <div className="px-4 pb-4 text-center sm:px-6 sm:pb-6">
-            <p className="mx-auto max-w-3xl text-control leading-relaxed text-text-secondary">{active.caption}</p>
-            <p className="mt-2 text-meta uppercase tracking-wider text-text-muted">Tools: {active.tools}</p>
-            <div className="mt-3 flex items-center justify-center gap-3 text-meta text-text-secondary sm:hidden">
-              <button type="button" onClick={() => step(-1)} className="rounded-full border border-border px-3 py-1">
-                Previous
-              </button>
-              <button type="button" onClick={() => step(1)} className="rounded-full border border-border px-3 py-1">
-                Next
-              </button>
-            </div>
-          </div>
         </div>
       )}
     </>
