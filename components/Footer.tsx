@@ -38,6 +38,14 @@ export default function Footer() {
               </li>
               <li>
                 <Link
+                  href="/design"
+                  className="tap-block transition-colors hover:text-accent"
+                >
+                  Visual Design Archive
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/about"
                   className="tap-block transition-colors hover:text-accent"
                 >
