@@ -48,6 +48,18 @@ const personJsonLd = {
   sameAs: profileData.linkedin ? [profileData.linkedin] : [],
 };
 
+// Google derives a search result's site name from WebSite structured data on the home page. Without
+// it, the name was reported as the bare host ("is-a.dev"), which is why the result looked anonymous.
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: profileData.name,
+  alternateName: "Navyro Bagaskara — UI/UX Designer Portfolio",
+  url: siteUrl,
+  inLanguage: "en",
+  publisher: { "@type": "Person", name: profileData.name, url: siteUrl },
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: SITE_TITLE,
@@ -148,6 +160,10 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
       </body>
     </html>
