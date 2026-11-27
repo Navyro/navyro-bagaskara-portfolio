@@ -5,7 +5,6 @@ import SectionHeading from "@/components/SectionHeading";
 import DesignArchive from "@/components/DesignArchive";
 import ScrollReveal from "@/components/ScrollReveal";
 import { designsData } from "@/data/designs";
-import { SITE_TITLE } from "@/lib/site";
 
 /**
  * The visual design archive: posters, feed sets and print work made for organisations.
@@ -16,12 +15,14 @@ import { SITE_TITLE } from "@/lib/site";
  * links back to the case studies rather than competing with them.
  */
 export const metadata: Metadata = {
-  title: "Visual Design Archive",
+  // Every other route inherits the site title. This one names the page and keeps the name, so a
+  // search result reads "Visual Design Archive — Navyro Bagaskara" instead of a bare page label.
+  title: "Visual Design Archive — Navyro Bagaskara",
   description:
     "Posters, Instagram feed sets and print work by Navyro Bagaskara — event campaigns for HIMSI Universitas Alma Ata and a webinar for MSIB BISA AI Academy.",
   alternates: { canonical: "/design" },
   openGraph: {
-    title: `Visual Design Archive — ${SITE_TITLE.split(" — ")[0]}`,
+    title: "Visual Design Archive — Navyro Bagaskara",
     description:
       "Posters, feed sets and print work: event campaigns, holiday illustrations and merchandise, all designed in Figma.",
     url: "/design",
