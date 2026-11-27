@@ -22,3 +22,6 @@ TENTANG SAYA/
 /MOTION_*.md
 .vercel
 .env*
+
+# Scratch data from keyword research (docs/keyword-research.md keeps the finding, not the dump).
+.tmp-*/
