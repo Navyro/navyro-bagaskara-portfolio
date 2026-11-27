@@ -51,7 +51,14 @@ export default function HomePage() {
   return (
     <div className="w-full overflow-hidden">
       {/* Hero Section */}
-      <Hero cvSize={publicFileSize(profileData.resumeFilename)} />
+      <Hero
+        cvSize={publicFileSize(profileData.resumeFilename)}
+        facts={[
+          `${projectsData.length} case studies`,
+          `${designsData.length} visual pieces`,
+          `${profileData.certifications.length} certifications`,
+        ]}
+      />
 
       {/* 01 — SELECTED WORK */}
       <section className="w-full py-20 lg:py-28">

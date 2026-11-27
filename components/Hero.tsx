@@ -7,7 +7,14 @@ import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, ArrowUpRight, Download } from "lucide-react";
 import { profileData } from "@/data/profile";
 
-export default function Hero({ cvSize }: { cvSize?: string | null }) {
+export default function Hero({
+  cvSize,
+  facts,
+}: {
+  cvSize?: string | null;
+  /** Derived counts from the data files, passed in by the server page so they cannot drift. */
+  facts?: string[];
+}) {
   const shouldReduceMotion = useReducedMotion();
 
   return (
@@ -91,6 +98,27 @@ export default function Hero({ cvSize }: { cvSize?: string | null }) {
                 Download CV (PDF{cvSize ? ` · ${cvSize}` : ""})
               </a>
             </p>
+          )}
+
+          {/* At a glance. One line, not three cards: the first screen is already full at 320px.
+              The values are counted from projectsData / designsData / profile.certifications by the
+              server page, so adding a project or a certificate updates this without an edit. */}
+          {facts && facts.length > 0 && (
+            <ul
+              aria-label="Portfolio at a glance"
+              className="rise rise-4 mt-5 flex flex-col gap-1 text-meta text-text-secondary sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-3"
+            >
+              {facts.map((fact, index) => (
+                <li key={fact} className="flex items-center gap-3">
+                  {/* Hiding the separator below `sm` avoids the orphaned dot that appeared at the
+                      start of the wrapped line on a 320px screen; stacked lines read fine without it. */}
+                  {index > 0 && (
+                    <span aria-hidden="true" className="hidden h-1 w-1 shrink-0 rounded-full bg-text-muted sm:block" />
+                  )}
+                  <span>{fact}</span>
+                </li>
+              ))}
+            </ul>
           )}
         </div>
 
