@@ -45,6 +45,24 @@ Every case study links to its Figma prototype, so the thinking can be checked ag
 The shared JavaScript bundle is around 87 kB on first load, and every image is served through the
 Next.js image optimiser rather than at its original size.
 
+### Icons
+
+`scripts/icon.svg` is the single source: a path-only **N** monogram (no text, no webfont), so nothing
+depends on a font being installed. `npm run build:icons` renders it with Sharp at each size it is
+actually used at — that is the point, a 16px frame is drawn at 16px instead of being downscaled from
+512 and smeared.
+
+| Output | Serves |
+| --- | --- |
+| `public/favicon.ico` (16 + 32 + 48 frames) | older browsers, feed readers, anything that requests `/favicon.ico` |
+| `public/icon.svg` | Chrome, Firefox, Edge — one vector, lifted contrast on dark tab bars |
+| `public/apple-touch-icon.png` (180, opaque) | iOS home screen |
+| `public/icons/icon-192/512.png` | Android launcher, install dialog |
+| `public/icons/icon-maskable-512.png` | Android masks that crop to a circle |
+
+The previous mark was the text “NB”; measured at 16px the two letters fused into one blob, which is
+why the current mark is a single, heavier letter that survives the smallest size.
+
 ## Running it locally
 
 ```bash
