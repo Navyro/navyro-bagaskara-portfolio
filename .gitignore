@@ -25,3 +25,6 @@ TENTANG SAYA/
 
 # Scratch data from keyword research (docs/keyword-research.md keeps the finding, not the dump).
 .tmp-*/
+
+# One-off audit output (see scripts/run-ux-checks.sh for the durable checks).
+.audit-*.txt
