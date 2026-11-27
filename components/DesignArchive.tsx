@@ -165,7 +165,7 @@ export default function DesignArchive() {
           role="dialog"
           aria-modal="true"
           aria-label={`${active.title} — enlarged view`}
-          className="fixed inset-0 z-[120] flex flex-col bg-background-95 backdrop-blur-sm"
+          className="fixed inset-0 z-[120] flex h-[100dvh] flex-col bg-background-95 backdrop-blur-sm"
           onClick={(event) => {
             // Clicks on the backdrop close; clicks inside the figure do not.
             if (event.target === event.currentTarget) close();
@@ -187,7 +187,7 @@ export default function DesignArchive() {
           </div>
 
           <div
-            className="flex min-h-0 flex-1 items-center justify-center gap-3 px-3 sm:gap-6 sm:px-6"
+            className="flex min-h-0 flex-1 items-center justify-center gap-3 overflow-y-auto overscroll-contain px-3 py-2 sm:gap-6 sm:px-6"
             onClick={(event) => {
               if (event.target === event.currentTarget) close();
             }}
@@ -208,13 +208,13 @@ export default function DesignArchive() {
                 width={active.width}
                 height={active.height}
                 sizes="(min-width: 1024px) 70vw, 92vw"
-                className="h-auto max-h-[58vh] w-auto max-w-full rounded-md object-contain shadow-lg"
+                className="h-auto max-h-[36dvh] w-auto max-w-full rounded-md object-contain shadow-lg sm:max-h-[56dvh]"
                 priority
               />
               {/* One panel, and the only place the caption exists: a copy above it as well was
                   duplicated text, and text sitting straight on the blurred page was the original
                   unreadable-caption bug. */}
-              <figcaption className="mt-4 w-full max-w-3xl rounded-card border border-border bg-surface px-4 py-4 text-center shadow-xl ring-1 ring-black/5 sm:px-6 dark:ring-white/10">
+              <figcaption className="mt-3 w-full max-w-3xl rounded-card border border-border bg-surface px-4 py-3 text-center shadow-xl sm:mt-4 sm:py-4 ring-1 ring-black/5 sm:px-6 dark:ring-white/10">
                 <p className="text-control font-semibold text-text-primary">{active.title}</p>
                 <p className="mt-1 text-meta leading-relaxed text-text-secondary">{meta(active)}</p>
                 <p className="mt-3 text-control leading-relaxed text-text-secondary">{active.caption}</p>
@@ -223,14 +223,14 @@ export default function DesignArchive() {
                   <button
                     type="button"
                     onClick={() => step(-1)}
-                    className="tap rounded-btn border border-border px-4 py-2 text-meta text-text-primary"
+                    className="tap rounded-btn border border-border px-3 py-1.5 text-meta text-text-primary"
                   >
                     Previous
                   </button>
                   <button
                     type="button"
                     onClick={() => step(1)}
-                    className="tap rounded-btn border border-border px-4 py-2 text-meta text-text-primary"
+                    className="tap rounded-btn border border-border px-3 py-1.5 text-meta text-text-primary"
                   >
                     Next
                   </button>

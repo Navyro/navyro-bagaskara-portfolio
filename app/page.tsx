@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import Hero from "@/components/Hero";
 import SectionHeading from "@/components/SectionHeading";
@@ -7,6 +8,7 @@ import ProjectCard from "@/components/ProjectCard";
 import SkillGroup from "@/components/SkillGroup";
 import ExperienceItem from "@/components/ExperienceItem";
 import ScrollReveal from "@/components/ScrollReveal";
+import { designsData } from "@/data/designs";
 import { projectsData } from "@/data/projects";
 import { profileData } from "@/data/profile";
 import type { Metadata } from "next";
@@ -77,6 +79,52 @@ export default function HomePage() {
                 headerHeight="lg:min-h-[26rem] xl:min-h-[19.5rem]"
               />
             ))}
+          </div>
+
+          {/* A strip of the visual work rather than a new numbered section: /design holds posters and
+              print, and it should be reachable from the page most visitors land on. The three pieces
+              are chosen for range — poster, feed illustration, print — and the count comes from the
+              data, so it cannot drift. */}
+          <div className="mt-16 border-t border-border pt-10">
+            <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
+              <div>
+                <p className="text-meta font-semibold uppercase tracking-wider text-accent">Also</p>
+                <h3 className="mt-2 font-heading text-h3 font-bold tracking-tight text-text-primary">
+                  Visual design archive
+                </h3>
+                <p className="mt-2 max-w-xl text-body leading-relaxed text-text-secondary">
+                  Posters, Instagram feed sets and print work for organisations — {designsData.length} pieces,
+                  each with the client and the role behind it.
+                </p>
+              </div>
+              <Link
+                href="/design"
+                className="tap inline-flex shrink-0 items-center gap-1.5 font-heading text-control font-bold text-accent hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+              >
+                Open the archive ({designsData.length}) <ArrowRight size={16} />
+              </Link>
+            </div>
+
+            <div className="mt-6 grid grid-cols-3 gap-3 sm:gap-4">
+              {["makrab-dies-natalis", "feed-17-agustus", "lanyard-kepengurusan"].map((slug) => {
+                const item = designsData.find((entry) => entry.slug === slug);
+                if (!item) return null;
+                return (
+                  <div
+                    key={slug}
+                    className="relative aspect-[4/5] overflow-hidden rounded-card border border-border bg-surface"
+                  >
+                    <Image
+                      src={item.src}
+                      alt={item.alt}
+                      fill
+                      sizes="(min-width: 768px) 22vw, 30vw"
+                      className="object-contain p-1.5"
+                    />
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
       </section>
